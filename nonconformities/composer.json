@@ -6,9 +6,13 @@
     "type": "project",
     "require": {
         "php": "^7.2.5",
-        "laravel/lumen-framework": "^7.0"
+        "laravel/lumen-framework": "^7.0",
+        "ramsey/uuid": "^3.8",
+        "wesleywillians/phpeasykafka": "*",
+        "ext-json": "*"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
         "phpunit/phpunit": "^8.5"
