@@ -16,8 +16,29 @@ class CreateNonconformitiesTable extends Migration
         Schema::create(
             'nonconformities',
             static function (Blueprint $table) {
-                $table->id();
+                $table->uuid('id')->primary();
+                $table->string('description');
+                $table->string('solution');
+                $table->string('standard');
+
+                $table->foreign('id_user')
+                    ->references('id')
+                    ->on('users');
+
+                $table->foreign('id_type')
+                    ->references('id')
+                    ->on('nc_types');
+
+                $table->foreign('id_status')
+                    ->references('id')
+                    ->on('nc_status');
+
+                $table->foreign('id_process')
+                    ->references('id')
+                    ->on('processes');
+
                 $table->timestamps();
+                $table->softDeletes();
             }
         );
     }

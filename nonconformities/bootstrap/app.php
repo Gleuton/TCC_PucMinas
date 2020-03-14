@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ $app->configure('app');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
-], function ($router) {
+], static function ($router) {
     require __DIR__.'/../routes/web.php';
 });
 
