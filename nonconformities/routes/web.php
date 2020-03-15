@@ -4,8 +4,7 @@ use Laravel\Lumen\Routing\Router;
 
 /** @var Router $router */
 
-$router->group(
-    ['prefix' => 'teste'],
+$router->group([],
     static function () use ($router){
         $router->get(
             '/',

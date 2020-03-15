@@ -21,18 +21,22 @@ class CreateNonconformitiesTable extends Migration
                 $table->string('solution');
                 $table->string('standard');
 
+                $table->uuid('id_user');
                 $table->foreign('id_user')
                     ->references('id')
                     ->on('users');
 
+                $table->uuid('id_type');
                 $table->foreign('id_type')
                     ->references('id')
                     ->on('nc_types');
 
+                $table->uuid('id_status');
                 $table->foreign('id_status')
                     ->references('id')
                     ->on('nc_status');
 
+                $table->uuid('id_process');
                 $table->foreign('id_process')
                     ->references('id')
                     ->on('processes');
