@@ -11,3 +11,11 @@ $router->group(
         Route::resources($router, 'NcTypeController');
     }
 );
+
+$router->group(
+    ['prefix' => 'nc_status'],
+    static function () use ($router) {
+        Route::resources($router, 'NcStatusController');
+    }
+);
+
