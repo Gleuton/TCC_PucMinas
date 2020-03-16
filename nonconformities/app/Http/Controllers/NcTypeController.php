@@ -34,15 +34,15 @@ class NcTypeController extends Controller
      */
     public function index(): JsonResponse
     {
+
         $minutes = Carbon::now()->addMinutes(10);
         $ncTypes = Cache::remember(
             self::API,
             $minutes,
-            static function () {
+            function () {
                 return $this->model::all();
             }
         );
-
         return response()->json($ncTypes, 200);
     }
 
