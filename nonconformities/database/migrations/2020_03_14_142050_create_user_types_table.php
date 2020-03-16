@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNonconformitiesTable extends Migration
+class CreateUserTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateNonconformitiesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(
-            'nonconformities',
-            static function (Blueprint $table) {
-                $table->id();
-                $table->timestamps();
-            }
-        );
+        Schema::create('user_types', static function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -29,6 +28,6 @@ class CreateNonconformitiesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nonconformities');
+        Schema::dropIfExists('user_types');
     }
 }
