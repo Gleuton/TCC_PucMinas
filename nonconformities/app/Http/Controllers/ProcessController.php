@@ -7,24 +7,24 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\NcType;
+use App\Models\Process;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
-class NcTypeController extends Controller
+class ProcessController extends Controller
 {
-    private const API = 'api::ncType';
-    private NcType $model;
+    private const API = 'api::process';
+    private Process $model;
 
     /**
-     * NcTypeController constructor.
+     * ProcessController constructor.
      *
-     * @param NcType|Builder $model
+     * @param Process|Builder $model
      */
-    public function __construct(NcType $model)
+    public function __construct(Process $model)
     {
         $this->model = $model;
     }
@@ -35,14 +35,15 @@ class NcTypeController extends Controller
     public function index(): JsonResponse
     {
         $minutes = Carbon::now()->addMinutes(10);
-        $ncTypes = Cache::remember(
+
+        $Process = Cache::remember(
             self::API,
             $minutes,
             function () {
                 return $this->model::all();
             }
         );
-        return response()->json($ncTypes, 200);
+        return response()->json($Process, 200);
     }
 
     /**
@@ -53,50 +54,50 @@ class NcTypeController extends Controller
     public function store(Request $request): JsonResponse
     {
         Cache::forget(self::API);
-        $ncType = new NcType($request->all());
-        $ncType->save();
-        return response()->json($ncType, 201);
+        $Process = new Process($request->all());
+        $Process->save();
+        return response()->json($Process, 201);
     }
 
     /**
-     * @param string $ncTypeId
+     * @param string $ProcessId
      *
      * @return JsonResponse
      */
-    public function show(string $ncTypeId): JsonResponse
+    public function show(string $ProcessId): JsonResponse
     {
-        $ncType = $this->model->find($ncTypeId);
-        return response()->json($ncType, 200);
+        $Process = $this->model->find($ProcessId);
+        return response()->json($Process, 200);
     }
 
     /**
      * @param Request $request
-     * @param string  $ncTypeId
+     * @param string  $ProcessId
      *
      * @return JsonResponse
      */
-    public function update(Request $request, string $ncTypeId): JsonResponse
+    public function update(Request $request, string $ProcessId): JsonResponse
     {
         Cache::forget(self::API);
 
-        /** @var NcType $ncType */
-        $ncType = $this->model->find($ncTypeId);
-        $ncType->update($request->all());
-        return response()->json($ncType, 200);
+        /** @var Process $Process */
+        $Process = $this->model->find($ProcessId);
+        $Process->update($request->all());
+        return response()->json($Process, 200);
     }
 
     /**
-     * @param string $ncTypeId
+     * @param string $ProcessId
      *
      * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(string $ncTypeId): JsonResponse
+    public function destroy(string $ProcessId): JsonResponse
     {
         Cache::forget(self::API);
-        /** @var NcType $ncType */
-        $ncType = $this->model->find($ncTypeId);
-        $ncType->delete();
+        /** @var Process $Process */
+        $Process = $this->model->find($ProcessId);
+        $Process->delete();
         return response()->json(null, 204);
     }
 }

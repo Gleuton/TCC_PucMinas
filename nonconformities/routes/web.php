@@ -18,4 +18,9 @@ $router->group(
         Route::resources($router, 'NcStatusController');
     }
 );
-
+$router->group(
+    ['prefix' => 'process'],
+    static function () use ($router) {
+        Route::resources($router, 'ProcessController');
+    }
+);

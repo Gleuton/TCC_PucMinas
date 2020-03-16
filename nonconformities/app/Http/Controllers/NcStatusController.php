@@ -34,7 +34,6 @@ class NcStatusController extends Controller
      */
     public function index(): JsonResponse
     {
-
         $minutes = Carbon::now()->addMinutes(10);
 
         $ncStatus = Cache::remember(
