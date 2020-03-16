@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class NcStatus extends Model
 {
     use SoftDeletes, UuidTrait;
+    protected $keyType = 'string';
     protected $fillable = [
         'id',
         'status'

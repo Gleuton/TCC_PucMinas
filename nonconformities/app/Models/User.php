@@ -16,7 +16,7 @@ class User extends Model
     implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, SoftDeletes, UuidTrait;
-
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *

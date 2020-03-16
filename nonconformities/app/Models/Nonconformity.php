@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Nonconformity extends Model
 {
     use SoftDeletes, UuidTrait;
+    protected $keyType = 'string';
     protected $fillable = [
         'id',
         'description',

@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class NcType extends Model
 {
     use SoftDeletes, UuidTrait;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
         'id',
         'type'

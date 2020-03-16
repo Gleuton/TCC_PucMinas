@@ -14,7 +14,7 @@ services:
     command: --innodb-use-native-aio=0
     restart: always
     ports:
-      - '3306'
+      - '3306:32772'
     volumes:
       - nonconformitydb:/var/lib/mysql
     environment:

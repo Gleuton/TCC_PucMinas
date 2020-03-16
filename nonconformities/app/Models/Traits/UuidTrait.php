@@ -12,7 +12,7 @@ trait UuidTrait
         static::creating(
             static function ($obj){
             if (!$obj->id){
-                $obj->id = Uuid::uuid4();
+                $obj->id = Uuid::uuid4()->toString();
             }
         });
     }

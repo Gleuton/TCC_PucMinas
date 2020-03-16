@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UserType extends Model
 {
     use SoftDeletes, UuidTrait;
+    protected $keyType = 'string';
     protected $fillable = [
         'id',
         'type'
