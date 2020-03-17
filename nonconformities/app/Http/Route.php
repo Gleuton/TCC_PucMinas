@@ -6,13 +6,16 @@ use Laravel\Lumen\Routing\Router;
 
 class Route
 {
-    public static function resources(Router $router, string $controller): void
-    {
+    public static function resources(
+        Router $router,
+        string $controller,
+        string $prefix = ''
+    ): void {
         $id = '/{id}';
-        $router->get('/', $controller.'@index');
-        $router->post('/', $controller.'@store');
-        $router->get($id, $controller.'@show');
-        $router->put($id, $controller.'@update');
-        $router->delete($id, $controller.'@destroy');
+        $router->get($prefix . '/', $controller . '@index');
+        $router->post($prefix . '/', $controller . '@store');
+        $router->get($prefix . $id, $controller . '@show');
+        $router->put($prefix . $id, $controller . '@update');
+        $router->delete($prefix . $id, $controller . '@destroy');
     }
 }

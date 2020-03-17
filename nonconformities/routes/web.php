@@ -6,21 +6,10 @@ use Laravel\Lumen\Routing\Router;
 /** @var Router $router */
 
 $router->group(
-    ['prefix' => 'nc_type'],
+    ['prefix' => 'api'],
     static function () use ($router) {
-        Route::resources($router, 'NcTypeController');
-    }
-);
-
-$router->group(
-    ['prefix' => 'nc_status'],
-    static function () use ($router) {
-        Route::resources($router, 'NcStatusController');
-    }
-);
-$router->group(
-    ['prefix' => 'process'],
-    static function () use ($router) {
-        Route::resources($router, 'ProcessController');
+        Route::resources($router, 'NcTypeController', 'nc_type');
+        Route::resources($router, 'NcStatusController', 'nc_status');
+        Route::resources($router, 'ProcessController', 'process');
     }
 );

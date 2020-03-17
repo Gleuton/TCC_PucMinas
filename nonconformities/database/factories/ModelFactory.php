@@ -2,7 +2,6 @@
 
 /** @var Factory $factory */
 
-use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -17,9 +16,10 @@ use Illuminate\Database\Eloquent\Factory;
 |
 */
 
-$factory->define(User::class, static function (Faker $faker) {
+$factory->define(\App\Models\User::class, static function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
     ];
 });
+

@@ -1,13 +1,13 @@
 <?php
 
+use Laravel\Lumen\Application;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * Creates the application.
-     *
-     * @return \Laravel\Lumen\Application
+     * @return mixed|HttpKernelInterface
      */
     public function createApplication()
     {
