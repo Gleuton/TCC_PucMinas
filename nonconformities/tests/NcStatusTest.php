@@ -10,13 +10,10 @@ class NcStatusTest extends TestCase
 
     public function testPostStatus(): void
     {
-        $response = $this->post('api/nc_status', ['status' => 'Sallys'])
-            ->seeJsonStructure(
-                [
-                    'id',
-                    'status',
-                    'created_at',
-                ]
+        $data = ['status' => 'Sallys'];
+        $response = $this->post('api/nc_status', $data)
+            ->seeJson(
+                $data
             )->response;
         $this->assertEquals(201, $response->status());
     }
@@ -47,5 +44,16 @@ class NcStatusTest extends TestCase
         $data = NcStatus::all()->first()->toArray();
         $response = $this->delete('api/nc_status/' . $data['id'])->response;
         $this->assertEquals(204, $response->status());
+    }
+
+    public function testUpdateStatus(): void
+    {
+        $update = ['status' => 'inativo'];
+        factory(NcStatus::class)->create();
+        $data = NcStatus::all()->first()->toArray();
+        $response = $this->put('api/nc_status/' . $data['id'], $update)
+            ->seeJson($update)
+            ->response;
+        $this->assertEquals(200, $response->status());
     }
 }
