@@ -11,5 +11,6 @@ $router->group(
         Route::resources($router, 'NcTypeController', 'nc_type');
         Route::resources($router, 'NcStatusController', 'nc_status');
         Route::resources($router, 'ProcessController', 'process');
+        Route::resources($router, 'UserTypeController', 'user_type');
     }
 );
