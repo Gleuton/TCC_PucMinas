@@ -10,9 +10,7 @@ class NonconformityTest extends TestCase
     private string $uri = 'api/nonconformity/';
     public function testPostNcWithoutData(): void
     {
-        $data = [
-
-        ];
+        $data = [];
         $response = $this->post($this->uri, $data)
             ->seeJson(
                 $data
@@ -72,5 +70,19 @@ class NonconformityTest extends TestCase
             ->seeJson($update)
             ->response;
         $this->assertEquals(200, $response->status());
+    }
+
+    public function testUpdateNonconformityWithEmptyFields(): void
+    {
+        $update = [
+            'description' => ''
+        ];
+        $data = factory(Nonconformity::class)->create()->toArray();
+        $response = $this->put($this->uri . $data['id'], $update)
+            ->seeJson(
+                ['description' =>['The description field is required.']]
+            )
+            ->response;
+        $this->assertEquals(422, $response->status());
     }
 }

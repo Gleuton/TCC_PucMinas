@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nonconformity;
 use App\Models\Process;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -44,5 +45,34 @@ class NonconformityController extends Controller
         $nc = new Nonconformity($request->all());
         $nc->save();
         return response()->json($nc, 201);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $this->validate(
+            $request,
+            [
+                'description' => 'sometimes|required',
+                'solution'    => 'sometimes|required',
+                'standard'    => 'sometimes|required',
+                'user_id'     => 'sometimes|required',
+                'type_id'     => 'sometimes|required',
+                'status_id'   => 'sometimes|required',
+                'process_id'  => 'sometimes|required',
+            ]
+        );
+        Cache::forget($this->api);
+
+        /** @var Model $data */
+        $data = $this->model->find($id);
+        $data->update($request->all());
+        return response()->json($data, 200);
     }
 }
