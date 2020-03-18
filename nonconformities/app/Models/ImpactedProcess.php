@@ -4,13 +4,15 @@ namespace App\Models;
 
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ImpactedProcess extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
+    public $incrementing = false;
     protected $fillable = [
         'id',
         'nonconformity_id',
@@ -18,17 +20,17 @@ class ImpactedProcess extends Model
     ];
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function nonconformity(): HasOne
+    public function nonconformity(): BelongsTo
     {
-        return $this->hasOne(Nonconformity::class);
+        return $this->belongsTo(Nonconformity::class);
     }
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function process(): HasOne
+    public function process(): BelongsTo
     {
-        return $this->hasOne(Process::class);
+        return $this->belongsTo(Process::class);
     }
 }

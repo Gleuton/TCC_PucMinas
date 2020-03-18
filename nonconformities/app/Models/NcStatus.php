@@ -11,6 +11,7 @@ class NcStatus extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $table = 'nc_status';
     protected $fillable = [

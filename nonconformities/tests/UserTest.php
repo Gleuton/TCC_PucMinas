@@ -13,15 +13,10 @@ class UserTest extends TestCase
 
     public function testPostUser(): void
     {
-        $userType = Uuid::uuid();
-        factory(UserType::class)->create(['id' => $userType]);
-
-        $user = [
-            'name'         => 'Jose',
-            'login'        => 'jose.lopes@dutra.com',
-            'password'     => Hash::make('senha'),
-            'user_type_id' => $userType
-        ];
+        $userType = factory(UserType::class)->create();
+        $user = factory(User::class)
+            ->make(['user_type_id' => $userType->id])
+            ->toArray();
         $response = $this->post('api/user', $user)
             ->seeJson(
                 $user

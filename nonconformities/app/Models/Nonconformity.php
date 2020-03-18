@@ -6,13 +6,14 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nonconformity extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'description',

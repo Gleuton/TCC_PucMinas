@@ -10,7 +10,7 @@ class ProcessTest extends TestCase
 
     public function testPostProcess(): void
     {
-        $data = ['name' => 'Sallys'];
+        $data = factory(Process::class)->make()->toArray();
         $response = $this->post('api/process', $data)
             ->seeJson(
                 $data
@@ -20,9 +20,7 @@ class ProcessTest extends TestCase
 
     public function testGetProcess(): void
     {
-        factory(Process::class, 6)->create();
-        $data = Process::all()->toArray();
-
+        $data = factory(Process::class, 6)->create()->toArray();
         $response = $this->get('api/process')
             ->seeJson($data[0])->response;
         $this->assertEquals(200, $response->status());
@@ -30,9 +28,7 @@ class ProcessTest extends TestCase
 
     public function testGetOneProcess(): void
     {
-        factory(Process::class)->create();
-        $data = Process::all()->first()->toArray();
-
+        $data = factory(Process::class)->create()->toArray();
         $response = $this->get('api/process/' . $data['id'])
             ->seeJson($data)->response;
         $this->assertEquals(200, $response->status());
@@ -40,8 +36,7 @@ class ProcessTest extends TestCase
 
     public function testDeleteProcess(): void
     {
-        factory(Process::class)->create();
-        $data = Process::all()->first()->toArray();
+        $data = factory(Process::class)->create()->toArray();
         $response = $this->delete('api/process/' . $data['id'])->response;
         $this->assertEquals(204, $response->status());
     }
@@ -49,8 +44,7 @@ class ProcessTest extends TestCase
     public function testUpdateProcess(): void
     {
         $update = ['name' => 'inativo'];
-        factory(Process::class)->create();
-        $data = Process::all()->first()->toArray();
+        $data = factory(Process::class)->create()->toArray();
         $response = $this->put('api/process/' . $data['id'], $update)
             ->seeJson($update)
             ->response;

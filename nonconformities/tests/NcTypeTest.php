@@ -10,7 +10,8 @@ class NcTypeTest extends TestCase
 
     public function testPostNcType(): void
     {
-        $data = ['type' => 'tipo'];
+        $data = factory(NcType::class)->make()->toArray();
+        
         $response = $this->post('api/nc_type', $data)
             ->seeJson($data)->response;
         $this->assertEquals(201, $response->status());
@@ -18,9 +19,7 @@ class NcTypeTest extends TestCase
 
     public function testGetNcTypes(): void
     {
-        factory(NcType::class, 6)->create();
-        $data = NcType::all()->toArray();
-
+        $data = factory(NcType::class, 6)->create()->toArray();
         $response = $this->get('api/nc_type')
             ->seeJson($data[0])->response;
         $this->assertEquals(200, $response->status());
@@ -28,9 +27,7 @@ class NcTypeTest extends TestCase
 
     public function testGetOneNcType(): void
     {
-        factory(NcType::class)->create();
-        $data = NcType::all()->first()->toArray();
-
+        $data = factory(NcType::class)->create()->toArray();
         $response = $this->get('api/nc_type/' . $data['id'])
             ->seeJson($data)->response;
         $this->assertEquals(200, $response->status());
@@ -38,16 +35,14 @@ class NcTypeTest extends TestCase
 
     public function testDeleteNcType(): void
     {
-        factory(NcType::class)->create();
-        $data = NcType::all()->first()->toArray();
+        $data = factory(NcType::class)->create()->toArray();
         $response = $this->delete('api/nc_type/' . $data['id'])->response;
         $this->assertEquals(204, $response->status());
     }
     public function testUpdateNcType(): void
     {
         $update = ['type' => 'a fazer'];
-        factory(NcType::class)->create();
-        $data = NcType::all()->first()->toArray();
+        $data =factory(NcType::class)->create()->toArray();
         $response = $this->put('api/nc_type/' . $data['id'], $update)
             ->seeJson($update)
             ->response;

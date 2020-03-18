@@ -7,12 +7,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Nonconformity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NonconformityController extends Controller
 {
-    private const API = 'api::nonconformity';
+    public function __construct(Nonconformity $model)
+    {
+        $this->model = $model;
+        $this->api = 'api::nonconformity';
+    }
 
     /**
      * @inheritDoc

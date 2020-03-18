@@ -11,6 +11,8 @@ class UserType extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $fillable = [
         'id',
         'type'

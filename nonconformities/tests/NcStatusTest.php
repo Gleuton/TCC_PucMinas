@@ -10,7 +10,7 @@ class NcStatusTest extends TestCase
 
     public function testPostStatus(): void
     {
-        $data = ['status' => 'Sallys'];
+        $data = factory(NcStatus::class)->make()->toArray();
         $response = $this->post('api/nc_status', $data)
             ->seeJson(
                 $data
@@ -20,12 +20,7 @@ class NcStatusTest extends TestCase
 
     public function testGetStatus(): void
     {
-        $ncStatus = factory(NcStatus::class, 6)->make();
-        $data = $ncStatus->toArray();
-        $ncStatus->each(
-            static function ($m){
-            $m->save();
-        });
+        $data = factory(NcStatus::class, 6)->create()->toArray();
         $response = $this->get('api/nc_status')
             ->seeJson($data[0])->response;
         $this->assertEquals(200, $response->status());
@@ -33,9 +28,7 @@ class NcStatusTest extends TestCase
 
     public function testGetOneStatus(): void
     {
-        factory(NcStatus::class)->create();
-        $data = NcStatus::all()->first()->toArray();
-
+        $data = factory(NcStatus::class)->create()->toArray();
         $response = $this->get('api/nc_status/' . $data['id'])
             ->seeJson($data)->response;
         $this->assertEquals(200, $response->status());
@@ -43,8 +36,7 @@ class NcStatusTest extends TestCase
 
     public function testDeleteStatus(): void
     {
-        factory(NcStatus::class)->create();
-        $data = NcStatus::all()->first()->toArray();
+        $data = factory(NcStatus::class)->create()->toArray();
         $response = $this->delete('api/nc_status/' . $data['id'])->response;
         $this->assertEquals(204, $response->status());
     }
@@ -52,8 +44,7 @@ class NcStatusTest extends TestCase
     public function testUpdateStatus(): void
     {
         $update = ['status' => 'inativo'];
-        factory(NcStatus::class)->create();
-        $data = NcStatus::all()->first()->toArray();
+        $data = factory(NcStatus::class)->create()->toArray();
         $response = $this->put('api/nc_status/' . $data['id'], $update)
             ->seeJson($update)
             ->response;
