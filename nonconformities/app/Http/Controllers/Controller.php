@@ -14,9 +14,9 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 abstract class Controller extends BaseController
 {
     /**
-     * @var UserType|Builder
+     * @var Model|Builder
      */
-    protected UserType $model;
+    protected Model $model;
     protected string $api;
     /**
      * @return JsonResponse
