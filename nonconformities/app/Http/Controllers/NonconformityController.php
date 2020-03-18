@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Nonconformity;
-use App\Models\Process;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
