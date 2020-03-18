@@ -8,7 +8,7 @@ class ProcessTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostprocess(): void
+    public function testPostProcess(): void
     {
         $data = ['name' => 'Sallys'];
         $response = $this->post('api/process', $data)
@@ -18,7 +18,7 @@ class ProcessTest extends TestCase
         $this->assertEquals(201, $response->status());
     }
 
-    public function testGetprocess(): void
+    public function testGetProcess(): void
     {
         factory(Process::class, 6)->create();
         $data = Process::all()->toArray();
@@ -28,7 +28,7 @@ class ProcessTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
-    public function testGetOneprocess(): void
+    public function testGetOneProcess(): void
     {
         factory(Process::class)->create();
         $data = Process::all()->first()->toArray();
@@ -38,7 +38,7 @@ class ProcessTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
-    public function testDeleteprocess(): void
+    public function testDeleteProcess(): void
     {
         factory(Process::class)->create();
         $data = Process::all()->first()->toArray();
@@ -46,7 +46,7 @@ class ProcessTest extends TestCase
         $this->assertEquals(204, $response->status());
     }
 
-    public function testUpdateprocess(): void
+    public function testUpdateProcess(): void
     {
         $update = ['name' => 'inativo'];
         factory(Process::class)->create();

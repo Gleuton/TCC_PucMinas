@@ -16,13 +16,13 @@ class CreateImpactedProcessesTable extends Migration
         Schema::create('impacted_processes', static function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->uuid('id_nonconformity');
-            $table->foreign('id_nonconformity')
+            $table->uuid('nonconformity_id');
+            $table->foreign('nonconformity_id')
                 ->references('id')
                 ->on('nonconformities');
 
-            $table->uuid('id_process');
-            $table->foreign('id_process')
+            $table->uuid('process_id');
+            $table->foreign('process_id')
                 ->references('id')
                 ->on('processes');
 

@@ -20,9 +20,12 @@ class NcStatusTest extends TestCase
 
     public function testGetStatus(): void
     {
-        factory(NcStatus::class, 6)->create();
-        $data = NcStatus::all()->toArray();
-
+        $ncStatus = factory(NcStatus::class, 6)->make();
+        $data = $ncStatus->toArray();
+        $ncStatus->each(
+            static function ($m){
+            $m->save();
+        });
         $response = $this->get('api/nc_status')
             ->seeJson($data[0])->response;
         $this->assertEquals(200, $response->status());

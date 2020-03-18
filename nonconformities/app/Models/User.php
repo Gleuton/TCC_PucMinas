@@ -7,6 +7,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,27 +24,19 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'login',
         'password',
-        'id_user_type'
+        'user_type_id'
     ];
 
     /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
+     * @return BelongsTo
      */
-    protected $hidden = [
-        'password'
-    ];
-
-    /**
-     * @return HasOne
-     */
-    public function userType(): HasOne
+    public function userType(): BelongsTo
     {
-        return $this->hasOne(UserType::class);
+        return $this->belongsTo(UserType::class);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,41 +18,41 @@ class Nonconformity extends Model
         'description',
         'solution',
         'standard',
-        'id_user',
-        'id_type',
-        'id_status',
-        'id_process'
+        'user_id',
+        'type_id',
+        'status_id',
+        'process_id'
     ];
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function type(): HasOne
+    public function type(): BelongsTo
     {
-        return $this->hasOne(NcType::class);
+        return $this->belongsTo(NcType::class);
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function status(): HasOne
+    public function status(): BelongsTo
     {
-        return $this->hasOne(NcStatus::class);
+        return $this->belongsTo(NcStatus::class);
     }
     /**
-     * @return HasOne
+     * @return belongsTo
      */
-    public function process(): HasOne
+    public function process(): belongsTo
     {
-        return $this->hasOne(Process::class);
+        return $this->belongsTo(Process::class);
     }
 
     /**

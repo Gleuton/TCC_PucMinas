@@ -13,8 +13,8 @@ class ImpactedProcess extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'id_nonconformity',
-        'id_process'
+        'nonconformity_id',
+        'process_id'
     ];
 
     /**

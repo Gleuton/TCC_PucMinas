@@ -8,7 +8,7 @@ class NcTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostStatus(): void
+    public function testPostNcType(): void
     {
         $data = ['type' => 'tipo'];
         $response = $this->post('api/nc_type', $data)
@@ -16,7 +16,7 @@ class NcTypeTest extends TestCase
         $this->assertEquals(201, $response->status());
     }
 
-    public function testGetStatus(): void
+    public function testGetNcTypes(): void
     {
         factory(NcType::class, 6)->create();
         $data = NcType::all()->toArray();
@@ -26,7 +26,7 @@ class NcTypeTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
-    public function testGetOneStatus(): void
+    public function testGetOneNcType(): void
     {
         factory(NcType::class)->create();
         $data = NcType::all()->first()->toArray();
@@ -36,14 +36,14 @@ class NcTypeTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
-    public function testDeleteStatus(): void
+    public function testDeleteNcType(): void
     {
         factory(NcType::class)->create();
         $data = NcType::all()->first()->toArray();
         $response = $this->delete('api/nc_type/' . $data['id'])->response;
         $this->assertEquals(204, $response->status());
     }
-    public function testUpdateStatus(): void
+    public function testUpdateNcType(): void
     {
         $update = ['type' => 'a fazer'];
         factory(NcType::class)->create();
