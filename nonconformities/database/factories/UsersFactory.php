@@ -12,15 +12,13 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(
     User::class,
     static function (Faker $faker) {
-        $userType = Uuid::uuid();
-        factory(UserType::class)->create(['id' => $userType]);
-
+        $userType = factory(UserType::class)->create();
         return [
             'id'           => Uuid::uuid(),
             'name'         => $faker->name,
             'login'        => $faker->email,
             'password'     => Hash::make('senha'),
-            'user_type_id' => $userType
+            'user_type_id' => $userType->id
         ];
     }
 );

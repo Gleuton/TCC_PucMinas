@@ -13,5 +13,6 @@ $router->group(
         Route::resources($router, 'ProcessController', 'process');
         Route::resources($router, 'UserTypeController', 'user_type');
         Route::resources($router, 'UserController', 'user');
+        Route::resources($router, 'NonconformityController', 'nonconformity');
     }
 );

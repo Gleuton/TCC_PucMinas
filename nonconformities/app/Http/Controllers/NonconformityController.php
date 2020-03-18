@@ -8,8 +8,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Nonconformity;
+use App\Models\Process;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\ValidationException;
 
 class NonconformityController extends Controller
 {
@@ -21,9 +24,25 @@ class NonconformityController extends Controller
 
     /**
      * @inheritDoc
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        // TODO: Implement store() method.
+        $this->validate(
+            $request,
+            [
+                'description' => 'required',
+                'solution'    => 'required',
+                'standard'    => 'required',
+                'user_id'     => 'required',
+                'type_id'     => 'required',
+                'status_id'   => 'required',
+                'process_id'  => 'required',
+            ]
+        );
+        Cache::forget($this->api);
+        $nc = new Nonconformity($request->all());
+        $nc->save();
+        return response()->json($nc, 201);
     }
 }
