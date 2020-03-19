@@ -7,7 +7,6 @@ services:
     depends_on:
       - nonconformity-mysql
       - nonconformity-redis
-    user: '1000:1000'
 
   nonconformity-mysql:
     image: mysql:5.7.22

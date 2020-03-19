@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\AppServiceProvider;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -105,6 +107,7 @@ $app->configure('app');
 | can respond to, as well as the controllers that may handle them.
 |
 */
+$app->register(AppServiceProvider::class);
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
