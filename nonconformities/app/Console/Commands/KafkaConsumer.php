@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Kafka\ProcessHandler;
 use Illuminate\Console\Command;
 use Laravel\Lumen\Application;
 
 class KafkaConsumer extends Command
 {
     private array $handlers = [
-
+        'process' => ProcessHandler::class
     ];
     /**
      * The name and signature of the console command.
@@ -50,6 +51,6 @@ class KafkaConsumer extends Command
 
         $this->info('Consuming topic ' . $topic . ' from kafka');
 
-        //$consumer->consume(500 * 10000, [$this->handlers[$topic]]);
+        $consumer->consume(500 * 10000, [$this->handlers[$topic]]);
     }
 }

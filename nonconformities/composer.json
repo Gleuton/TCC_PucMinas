@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "^7.0",
         "ramsey/uuid": "^3.8",
         "wesleywillians/phpeasykafka": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-rdkafka": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
