@@ -3,6 +3,7 @@
 namespace App\Kafka;
 
 use App\Models\Process;
+use App\Services\ProcessService;
 use PHPEasykafka\KafkaConsumerHandlerInterface;
 use RdKafka\Exception;
 use RdKafka\KafkaConsumer;
@@ -26,7 +27,7 @@ class ProcessHandler implements KafkaConsumerHandlerInterface
             512,
             JSON_THROW_ON_ERROR
         );
-        $orderService = new Process($payload);
+        $orderService = new ProcessService($payload);
         $orderService->save();
         $consumer->commit();
     }
