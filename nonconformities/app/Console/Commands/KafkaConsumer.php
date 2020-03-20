@@ -48,9 +48,6 @@ class KafkaConsumer extends Command
             $configs,
             $container
         );
-
-        $this->info('Consuming topic ' . $topic . ' from kafka');
-
         $consumer->consume(500 * 10000, [$this->handlers[$topic]]);
     }
 }

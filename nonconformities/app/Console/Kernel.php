@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        //
+        $schedule->command('kafka:consume process process-group')
+            ->everyFiveMinutes();
     }
 }

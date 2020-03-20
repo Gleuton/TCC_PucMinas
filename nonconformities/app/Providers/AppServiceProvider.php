@@ -33,8 +33,9 @@ class AppServiceProvider extends ServiceProvider
                         'auto.offset.reset' => 'largest'
                     ],
                     'consumer' => [
-                        'enable.auto.commit'      => 'true',
-                        'auto.commit.interval.ms' => '100'
+                        'enable.auto.commit'       => 'false',
+                        'auto.commit.interval.ms'  => '100',
+                        'enable.auto.offset.store' => 'true'
                     ]
                 ];
             }
