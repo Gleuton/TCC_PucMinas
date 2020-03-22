@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\NcStatusEvent;
 use App\Events\NcTypeEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
