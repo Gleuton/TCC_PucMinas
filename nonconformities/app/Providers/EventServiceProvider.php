@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-use App\Events\{NcStatusEvent, NcTypeEvent, NonconformityEvent};
-use App\Listeners\{KafkaNcStatusListener,
+use App\Events\{ImpactedProcessEvent,
+    NcStatusEvent,
+    NcTypeEvent,
+    NonconformityEvent};
+use App\Listeners\{KafkaImpactedProcessListener,
+    KafkaNcStatusListener,
     KafkaNcTypeListener,
     KafkaNonconformityListener};
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
@@ -24,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NonconformityEvent::class   => [
             KafkaNonconformityListener::class,
+        ],
+        ImpactedProcessEvent::class   => [
+            KafkaImpactedProcessListener::class,
         ]
     ];
 }

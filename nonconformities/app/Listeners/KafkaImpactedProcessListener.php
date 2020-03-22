@@ -2,12 +2,14 @@
 
 namespace App\Listeners;
 
+use App\Events\ImpactedProcessEvent;
 use App\Events\NcStatusEvent;
 use App\Events\NonconformityEvent;
+use App\Models\ImpactedProcess;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
 
-class KafkaNonconformityListener
+class KafkaImpactedProcessListener
 {
     private KafkaProducer $producer;
 
@@ -23,7 +25,7 @@ class KafkaNonconformityListener
 
         $this->producer = new KafkaProducer(
             $brokerCollection,
-            'nonconformity',
+            'impacted_process',
             $configs
         );
     }
@@ -31,11 +33,11 @@ class KafkaNonconformityListener
     /**
      * Handle the event.
      *
-     * @param NonconformityEvent $event
+     * @param ImpactedProcessEvent $event
      *
      * @return void
      */
-    public function handle(NonconformityEvent $event): void
+    public function handle(ImpactedProcessEvent $event): void
     {
         $ncStatus = $event->getModel();
         $this->producer->produce($ncStatus->toJson());

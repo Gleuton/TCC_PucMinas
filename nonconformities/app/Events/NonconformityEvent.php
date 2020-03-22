@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\NcStatus;
 use App\Models\Nonconformity;
 
 class NonconformityEvent extends Event

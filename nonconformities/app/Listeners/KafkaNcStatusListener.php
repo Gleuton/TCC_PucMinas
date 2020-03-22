@@ -34,7 +34,7 @@ class KafkaNcStatusListener
      *
      * @return void
      */
-    public function handle(NcStatusEvent $event)
+    public function handle(NcStatusEvent $event): void
     {
         $ncStatus = $event->getModel();
         $this->producer->produce($ncStatus->toJson());

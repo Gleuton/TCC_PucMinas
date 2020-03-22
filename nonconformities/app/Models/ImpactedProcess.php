@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\ImpactedProcessEvent;
+use App\Events\NcStatusEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,4 +35,9 @@ class ImpactedProcess extends Model
     {
         return $this->belongsTo(Process::class);
     }
+    protected $dispatchesEvents = [
+        'created' => ImpactedProcessEvent::class,
+        'updated' => ImpactedProcessEvent::class,
+        'deleted' => ImpactedProcessEvent::class
+    ];
 }

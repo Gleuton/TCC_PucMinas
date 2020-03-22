@@ -35,7 +35,7 @@ class KafkaNcTypeListener
      *
      * @return void
      */
-    public function handle(NcTypeEvent $event)
+    public function handle(NcTypeEvent $event): void
     {
         $ncType = $event->getModel();
         $this->producer->produce($ncType->toJson());

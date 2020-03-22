@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\NcStatus;
 use App\Models\NcType;
 
 class NcTypeEvent extends Event
