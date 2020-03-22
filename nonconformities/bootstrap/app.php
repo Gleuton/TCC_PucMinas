@@ -1,8 +1,8 @@
 <?php
 
-use App\Providers\AppServiceProvider;
+use App\Providers\{AppServiceProvider, EventServiceProvider};
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -93,9 +93,9 @@ $app->configure('app');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -107,12 +107,14 @@ $app->configure('app');
 | can respond to, as well as the controllers that may handle them.
 |
 */
-$app->register(AppServiceProvider::class);
 
-$app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], static function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
+$app->router->group(
+    [
+        'namespace' => 'App\Http\Controllers',
+    ],
+    static function ($router) {
+        require __DIR__ . '/../routes/web.php';
+    }
+);
 
 return $app;

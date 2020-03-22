@@ -2,7 +2,6 @@
 
 namespace App\Kafka;
 
-use App\Models\Process;
 use App\Services\ProcessService;
 use PHPEasykafka\KafkaConsumerHandlerInterface;
 use RdKafka\Exception;

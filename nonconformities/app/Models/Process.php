@@ -14,7 +14,10 @@ class Process extends Model
     public $incrementing = false;
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**

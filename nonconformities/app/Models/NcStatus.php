@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NcStatusEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,4 +27,10 @@ class NcStatus extends Model
     {
         return $this->hasMany(Nonconformity::class);
     }
+
+    protected $dispatchesEvents = [
+        'created' => NcStatusEvent::class,
+        'updated' => NcStatusEvent::class,
+        'deleted' => NcStatusEvent::class
+    ];
 }
