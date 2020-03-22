@@ -6,7 +6,7 @@ use App\Models\NcStatus;
 
 class NcStatusEvent extends Event
 {
-    private NcStatus $ncStatus;
+    private NcStatus $model;
 
     /**
      * Create a new event instance.
@@ -15,7 +15,7 @@ class NcStatusEvent extends Event
      */
     public function __construct(NcStatus $ncStatus)
     {
-        $this->ncStatus = $ncStatus;
+        $this->model = $ncStatus;
     }
 
     /**
@@ -23,6 +23,6 @@ class NcStatusEvent extends Event
      */
     public function getModel(): NcStatus
     {
-        return $this->ncStatus;
+        return $this->model;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Events\NcStatusEvent;
-use App\Listeners\KafkaNcStatusListener;
+use App\Events\{NcStatusEvent, NcTypeEvent};
+use App\Listeners\{KafkaNcStatusListener, KafkaNcTypeListener};
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         NcStatusEvent::class => [
             KafkaNcStatusListener::class,
+        ],
+        NcTypeEvent::class   => [
+            KafkaNcTypeListener::class,
         ],
     ];
 }
