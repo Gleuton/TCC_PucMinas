@@ -10,14 +10,14 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
-
+    private string $uri = 'api/user/';
     public function testPostUser(): void
     {
         $userType = factory(UserType::class)->create();
         $user = factory(User::class)
             ->make(['user_type_id' => $userType->id])
             ->toArray();
-        $response = $this->post('api/user', $user)
+        $response = $this->post($this->uri, $user)
             ->seeJson(
                 $user
             )->response;
@@ -29,7 +29,7 @@ class UserTest extends TestCase
         factory(User::class, 6)->create();
         $data = User::all()->toArray();
 
-        $response = $this->get('api/user')
+        $response = $this->get($this->uri)
             ->seeJson($data[0])->response;
         $this->assertEquals(200, $response->status());
     }
@@ -39,7 +39,7 @@ class UserTest extends TestCase
         factory(User::class)->create();
         $data = User::all()->first()->toArray();
 
-        $response = $this->get('api/user/' . $data['id'])
+        $response = $this->get($this->uri . $data['id'])
             ->seeJson($data)->response;
         $this->assertEquals(200, $response->status());
     }
@@ -48,7 +48,7 @@ class UserTest extends TestCase
     {
         factory(User::class)->create();
         $data = User::all()->first()->toArray();
-        $response = $this->delete('api/user/' . $data['id'])->response;
+        $response = $this->delete($this->uri . $data['id'])->response;
         $this->assertEquals(204, $response->status());
     }
 
@@ -57,7 +57,7 @@ class UserTest extends TestCase
         $update = ['name' => 'Nome'];
         factory(User::class)->create();
         $data = User::all()->first()->toArray();
-        $response = $this->put('api/user/' . $data['id'], $update)
+        $response = $this->put($this->uri . $data['id'], $update)
             ->seeJson($update)
             ->response;
         $this->assertEquals(200, $response->status());
@@ -65,14 +65,8 @@ class UserTest extends TestCase
 
     public function testGetUserTypeByUser(): void
     {
-        $userTypeId = Uuid::uuid();
-        $userId = Uuid::uuid();
-        factory(UserType::class)->create(['id' => $userTypeId]);
-        factory(User::class)->create(
-            ['id' => $userId, 'user_type_id' => $userTypeId]
-        );
+        $user = factory(User::class)->create();
 
-        $user = User::find($userId);
-        $this->assertEquals($userTypeId, $user->userType->id);
+        $this->assertNotEmpty($user->userType->id);
     }
 }

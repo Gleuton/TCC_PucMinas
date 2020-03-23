@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\UserTypeEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,13 +16,16 @@ class UserType extends Model
 
     protected $fillable = [
         'id',
-        'type',
-        'created_at',
-        'updated_at',
-        'deleted_at'
+        'type'
     ];
-    public function User(): HasMany
+    public function Users(): HasMany
     {
         return $this->hasMany(User::class);
     }
+
+    protected $dispatchesEvents = [
+        'created' => UserTypeEvent::class,
+        'updated' => UserTypeEvent::class,
+        'deleted' => UserTypeEvent::class
+    ];
 }

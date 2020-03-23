@@ -2,15 +2,9 @@
 
 namespace App\Providers;
 
-use App\Events\{ImpactedProcessEvent,
-    NcStatusEvent,
-    NcTypeEvent,
-    NonconformityEvent};
+use App\Events\{UserEvent, UserTypeEvent};
 
-use App\Listeners\{KafkaImpactedProcessListener,
-    KafkaNcStatusListener,
-    KafkaNcTypeListener,
-    KafkaNonconformityListener};
+use App\Listeners\{KafkaUserListener, KafkaUserTypeListener};
 
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
@@ -22,17 +16,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        NcStatusEvent::class => [
-            KafkaNcStatusListener::class,
+        UserTypeEvent::class => [
+            KafkaUserTypeListener::class,
         ],
-        NcTypeEvent::class   => [
-            KafkaNcTypeListener::class,
-        ],
-        NonconformityEvent::class   => [
-            KafkaNonconformityListener::class,
-        ],
-        ImpactedProcessEvent::class   => [
-            KafkaImpactedProcessListener::class,
+        UserEvent::class => [
+            KafkaUserListener::class,
         ]
     ];
 }
