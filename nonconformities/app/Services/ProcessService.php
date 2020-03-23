@@ -30,7 +30,6 @@ class ProcessService
         $process = Process::find($processData['id']);
 
         if (null !== $process) {
-            var_dump($process);
             return $process->update($processData);
         }
 

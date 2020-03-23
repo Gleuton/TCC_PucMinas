@@ -26,8 +26,8 @@ class ProcessHandler implements KafkaConsumerHandlerInterface
             512,
             JSON_THROW_ON_ERROR
         );
-        $orderService = new ProcessService($payload);
-        $orderService->save();
+        $processService = new ProcessService($payload);
+        $processService->save();
         $consumer->commit();
     }
 }

@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  nonconformity-app:
+    build: ./.docker
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - nonconformity-mysql
+      - nonconformity-redis
+
+  nonconformity-mysql:
+    image: mysql:5.7.22
+    command: --innodb-use-native-aio=0
+    restart: always
+    ports:
+      - '3307:3306'
+    volumes:
+      - nonconformitydb:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: nonconformity-app
+      MYSQL_ROOT_PASSWORD: root
+
+  nonconformity-redis:
+    image: redis:alpine
+    expose:
+      - '6379'
+
+  nonconformity-nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8900:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - nonconformity-app
+
+networks:
+  default:
+    external:
+      name: tcc-network
+
+volumes:
+  nonconformitydb:
