@@ -3,9 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ImpactedProcessEvent;
-use App\Events\NcStatusEvent;
-use App\Events\NonconformityEvent;
-use App\Models\ImpactedProcess;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
 

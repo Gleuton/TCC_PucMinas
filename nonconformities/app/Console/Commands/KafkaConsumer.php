@@ -2,14 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Kafka\ProcessHandler;
+use App\Kafka\{ProcessHandler, UserTypeHandler, UserHandler};
 use Illuminate\Console\Command;
 use Laravel\Lumen\Application;
 
 class KafkaConsumer extends Command
 {
     private array $handlers = [
-        'process' => ProcessHandler::class
+        'process'   => ProcessHandler::class,
+        'user_type' => UserTypeHandler::class,
+        'user'      => UserHandler::class,
     ];
     /**
      * The name and signature of the console command.
