@@ -10,8 +10,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -30,12 +30,18 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return JsonResponse
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        Cache::forget($this->api);
-        $Process = new User($request->all());
-        $Process->save();
-        return response()->json($Process, 201);
+        $this->validate(
+            $request,
+            [
+                'name'     => 'required|string',
+                'login'    => 'required|unique:users',
+                'password' => 'required|confirmed',
+            ]
+        );
+        return parent::store($request);
     }
 }

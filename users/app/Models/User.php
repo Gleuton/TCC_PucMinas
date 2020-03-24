@@ -30,6 +30,10 @@ class User extends Model
         'password',
         'user_type_id'
     ];
+
+    protected $hidden = ['api_token', 'api_token_expiration'];
+    protected $dates = ['api_token_expiration'];
+
     /**
      * @return BelongsTo
      */
@@ -37,9 +41,20 @@ class User extends Model
     {
         return $this->belongsTo(UserType::class);
     }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = app('hash')->make($value);
+    }
+
     protected $dispatchesEvents = [
         'created' => UserEvent::class,
         'updated' => UserEvent::class,
         'deleted' => UserEvent::class
     ];
+
+    public function isAdmin(): bool
+    {
+        return (strtolower($this->userType->type) === 'administrador');
+    }
 }

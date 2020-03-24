@@ -36,7 +36,7 @@ class KafkaUserListener
      */
     public function handle(UserEvent $event): void
     {
-        $ncStatus = $event->getModel();
-        $this->producer->produce($ncStatus->toJson());
+        $user = $event->getModel();
+        $this->producer->produce($user->toJson());
     }
 }

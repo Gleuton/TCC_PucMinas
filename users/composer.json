@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": "^7.4",
+        "ext-json": "*",
+        "ext-rdkafka": "*",
+        "dusterio/lumen-passport": "^0.2.0",
         "laravel/lumen-framework": "^7.0",
         "ramsey/uuid": "^3.8",
-        "wesleywillians/phpeasykafka": "*",
-        "ext-json": "*",
-        "ext-rdkafka": "*"
+        "wesleywillians/phpeasykafka": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

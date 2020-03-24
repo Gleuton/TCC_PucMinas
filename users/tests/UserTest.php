@@ -17,9 +17,13 @@ class UserTest extends TestCase
         $user = factory(User::class)
             ->make(['user_type_id' => $userType->id])
             ->toArray();
+        unset($user['password']);
+        $userReturn = $user;
+        $user['password'] = 'senha123';
+        $user['password_confirmation'] = 'senha123';
         $response = $this->post($this->uri, $user)
-            ->seeJson(
-                $user
+            ->seeJsonContains(
+                $userReturn
             )->response;
         $this->assertEquals(201, $response->status());
     }
