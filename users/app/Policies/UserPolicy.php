@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class AdminPolicy
+class UserPolicy
 {
     public function create(User $user): bool
     {
