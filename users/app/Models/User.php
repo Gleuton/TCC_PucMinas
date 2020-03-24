@@ -31,7 +31,6 @@ class User extends Model
         'user_type_id'
     ];
 
-    protected $hidden = ['api_token', 'api_token_expiration'];
     protected $dates = ['api_token_expiration'];
 
     /**

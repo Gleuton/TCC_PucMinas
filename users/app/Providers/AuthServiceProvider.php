@@ -9,7 +9,6 @@ use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Policies\AdminPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() :void
     {
         //
     }
@@ -36,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         Auth::extend(
             'token',
             static function ($app, $name, $config) {
+
                 return new TokenGuard(
                     $app['auth']->createUserProvider($config['provider']),
                     $app['request']
