@@ -25,16 +25,21 @@ abstract class Controller extends BaseController
      */
     public function index(): JsonResponse
     {
-        $minutes = Carbon::now()->addMinutes(10);
+        try {
+            $this->authorize('view', Auth::user());
+            $minutes = Carbon::now()->addMinutes(10);
 
-        $data = Cache::remember(
-            $this->api,
-            $minutes,
-            function () {
-                return $this->model::all();
-            }
-        );
-        return response()->json($data, 200);
+            $data = Cache::remember(
+                $this->api,
+                $minutes,
+                function () {
+                    return $this->model::all();
+                }
+            );
+            return response()->json($data, 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     /**
