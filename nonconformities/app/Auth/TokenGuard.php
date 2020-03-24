@@ -29,7 +29,6 @@ class TokenGuard extends Guard
                 $credentials
             )
         ) {
-
             $this->generateToken($user);
             return $user;
         }
@@ -62,5 +61,17 @@ class TokenGuard extends Guard
         $expiration = new Carbon();
         $expiration->addHours(2);
         return $expiration->getTimestamp();
+    }
+
+    public function check(): bool
+    {
+        if (null !== $this->user()) {
+            $api_token_expiration = $this->user()
+                ->api_token_expiration
+                ->getTimestamp();
+
+            return $api_token_expiration > Carbon::now()->getTimestamp();
+        }
+        return false;
     }
 }

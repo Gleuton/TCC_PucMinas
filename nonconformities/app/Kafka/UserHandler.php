@@ -26,6 +26,7 @@ class UserHandler implements KafkaConsumerHandlerInterface
             512,
             JSON_THROW_ON_ERROR
         );
+
         $userService = new UserService($payload);
         $userService->save();
         $consumer->commit();

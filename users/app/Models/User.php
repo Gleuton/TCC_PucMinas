@@ -28,7 +28,7 @@ class User extends Model
         'name',
         'login',
         'password',
-        'user_type_id'
+        'user_type_id',
     ];
 
     protected $dates = ['api_token_expiration'];

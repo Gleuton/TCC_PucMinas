@@ -65,11 +65,13 @@ class TokenGuard extends Guard
 
     public function check(): bool
     {
-        $api_token_expiration = $this->user()
-            ->api_token_expiration
-            ->getTimestamp();
+        if (null !== $this->user()) {
+            $api_token_expiration = $this->user()
+                ->api_token_expiration
+                ->getTimestamp();
 
-        return null !== $this->user()
-            && $api_token_expiration > Carbon::now()->getTimestamp();
+            return $api_token_expiration > Carbon::now()->getTimestamp();
+        }
+        return false;
     }
 }

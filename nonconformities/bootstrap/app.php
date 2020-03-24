@@ -1,6 +1,8 @@
 <?php
 
-use App\Providers\{AppServiceProvider, EventServiceProvider};
+use App\Providers\{AppServiceProvider,
+    AuthServiceProvider,
+    EventServiceProvider};
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -78,9 +80,9 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +96,7 @@ $app->configure('app');
 */
 
 $app->register(AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(AuthServiceProvider::class);
 $app->register(EventServiceProvider::class);
 
 /*

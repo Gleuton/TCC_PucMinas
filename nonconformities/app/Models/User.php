@@ -29,10 +29,13 @@ class User extends Model
         'login',
         'password',
         'user_type_id',
+        'api_token',
+        'api_token_expiration',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
+    protected $dates = ['api_token_expiration'];
     /**
      * @return BelongsTo
      */
@@ -47,5 +50,10 @@ class User extends Model
     public function nonConformities(): HasMany
     {
         return $this->hasMany(Nonconformity::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return (strtolower($this->userType->type) === 'administrador');
     }
 }
