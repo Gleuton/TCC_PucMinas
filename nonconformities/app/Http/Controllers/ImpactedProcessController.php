@@ -8,11 +8,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\ImpactedProcess;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class ImpactedProcessController extends Controller
@@ -38,13 +36,10 @@ class ImpactedProcessController extends Controller
             $request,
             [
                 'nonconformity_id' => 'required',
-                'process_id' => 'required',
+                'process_id'       => 'required',
             ]
         );
-        Cache::forget($this->api);
-        $impactedProcess = new ImpactedProcess($request->all());
-        $impactedProcess->save();
-        return response()->json($impactedProcess, 201);
+        return parent::store($request);
     }
 
     /**
@@ -60,15 +55,10 @@ class ImpactedProcessController extends Controller
             $request,
             [
                 'nonconformity_id' => 'sometimes|required',
-                'process_id' => 'sometimes|required',
+                'process_id'       => 'sometimes|required',
             ]
         );
-        Cache::forget($this->api);
-
-        /** @var Model $data */
-        $data = $this->model->find($id);
-        $data->update($request->all());
-        return response()->json($data, 200);
+        return parent::update($request, $id);
     }
 
 }

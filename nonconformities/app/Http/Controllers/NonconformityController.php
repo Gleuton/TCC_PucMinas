@@ -46,10 +46,7 @@ class NonconformityController extends Controller
                 'process_id'  => 'required',
             ]
         );
-        Cache::forget($this->api);
-        $nc = new Nonconformity($request->all());
-        $nc->save();
-        return response()->json($nc, 201);
+        return parent::store($request);
     }
 
     /**
@@ -73,11 +70,6 @@ class NonconformityController extends Controller
                 'process_id'  => 'sometimes|required',
             ]
         );
-        Cache::forget($this->api);
-
-        /** @var Model $data */
-        $data = $this->model->find($id);
-        $data->update($request->all());
-        return response()->json($data, 200);
+        return parent::update($request, $id);
     }
 }

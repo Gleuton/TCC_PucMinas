@@ -17,6 +17,7 @@ abstract class Controller extends BaseController
      */
     protected Model $model;
     protected string $api;
+
     /**
      * @return JsonResponse
      */
@@ -39,7 +40,17 @@ abstract class Controller extends BaseController
      *
      * @return JsonResponse
      */
-    abstract public function store(Request $request): JsonResponse;
+    public function store(Request $request): JsonResponse
+    {
+        Cache::forget($this->api);
+        $data = $request->all();
+        /**
+         * @var Model $model
+         */
+        $model = new $this->model($data);
+        $model->save();
+        return response()->json($model, 201);
+    }
 
     /**
      * @param string $id
