@@ -20,7 +20,7 @@ class UserType extends Model
         'updated_at',
         'deleted_at'
     ];
-    public function User(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

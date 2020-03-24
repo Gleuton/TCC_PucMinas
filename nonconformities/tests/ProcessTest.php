@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Nonconformity;
 use App\Models\Process;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
@@ -8,46 +11,48 @@ class ProcessTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostProcess(): void
+    public function testInsertProcess(): void
     {
-        $data = factory(Process::class)->make()->toArray();
-        $response = $this->post('api/process', $data)
-            ->seeJson(
-                $data
-            )->response;
-        $this->assertEquals(201, $response->status());
+        $data = factory(Process::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testGetProcess(): void
+    public function testSelectProcess(): void
     {
-        $data = factory(Process::class, 6)->create()->toArray();
-        $response = $this->get('api/process')
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(Process::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testGetOneProcess(): void
+    public function testSelectOneProcess(): void
     {
-        $data = factory(Process::class)->create()->toArray();
-        $response = $this->get('api/process/' . $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(Process::class)->create();
+        $process = Process::find($data->id);
+        $this->assertInstanceOf(Model::class, $process);
     }
 
     public function testDeleteProcess(): void
     {
-        $data = factory(Process::class)->create()->toArray();
-        $response = $this->delete('api/process/' . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $data = factory(Process::class)->create();
+        $process = Process::find($data->id);
+        $this->assertInstanceOf(Model::class, $process);
+        $this->assertTrue($process->delete());
     }
 
     public function testUpdateProcess(): void
     {
-        $update = ['name' => 'inativo'];
-        $data = factory(Process::class)->create()->toArray();
-        $response = $this->put('api/process/' . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $update = ['name' => 'criar'];
+        $data = factory(Process::class)->create();
+        $process = Process::find($data->id);
+        $this->assertInstanceOf(Model::class, $process);
+        $this->assertTrue($process->update($update));
+        $Process = Process::find($data->id)->toArray();
+        $this->assertEquals($Process['name'], $update['name']);
+    }
+
+    public function testSeletNcByProcess(): void
+    {
+        $data = factory(Process::class)->create();
+        $this->assertInstanceOf(Collection::class, $data->nonconformities);
     }
 }

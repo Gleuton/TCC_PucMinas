@@ -47,7 +47,7 @@ class User extends Model
     /**
      * @return HasMany
      */
-    public function nonConformities(): HasMany
+    public function nonconformities(): HasMany
     {
         return $this->hasMany(Nonconformity::class);
     }

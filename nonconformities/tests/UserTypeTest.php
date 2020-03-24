@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\UserType;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
@@ -8,46 +10,49 @@ class UserTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostUserType(): void
+
+    public function testInsertUserType(): void
     {
-        $data = factory(UserType::class)->make()->toArray();
-        $response = $this->post('api/user_type', $data)
-            ->seeJson(
-                $data
-            )->response;
-        $this->assertEquals(201, $response->status());
+        $data = factory(UserType::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testGetUserType(): void
+    public function testSelectUserType(): void
     {
-        $data = factory(UserType::class, 6)->create()->toArray();
-        $response = $this->get('api/user_type')
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(UserType::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testGetOneUserType(): void
+    public function testSelectOneUserType(): void
     {
-        $data = factory(UserType::class)->create()->toArray();
-        $response = $this->get('api/user_type/' . $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(UserType::class)->create();
+        $user_type = UserType::find($data->id);
+        $this->assertInstanceOf(Model::class, $user_type);
     }
 
     public function testDeleteUserType(): void
     {
-        $data = factory(UserType::class)->create()->toArray();
-        $response = $this->delete('api/user_type/' . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $data = factory(UserType::class)->create();
+        $user_type = UserType::find($data->id);
+        $this->assertInstanceOf(Model::class, $user_type);
+        $this->assertTrue($user_type->delete());
     }
 
     public function testUpdateUserType(): void
     {
-        $update = ['type' => 'admin'];
-        $data = factory(UserType::class)->create()->toArray();
-        $response = $this->put('api/user_type/' . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $update = ['type' => 'user'];
+        $data = factory(UserType::class)->create();
+        $user_type = UserType::find($data->id);
+        $this->assertInstanceOf(Model::class, $user_type);
+        $this->assertTrue($user_type->update($update));
+        $user_type = UserType::find($data->id)->toArray();
+        $this->assertEquals($user_type['type'], $update['type']);
+    }
+
+    public function testSeletUserByUserType(): void
+    {
+        $data = factory(UserType::class)->create();
+        $this->assertInstanceOf(Collection::class, $data->users);
     }
 }

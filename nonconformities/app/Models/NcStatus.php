@@ -23,9 +23,9 @@ class NcStatus extends Model
     /**
      * @return HasMany
      */
-    public function nonConformities(): HasMany
+    public function nonconformities(): HasMany
     {
-        return $this->hasMany(Nonconformity::class);
+        return $this->hasMany(Nonconformity::class,'id','nc_status_id');
     }
 
     protected $dispatchesEvents = [

@@ -1,53 +1,57 @@
 <?php
 
 use App\Models\NcStatus;
+use App\Models\Nonconformity;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class NcStatusTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostStatus(): void
+    public function testInsertNcStatus(): void
     {
-        $data = factory(NcStatus::class)->make()->toArray();
-        $response = $this->post('api/nc_status', $data)
-            ->seeJson(
-                $data
-            )->response;
-        $this->assertEquals(201, $response->status());
+        $data = factory(NcStatus::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testGetStatus(): void
+    public function testSelectNcStatus(): void
     {
-        $data = factory(NcStatus::class, 6)->create()->toArray();
-        $response = $this->get('api/nc_status')
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(NcStatus::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testGetOneStatus(): void
+    public function testSelectOneNcStatus(): void
     {
-        $data = factory(NcStatus::class)->create()->toArray();
-        $response = $this->get('api/nc_status/' . $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(NcStatus::class)->create();
+        $ncStatus = NcStatus::find($data->id);
+        $this->assertInstanceOf(Model::class, $ncStatus);
     }
 
-    public function testDeleteStatus(): void
+    public function testDeleteNcStatus(): void
     {
-        $data = factory(NcStatus::class)->create()->toArray();
-        $response = $this->delete('api/nc_status/' . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $data = factory(NcStatus::class)->create();
+        $ncStatus = NcStatus::find($data->id);
+        $this->assertInstanceOf(Model::class, $ncStatus);
+        $this->assertTrue($ncStatus->delete());
     }
 
-    public function testUpdateStatus(): void
+    public function testUpdateNcStatus(): void
     {
         $update = ['status' => 'inativo'];
-        $data = factory(NcStatus::class)->create()->toArray();
-        $response = $this->put('api/nc_status/' . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(NcStatus::class)->create();
+        $ncStatus = NcStatus::find($data->id);
+        $this->assertInstanceOf(Model::class, $ncStatus);
+        $this->assertTrue($ncStatus->update($update));
+        $ncStatus = NcStatus::find($data->id)->toArray();
+        $this->assertEquals($ncStatus['status'], $update['status']);
+    }
+
+    public function testSeletNcByNcStatus(): void
+    {
+        $data = factory(NcStatus::class)->create();
+        $this->assertInstanceOf(Collection::class, $data->nonconformities);
     }
 }

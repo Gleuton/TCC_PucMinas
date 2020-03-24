@@ -3,11 +3,8 @@
 
 
 use App\Models\{ImpactedProcess,
-    NcStatus,
-    NcType,
     Nonconformity,
-    Process,
-    User
+    Process
 };
 
 use Faker\Generator as Faker;

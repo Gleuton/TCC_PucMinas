@@ -1,88 +1,62 @@
 <?php
 
+use App\Models\NcStatus;
+use App\Models\NcType;
 use App\Models\Nonconformity;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class NonconformityTest extends TestCase
 {
     use DatabaseMigrations;
-    private string $uri = 'api/nonconformity/';
-    public function testPostNcWithoutData(): void
+    public function testInsertNc(): void
     {
-        $data = [];
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                $data
-            )->response;
-        $this->assertEquals(422, $response->status());
+        $data = factory(Nonconformity::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testPostNcWithoutDescription(): void
+    public function testSelectNc(): void
     {
-        $data = factory(Nonconformity::class)->make()->toArray();
-        unset($data['description']);
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                ['description' =>['The description field is required.']]
-            )->response;
-        $this->assertEquals(422, $response->status());
+        $data = factory(Nonconformity::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testPostNcWithData(): void
+    public function testSelectOneNc(): void
     {
-        $data = factory(Nonconformity::class)->make()->toArray();
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                $data
-            )->response;
-
-        $this->assertEquals(201, $response->status());
-    }
-    public function testGetNonconformities(): void
-    {
-        $data = factory(Nonconformity::class, 6)->create()->toArray();
-        $response = $this->get($this->uri)
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(Nonconformity::class)->create();
+        $nc = Nonconformity::find($data->id);
+        $this->assertInstanceOf(Model::class, $nc);
     }
 
-    public function testGetOneNonconformity(): void
+    public function testDeleteNc(): void
     {
-        $data = factory(Nonconformity::class)->create()->toArray();
-        $response = $this->get($this->uri. $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(Nonconformity::class)->create();
+        $nc = Nonconformity::find($data->id);
+        $this->assertInstanceOf(Model::class, $nc);
+        $this->assertTrue($nc->delete());
     }
 
-    public function testDeleteNonconformity(): void
+    public function testUpdateNc(): void
     {
-        $data = factory(Nonconformity::class)->create()->toArray();
-        $response = $this->delete($this->uri . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $update = ['standard' => 'regra'];
+        $data = factory(Nonconformity::class)->create();
+        $nc = Nonconformity::find($data->id);
+        $this->assertInstanceOf(Model::class, $nc);
+        $this->assertTrue($nc->update($update));
+        $nc = Nonconformity::find($data->id)->toArray();
+        $this->assertEquals($nc['standard'], $update['standard']);
     }
 
-    public function testUpdateNonconformity(): void
+    public function testSeletNcStatusByNc(): void
     {
-        $update = ['description' => 'inativo'];
-        $data = factory(Nonconformity::class)->create()->toArray();
-        $response = $this->put($this->uri . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $nc = factory(Nonconformity::class)->create();
+        $this->assertInstanceOf(NcStatus::class, $nc->status);
     }
-
-    public function testUpdateNonconformityWithEmptyFields(): void
+    public function testSeletNcTypeByNc(): void
     {
-        $update = [
-            'description' => ''
-        ];
-        $data = factory(Nonconformity::class)->create()->toArray();
-        $response = $this->put($this->uri . $data['id'], $update)
-            ->seeJson(
-                ['description' =>['The description field is required.']]
-            )
-            ->response;
-        $this->assertEquals(422, $response->status());
+        $nc = factory(Nonconformity::class)->create();
+        $this->assertInstanceOf(NcType::class, $nc->type);
     }
 }

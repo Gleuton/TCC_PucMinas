@@ -1,89 +1,51 @@
 <?php
 
-use App\Models\ImpactedProcess;
-use Faker\Provider\Uuid;
+use App\Models\{ImpactedProcess, Nonconformity, Process};
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class ImpactedProcessTest extends TestCase
 {
     use DatabaseMigrations;
-    private string $uri = 'api/impacted_process/';
-    public function testPostNcWithoutData(): void
+
+    public function testInsertImpactedProcess(): void
     {
-        $data = [];
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                $data
-            )->response;
-        $this->assertEquals(422, $response->status());
+        $data = factory(ImpactedProcess::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testPostNcWithoutNonconformity(): void
+    public function testSelectImpactedProcess(): void
     {
-        $data = factory(ImpactedProcess::class)->make()->toArray();
-        unset($data['nonconformity_id']);
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                ['nonconformity_id' =>['The nonconformity id field is required.']]
-            )->response;
-        $this->assertEquals(422, $response->status());
+        $data = factory(ImpactedProcess::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testPostNcWithData(): void
+    public function testSelectOneImpactedProcess(): void
     {
-        $data = factory(ImpactedProcess::class)->make()->toArray();
-        $response = $this->post($this->uri, $data)
-            ->seeJson(
-                $data
-            )->response;
-
-        $this->assertEquals(201, $response->status());
-    }
-    public function testGetNonconformities(): void
-    {
-        $data = factory(ImpactedProcess::class, 6)->create()->toArray();
-        $response = $this->get($this->uri)
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
-    }
-
-    public function testGetOneImpactedProcess(): void
-    {
-        $data = factory(ImpactedProcess::class)->create()->toArray();
-        $response = $this->get($this->uri. $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(ImpactedProcess::class)->create();
+        $ip = ImpactedProcess::find($data->id);
+        $this->assertInstanceOf(Model::class, $ip);
     }
 
     public function testDeleteImpactedProcess(): void
     {
-        $data = factory(ImpactedProcess::class)->create()->toArray();
-        $response = $this->delete($this->uri . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $data = factory(ImpactedProcess::class)->create();
+        $ip = ImpactedProcess::find($data->id);
+        $this->assertInstanceOf(Model::class, $ip);
+        $this->assertTrue($ip->delete());
     }
 
-    public function testUpdateImpactedProcess(): void
+    public function testSeletNcbyImpactedProcess(): void
     {
-        $update = ['nonconformity_id' => Uuid::uuid()];
-        $data = factory(ImpactedProcess::class)->create()->toArray();
-        $response = $this->put($this->uri . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(ImpactedProcess::class)->create();
+        $this->assertInstanceOf(Nonconformity::class, $data->nonconformity);
     }
 
-    public function testUpdateImpactedProcessWithEmptyFields(): void
+    public function testSeletProcessbyImpactedProcess(): void
     {
-        $update = [
-            'nonconformity_id' => ''
-        ];
-        $data = factory(ImpactedProcess::class)->create()->toArray();
-        $response = $this->put($this->uri . $data['id'], $update)
-            ->seeJson(
-                ['nonconformity_id' =>['The nonconformity id field is required.']]
-            )
-            ->response;
-        $this->assertEquals(422, $response->status());
+        $data = factory(ImpactedProcess::class)->create();
+        $this->assertInstanceOf(Process::class, $data->process);
     }
 }

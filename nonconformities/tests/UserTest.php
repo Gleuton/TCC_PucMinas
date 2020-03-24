@@ -2,77 +2,61 @@
 
 use App\Models\User;
 use App\Models\UserType;
-use Faker\Provider\Uuid;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testPostUser(): void
+    public function testInsertUser(): void
     {
-        $userType = factory(UserType::class)->create();
-        $user = factory(User::class)
-            ->make(['user_type_id' => $userType->id])
-            ->toArray();
-        $response = $this->post('api/user', $user)
-            ->seeJson(
-                $user
-            )->response;
-        $this->assertEquals(201, $response->status());
+        $data = factory(User::class)->create();
+        $this->assertInstanceOf(Model::class, $data);
     }
 
-    public function testGetUser(): void
+    public function testSelectUser(): void
     {
-        factory(User::class, 6)->create();
-        $data = User::all()->toArray();
-
-        $response = $this->get('api/user')
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(User::class, 6)->create();
+        $this->assertInstanceOf(Collection::class, $data);
+        $this->assertCount(6, $data);
     }
 
-    public function testGetOneUser(): void
+    public function testSelectOneUser(): void
     {
-        factory(User::class)->create();
-        $data = User::all()->first()->toArray();
-
-        $response = $this->get('api/user/' . $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $data = factory(User::class)->create();
+        $user = User::find($data->id);
+        $this->assertInstanceOf(Model::class, $user);
     }
 
     public function testDeleteUser(): void
     {
-        factory(User::class)->create();
-        $data = User::all()->first()->toArray();
-        $response = $this->delete('api/user/' . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $data = factory(User::class)->create();
+        $user = User::find($data->id);
+        $this->assertInstanceOf(Model::class, $user);
+        $this->assertTrue($user->delete());
     }
 
     public function testUpdateUser(): void
     {
-        $update = ['name' => 'Nome'];
-        factory(User::class)->create();
-        $data = User::all()->first()->toArray();
-        $response = $this->put('api/user/' . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $update = ['name' => 'jose'];
+        $data = factory(User::class)->create();
+        $user = User::find($data->id);
+        $this->assertInstanceOf(Model::class, $user);
+        $this->assertTrue($user->update($update));
+        $user = User::find($data->id)->toArray();
+        $this->assertEquals($user['name'], $update['name']);
     }
 
-    public function testGetUserTypeByUser(): void
+    public function testSeletNcByUser(): void
     {
-        $userTypeId = Uuid::uuid();
-        $userId = Uuid::uuid();
-        factory(UserType::class)->create(['id' => $userTypeId]);
-        factory(User::class)->create(
-            ['id' => $userId, 'user_type_id' => $userTypeId]
-        );
-
-        $user = User::find($userId);
-        $this->assertEquals($userTypeId, $user->userType->id);
+        $data = factory(User::class)->create();
+        $this->assertInstanceOf(Collection::class, $data->nonconformities);
+    }
+    public function testSeletUserTypeByUser(): void
+    {
+        $data = factory(User::class)->create();
+        $this->assertInstanceOf(UserType::class, $data->userType);
     }
 }
