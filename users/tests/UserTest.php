@@ -3,6 +3,8 @@
 use App\Models\User;
 use App\Models\UserType;
 use Faker\Provider\Uuid;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
@@ -10,67 +12,53 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
-    private string $uri = 'api/user/';
-    public function testPostUser(): void
+
+    public function testInsertUser(): void
     {
-        $userType = factory(UserType::class)->create();
         $user = factory(User::class)
-            ->make(['user_type_id' => $userType->id])
+            ->make()
             ->toArray();
-        unset($user['password']);
-        $userReturn = $user;
-        $user['password'] = 'senha123';
-        $user['password_confirmation'] = 'senha123';
-        $response = $this->post($this->uri, $user)
-            ->seeJsonContains(
-                $userReturn
-            )->response;
-        $this->assertEquals(201, $response->status());
+        $this->assertIsArray($user);
+        $this->assertNotEmpty($user);
     }
 
-    public function testGetUser(): void
+    public function testSelectUsers(): void
     {
         factory(User::class, 6)->create();
-        $data = User::all()->toArray();
+        $users = User::all();
 
-        $response = $this->get($this->uri)
-            ->seeJson($data[0])->response;
-        $this->assertEquals(200, $response->status());
+        $this->assertInstanceOf(Collection::class, $users);
+        $this->assertCount(6, $users);
     }
 
-    public function testGetOneUser(): void
+    public function testSelectOneUser(): void
     {
         factory(User::class)->create();
-        $data = User::all()->first()->toArray();
+        $user = User::all()->first();
 
-        $response = $this->get($this->uri . $data['id'])
-            ->seeJson($data)->response;
-        $this->assertEquals(200, $response->status());
+        $this->assertInstanceOf(Model::class, $user);
     }
 
     public function testDeleteUser(): void
     {
         factory(User::class)->create();
-        $data = User::all()->first()->toArray();
-        $response = $this->delete($this->uri . $data['id'])->response;
-        $this->assertEquals(204, $response->status());
+        $user = User::all()->first();
+        $this->assertInstanceOf(Model::class, $user);
+        $this->assertTrue($user->delete());
     }
 
     public function testUpdateUser(): void
     {
         $update = ['name' => 'Nome'];
         factory(User::class)->create();
-        $data = User::all()->first()->toArray();
-        $response = $this->put($this->uri . $data['id'], $update)
-            ->seeJson($update)
-            ->response;
-        $this->assertEquals(200, $response->status());
+        $user = User::all()->first();
+        $this->assertInstanceOf(Model::class, $user);
+        $this->assertTrue($user->update($update));
     }
 
     public function testGetUserTypeByUser(): void
     {
         $user = factory(User::class)->create();
-
         $this->assertNotEmpty($user->userType->id);
     }
 }
