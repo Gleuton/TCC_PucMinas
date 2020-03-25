@@ -3,7 +3,14 @@
 namespace App\Providers;
 
 use App\Auth\TokenGuard;
+use App\Models\ImpactedProcess;
+use App\Models\NcStatus;
+use App\Models\NcType;
+use App\Models\Nonconformity;
 use App\Models\UserType;
+use App\Policies\NcStatusPolicy;
+use App\Policies\NcTypePolicy;
+use App\Policies\NonconformityPolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -29,13 +36,12 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Here you may define how you wish users to be authenticated for your Lumen
-        // application. The callback which receives the incoming request instance
-        // should return either a User instance or null. You're free to obtain
-        // the User instance via an API token or any other method necessary.
-
         $this->app->configure('auth');
 
+        Gate::policy(Nonconformity::class, NonconformityPolicy::class);
+        Gate::policy(ImpactedProcess::class, NonconformityPolicy::class);
+        Gate::policy(NcType::class, NcTypePolicy::class);
+        Gate::policy(NcStatus::class, NcStatusPolicy::class);
         Auth::extend(
             'token',
             static function ($app, $name, $config) {

@@ -3,29 +3,26 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class NonconformityPolicy
 {
-    use HandlesAuthorization;
-
     public function create(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isQualityManager();
     }
 
     public function view(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isQualityManager();
     }
 
     public function update(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isQualityManager();
     }
 
     public function delete(User $user): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isQualityManager();
     }
 }

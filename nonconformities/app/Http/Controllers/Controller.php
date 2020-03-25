@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
@@ -23,16 +24,21 @@ abstract class Controller extends BaseController
      */
     public function index(): JsonResponse
     {
-        $minutes = Carbon::now()->addMinutes(10);
+        try {
+            $this->authorize('view', $this->model);
+            $minutes = Carbon::now()->addMinutes(10);
 
-        $data = Cache::remember(
-            $this->api,
-            $minutes,
-            function () {
-                return $this->model::all();
-            }
-        );
-        return response()->json($data, 200);
+            $data = Cache::remember(
+                $this->api,
+                $minutes,
+                function () {
+                    return $this->model::all();
+                }
+            );
+            return response()->json($data, 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     /**
@@ -42,14 +48,19 @@ abstract class Controller extends BaseController
      */
     public function store(Request $request): JsonResponse
     {
-        Cache::forget($this->api);
-        $data = $request->all();
-        /**
-         * @var Model $model
-         */
-        $model = new $this->model($data);
-        $model->save();
-        return response()->json($model, 201);
+        try {
+            $this->authorize('create', $this->model);
+            Cache::forget($this->api);
+            $data = $request->all();
+            /**
+             * @var Model $model
+             */
+            $model = new $this->model($data);
+            $model->save();
+            return response()->json($model, 201);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     /**
@@ -59,8 +70,13 @@ abstract class Controller extends BaseController
      */
     public function show(string $id): JsonResponse
     {
-        $userType = $this->model->find($id);
-        return response()->json($userType, 200);
+        try {
+            $this->authorize('view', $this->model);
+            $userType = $this->model->find($id);
+            return response()->json($userType, 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     /**
@@ -71,12 +87,17 @@ abstract class Controller extends BaseController
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        Cache::forget($this->api);
+        try {
+            $this->authorize('update', $this->model);
+            Cache::forget($this->api);
 
-        /** @var Model $data */
-        $data = $this->model->find($id);
-        $data->update($request->all());
-        return response()->json($data, 200);
+            /** @var Model $data */
+            $data = $this->model->find($id);
+            $data->update($request->all());
+            return response()->json($data, 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 
     /**
@@ -87,10 +108,15 @@ abstract class Controller extends BaseController
      */
     public function destroy(string $id): JsonResponse
     {
-        Cache::forget($this->api);
-        /** @var Model $data */
-        $data = $this->model->find($id);
-        $data->delete();
-        return response()->json(null, 204);
+        try {
+            $this->authorize('delete', $this->model);
+            Cache::forget($this->api);
+            /** @var Model $data */
+            $data = $this->model->find($id);
+            $data->delete();
+            return response()->json(null, 204);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -26,7 +25,7 @@ abstract class Controller extends BaseController
     public function index(): JsonResponse
     {
         try {
-            $this->authorize('view', Auth::user());
+            $this->authorize('view', $this->model);
             $minutes = Carbon::now()->addMinutes(10);
 
             $data = Cache::remember(
@@ -50,7 +49,7 @@ abstract class Controller extends BaseController
     public function store(Request $request): JsonResponse
     {
         try {
-            $this->authorize('create', Auth::user());
+            $this->authorize('create', $this->model);
             Cache::forget($this->api);
             $data = $request->all();
             /**
@@ -72,7 +71,7 @@ abstract class Controller extends BaseController
     public function show(string $id): JsonResponse
     {
         try {
-            $this->authorize('view', Auth::user());
+            $this->authorize('view', $this->model);
             $userType = $this->model->find($id);
             return response()->json($userType, 200);
         } catch (AuthorizationException $e) {
@@ -89,7 +88,7 @@ abstract class Controller extends BaseController
     public function update(Request $request, string $id): JsonResponse
     {
         try {
-            $this->authorize('update', Auth::user());
+            $this->authorize('update', $this->model);
             Cache::forget($this->api);
 
             /** @var Model $data */
@@ -110,7 +109,7 @@ abstract class Controller extends BaseController
     public function destroy(string $id): JsonResponse
     {
         try {
-            $this->authorize('delete', Auth::user());
+            $this->authorize('delete', $this->model);
             Cache::forget($this->api);
             /** @var Model $data */
             $data = $this->model->find($id);
