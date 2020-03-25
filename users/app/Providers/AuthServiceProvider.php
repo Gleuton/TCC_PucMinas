@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->configure('auth');
-
+        Gate::policy(User::class, UserPolicy::class);
         Gate::policy(UserType::class, UserTypePolicy::class);
 
         Auth::extend(
