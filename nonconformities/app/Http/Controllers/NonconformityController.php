@@ -8,11 +8,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Nonconformity;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class NonconformityController extends Controller

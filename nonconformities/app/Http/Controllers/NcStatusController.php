@@ -11,6 +11,7 @@ use App\Models\NcStatus;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class NcStatusController extends Controller
 {
@@ -29,9 +30,34 @@ class NcStatusController extends Controller
      * @param Request $request
      *
      * @return JsonResponse
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
+        $this->validate(
+            $request,
+            [
+                'status' => 'required'
+            ]
+        );
         return parent::store($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $this->validate(
+            $request,
+            [
+                'status' => 'sometimes|required'
+            ]
+        );
+        return parent::update($request, $id);
     }
 }
