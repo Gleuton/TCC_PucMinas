@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\NcStatusEvent;
 use App\Events\NonconformityEvent;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;

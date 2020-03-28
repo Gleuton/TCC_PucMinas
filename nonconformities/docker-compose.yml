@@ -17,7 +17,7 @@ services:
     volumes:
       - nonconformitydb:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: nonconformity-app
+      MYSQL_DATABASE: nonconformity
       MYSQL_ROOT_PASSWORD: root
 
   nonconformity-redis:

@@ -11,11 +11,11 @@ class ImpactedProcessEvent extends Event
     /**
      * Create a new event instance.
      *
-     * @param ImpactedProcess $ncStatus
+     * @param ImpactedProcess $impactedProcess
      */
-    public function __construct(ImpactedProcess $ncStatus)
+    public function __construct(ImpactedProcess $impactedProcess)
     {
-        $this->model = $ncStatus;
+        $this->model = $impactedProcess;
     }
 
     /**

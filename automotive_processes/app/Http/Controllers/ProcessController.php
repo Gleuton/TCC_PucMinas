@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\ImpactedProcess;
+use App\Models\Process;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,12 +18,12 @@ class ProcessController extends Controller
     /**
      * ImpactedProcessController constructor.
      *
-     * @param ImpactedProcess|Builder $model
+     * @param Process|Builder $model
      */
-    public function __construct(ImpactedProcess $model)
+    public function __construct(Process $model)
     {
         $this->model = $model;
-        $this->api = 'api::impacted_process';
+        $this->api = 'api::process';
     }
 
     /**

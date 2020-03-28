@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImpactedProcessesTable extends Migration
+class CreateInterruptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateImpactedProcessesTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('impacted_processes', static function (Blueprint $table) {
+        Schema::create('interruptions', static function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->text('description');
+            $table->integer('work_shift');
 
-            $table->uuid('nonconformity_id');
-            $table->foreign('nonconformity_id')
+            $table->uuid('interruption_type_id');
+            $table->foreign('interruption_type_id')
                 ->references('id')
-                ->on('nonconformities');
-
-            $table->uuid('process_id');
-            $table->foreign('process_id')
-                ->references('id')
-                ->on('processes');
+                ->on('interruption_types');
 
             $table->timestamps();
             $table->softDeletes();
@@ -38,6 +35,6 @@ class CreateImpactedProcessesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('impacted_processes');
+        Schema::dropIfExists('users');
     }
 }

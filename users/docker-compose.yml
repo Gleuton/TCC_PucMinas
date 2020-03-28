@@ -17,7 +17,7 @@ services:
     volumes:
       - userdb:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: user-app
+      MYSQL_DATABASE: user
       MYSQL_ROOT_PASSWORD: root
 
   user-redis:
