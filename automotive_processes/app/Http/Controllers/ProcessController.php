@@ -32,11 +32,14 @@ class ProcessController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $validation = 'required';
         $this->validate(
             $request,
             [
-                'nonconformity_id' => 'required',
-                'process_id'       => 'required',
+                'name'            => $validation,
+                'descripition'    => $validation,
+                'interruption_id' => $validation,
+                'sector_id'       => $validation,
             ]
         );
         return parent::store($request);
@@ -51,13 +54,17 @@ class ProcessController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
+        $validation = 'sometimes|required';
         $this->validate(
             $request,
             [
-                'nonconformity_id' => 'sometimes|required',
-                'process_id'       => 'sometimes|required',
+                'name'            => $validation,
+                'descripition'    => $validation,
+                'interruption_id' => $validation,
+                'sector_id'       => $validation,
             ]
         );
+
         return parent::update($request, $id);
     }
 
