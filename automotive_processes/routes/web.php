@@ -18,11 +18,6 @@ $router->group(
         );
         Route::resources(
             $router,
-            'InterruptionTypeController',
-            'interruption_Type'
-        );
-        Route::resources(
-            $router,
             'InterruptionController',
             'interruption'
         );

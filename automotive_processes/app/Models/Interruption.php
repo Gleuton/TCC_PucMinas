@@ -20,16 +20,8 @@ class Interruption extends Model
         'id',
         'description',
         'work_shift',
-        'interruption_type_id'
+        'process_id'
     ];
-
-    /**
-     * @return BelongsTo
-     */
-    public function interruptionType(): BelongsTo
-    {
-        return $this->belongsTo(InterruptionType::class);
-    }
     /**
      * @return BelongsTo
      */

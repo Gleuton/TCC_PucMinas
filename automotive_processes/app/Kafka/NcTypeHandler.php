@@ -2,13 +2,13 @@
 
 namespace App\Kafka;
 
-use App\Services\ProcessService;
+use App\Services\NcTypeService;
 use PHPEasykafka\KafkaConsumerHandlerInterface;
 use RdKafka\Exception;
 use RdKafka\KafkaConsumer;
 use RdKafka\Message;
 
-class ProcessHandler implements KafkaConsumerHandlerInterface
+class NcTypeHandler implements KafkaConsumerHandlerInterface
 {
     /**
      * @param Message       $message
@@ -26,7 +26,7 @@ class ProcessHandler implements KafkaConsumerHandlerInterface
             512,
             JSON_THROW_ON_ERROR
         );
-        $processService = new ProcessService($payload);
+        $processService = new NcTypeService($payload);
         $processService->save();
         $consumer->commit();
     }

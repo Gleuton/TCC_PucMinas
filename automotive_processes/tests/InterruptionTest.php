@@ -54,10 +54,4 @@ class InterruptionTest extends TestCase
         $data = factory(Interruption::class)->create();
         $this->assertInstanceOf(Model::class, $data->process);
     }
-
-    public function testSeletTypeByInterruption(): void
-    {
-        $data = factory(Interruption::class)->create();
-        $this->assertInstanceOf(InterruptionType::class, $data->interruptionType);
-    }
 }

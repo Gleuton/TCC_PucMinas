@@ -27,10 +27,4 @@ class NcType extends Model
     {
         return $this->hasMany(Nonconformity::class,'id','nc_type_id');
     }
-
-    protected $dispatchesEvents = [
-        'created' => NcTypeEvent::class,
-        'updated' => NcTypeEvent::class,
-        'deleted' => NcTypeEvent::class
-    ];
 }

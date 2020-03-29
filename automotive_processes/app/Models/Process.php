@@ -6,7 +6,6 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Process extends Model
@@ -20,7 +19,6 @@ class Process extends Model
         'name',
         'priority',
         'descripition',
-        'interruption_id',
         'sector_id',
         'created_at',
         'updated_at',

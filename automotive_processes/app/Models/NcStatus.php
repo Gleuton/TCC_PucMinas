@@ -27,10 +27,4 @@ class NcStatus extends Model
     {
         return $this->hasMany(Nonconformity::class,'id','nc_status_id');
     }
-
-    protected $dispatchesEvents = [
-        'created' => NcStatusEvent::class,
-        'updated' => NcStatusEvent::class,
-        'deleted' => NcStatusEvent::class
-    ];
 }

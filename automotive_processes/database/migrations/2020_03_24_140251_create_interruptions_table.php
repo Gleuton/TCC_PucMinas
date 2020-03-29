@@ -18,11 +18,6 @@ class CreateInterruptionsTable extends Migration
             $table->text('description');
             $table->integer('work_shift');
 
-            $table->uuid('interruption_type_id');
-            $table->foreign('interruption_type_id')
-                ->references('id')
-                ->on('interruption_types');
-
             $table->uuid('process_id');
             $table->foreign('process_id')
                 ->references('id')

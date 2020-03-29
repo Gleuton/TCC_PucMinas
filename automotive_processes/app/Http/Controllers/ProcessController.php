@@ -38,7 +38,6 @@ class ProcessController extends Controller
             [
                 'name'            => $validation,
                 'descripition'    => $validation,
-                'interruption_id' => $validation,
                 'sector_id'       => $validation,
             ]
         );
@@ -60,7 +59,6 @@ class ProcessController extends Controller
             [
                 'name'            => $validation,
                 'descripition'    => $validation,
-                'interruption_id' => $validation,
                 'sector_id'       => $validation,
             ]
         );

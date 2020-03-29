@@ -58,13 +58,6 @@ class Nonconformity extends Model
         return $this->belongsTo(Process::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function impactedProcess(): HasMany
-    {
-        return $this->hasMany(ImpactedProcess::class);
-    }
     protected $dispatchesEvents = [
         'created' => NonconformityEvent::class,
         'updated' => NonconformityEvent::class,
