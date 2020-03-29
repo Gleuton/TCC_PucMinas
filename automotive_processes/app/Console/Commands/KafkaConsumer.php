@@ -2,7 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Kafka\{NcStatusHandler, NcTypeHandler, UserTypeHandler, UserHandler};
+use App\Kafka\{NcStatusHandler,
+    NcTypeHandler,
+    NonconformityHandler,
+    UserTypeHandler,
+    UserHandler};
 use Illuminate\Console\Command;
 use Laravel\Lumen\Application;
 
