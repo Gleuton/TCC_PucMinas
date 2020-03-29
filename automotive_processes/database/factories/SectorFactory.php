@@ -1,16 +1,16 @@
 <?php
 /** @var Factory $factory */
 
-use App\Models\InterruptionType;
+use App\Models\Sector;
 use Faker\Generator as Faker;
 use Faker\Provider\Uuid;
 use Illuminate\Database\Eloquent\Factory;
-use Illuminate\Support\Str;
 
 $factory->define(
-    InterruptionType::class, static function (Faker $faker) {
+    Sector::class, static function (Faker $faker) {
     return [
         'id' => Uuid::uuid(),
-        'type' => $faker->country .Str::random()
+        'sector' => $faker->city,
+        'description' => $faker->text,
     ];
 });

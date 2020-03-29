@@ -18,11 +18,6 @@ class CreateProcessesTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
 
-            $table->uuid('interruption_id');
-            $table->foreign('interruption_id')
-                ->references('id')
-                ->on('interruptions');
-
             $table->uuid('sector_id');
             $table->foreign('sector_id')
                 ->references('id')

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,18 +36,18 @@ class Process extends Model
     }
 
     /**
-     * @return HasOne
+     * @return HasMany
      */
-    public function interruption(): HasOne
+    public function interruptions(): HasMany
     {
-        return $this->hasOne(Interruption::class);
+        return $this->hasMany(Interruption::class);
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function sector(): HasOne
+    public function sector(): BelongsTo
     {
-        return $this->hasOne(Sector::class);
+        return $this->belongsTo(Sector::class);
     }
 }

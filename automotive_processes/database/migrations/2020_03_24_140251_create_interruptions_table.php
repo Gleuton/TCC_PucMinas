@@ -23,6 +23,11 @@ class CreateInterruptionsTable extends Migration
                 ->references('id')
                 ->on('interruption_types');
 
+            $table->uuid('process_id');
+            $table->foreign('process_id')
+                ->references('id')
+                ->on('processes');
+
             $table->timestamps();
             $table->softDeletes();
         });

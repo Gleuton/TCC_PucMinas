@@ -2,6 +2,7 @@
 
 use App\Models\Nonconformity;
 use App\Models\Process;
+use App\Models\Sector;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
@@ -54,5 +55,16 @@ class ProcessTest extends TestCase
     {
         $data = factory(Process::class)->create();
         $this->assertInstanceOf(Collection::class, $data->nonconformities);
+    }
+    public function testSeletInterruptionsByProcess(): void
+    {
+        $data = factory(Process::class)->create();
+        $this->assertInstanceOf(Collection::class, $data->interruptions);
+    }
+
+    public function testSeletsectorByProcess(): void
+    {
+        $data = factory(Process::class)->create();
+        $this->assertInstanceOf(Sector::class, $data->sector);
     }
 }
