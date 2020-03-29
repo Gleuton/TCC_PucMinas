@@ -28,8 +28,8 @@ class InterruptionType extends Model
     }
 
     protected $dispatchesEvents = [
-//        'created' => NcTypeEvent::class,
-//        'updated' => NcTypeEvent::class,
-//        'deleted' => NcTypeEvent::class
+        'created' => NcTypeEvent::class,
+        'updated' => NcTypeEvent::class,
+        'deleted' => NcTypeEvent::class
     ];
 }

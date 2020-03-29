@@ -4,13 +4,16 @@ namespace App\Providers;
 
 use App\Auth\TokenGuard;
 use App\Models\ImpactedProcess;
+use App\Models\InterruptionType;
 use App\Models\NcStatus;
 use App\Models\NcType;
 use App\Models\Nonconformity;
+use App\Models\Sector;
 use App\Models\UserType;
-use App\Policies\NcStatusPolicy;
-use App\Policies\NcTypePolicy;
-use App\Policies\NonconformityPolicy;
+use App\Policies\ProcessPolicy;
+use App\Policies\InterruptionTypePolicy;
+use App\Policies\interruptionPolicy;
+use App\Policies\SectorPolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -38,10 +41,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->configure('auth');
 
-        Gate::policy(Nonconformity::class, NonconformityPolicy::class);
-        Gate::policy(ImpactedProcess::class, NonconformityPolicy::class);
-        Gate::policy(NcType::class, NcTypePolicy::class);
-        Gate::policy(NcStatus::class, NcStatusPolicy::class);
+        Gate::policy(Sector::class, SectorPolicy::class);
+        Gate::policy(InterruptionType::class, InterruptionTypePolicy::class);
+
         Auth::extend(
             'token',
             static function ($app, $name, $config) {

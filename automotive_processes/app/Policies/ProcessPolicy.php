@@ -3,9 +3,12 @@
 namespace App\Policies;
 
 use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NcTypePolicy
+class ProcessPolicy
 {
+    use HandlesAuthorization;
+
     public function create(User $user): bool
     {
         return $user->isAdmin();
@@ -13,7 +16,7 @@ class NcTypePolicy
 
     public function view(User $user): bool
     {
-        return $user->isAdmin() || $user->isQualityManager();
+        return $user->isAdmin() || $user->isProcessManager();
     }
 
     public function update(User $user): bool

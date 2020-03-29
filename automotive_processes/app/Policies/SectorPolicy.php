@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NcStatusPolicy
+class SectorPolicy
 {
     use HandlesAuthorization;
 
@@ -16,7 +16,7 @@ class NcStatusPolicy
 
     public function view(User $user): bool
     {
-        return $user->isAdmin() || $user->isQualityManager();
+        return $user->isAdmin() || $user->isProcessManager();
     }
 
     public function update(User $user): bool

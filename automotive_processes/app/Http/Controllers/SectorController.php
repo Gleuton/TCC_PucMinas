@@ -7,23 +7,23 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Process;
+use App\Models\Sector;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class ProcessController extends Controller
+class SectorController extends Controller
 {
     /**
-     * ProcessController constructor.
+     * SectorController constructor.
      *
-     * @param Process|Builder $model
+     * @param Sector|Builder $model
      */
-    public function __construct(Process $model)
+    public function __construct(Sector $model)
     {
         $this->model = $model;
-        $this->api = 'api::process';
+        $this->api = 'api::sector';
     }
 
     /**
@@ -36,10 +36,8 @@ class ProcessController extends Controller
         $this->validate(
             $request,
             [
-                'name'            => $validation,
-                'descripition'    => $validation,
-                'interruption_id' => $validation,
-                'sector_id'       => $validation,
+                'sector'       => $validation,
+                'descripition' => $validation
             ]
         );
         return parent::store($request);
@@ -58,10 +56,8 @@ class ProcessController extends Controller
         $this->validate(
             $request,
             [
-                'name'            => $validation,
-                'descripition'    => $validation,
-                'interruption_id' => $validation,
-                'sector_id'       => $validation,
+                'sector'       => $validation,
+                'descripition' => $validation
             ]
         );
 

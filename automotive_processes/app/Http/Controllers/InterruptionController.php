@@ -7,23 +7,23 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Process;
+use App\Models\Interruption;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class ProcessController extends Controller
+class InterruptionController extends Controller
 {
     /**
      * ProcessController constructor.
      *
-     * @param Process|Builder $model
+     * @param Interruption|Builder $model
      */
-    public function __construct(Process $model)
+    public function __construct(Interruption $model)
     {
         $this->model = $model;
-        $this->api = 'api::process';
+        $this->api = 'api::interruption';
     }
 
     /**
@@ -36,10 +36,9 @@ class ProcessController extends Controller
         $this->validate(
             $request,
             [
-                'name'            => $validation,
-                'descripition'    => $validation,
-                'interruption_id' => $validation,
-                'sector_id'       => $validation,
+                'work_shift'           => $validation . '|integer',
+                'descripition'         => $validation,
+                'interruption_type_id' => $validation,
             ]
         );
         return parent::store($request);

@@ -7,23 +7,23 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Process;
+use App\Models\InterruptionType;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class ProcessController extends Controller
+class InterruptionTypeController extends Controller
 {
     /**
-     * ProcessController constructor.
+     * InterruptionTypeController constructor.
      *
-     * @param Process|Builder $model
+     * @param InterruptionType|Builder $model
      */
-    public function __construct(Process $model)
+    public function __construct(InterruptionType $model)
     {
         $this->model = $model;
-        $this->api = 'api::process';
+        $this->api = 'api::interruption_type';
     }
 
     /**
@@ -32,14 +32,10 @@ class ProcessController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validation = 'required';
         $this->validate(
             $request,
             [
-                'name'            => $validation,
-                'descripition'    => $validation,
-                'interruption_id' => $validation,
-                'sector_id'       => $validation,
+                'type' => 'required'
             ]
         );
         return parent::store($request);
@@ -54,14 +50,10 @@ class ProcessController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
-        $validation = 'sometimes|required';
         $this->validate(
             $request,
             [
-                'name'            => $validation,
-                'descripition'    => $validation,
-                'interruption_id' => $validation,
-                'sector_id'       => $validation,
+                'type' => 'sometimes|required'
             ]
         );
 
