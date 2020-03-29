@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\NcStatusEvent;
+use App\Events\SectorEvent;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
 
-class KafkaNcStatusListener
+class KafkaSectorListener
 {
     private KafkaProducer $producer;
 
@@ -22,7 +22,7 @@ class KafkaNcStatusListener
 
         $this->producer = new KafkaProducer(
             $brokerCollection,
-            'ncstatus',
+            'sector',
             $configs
         );
     }
@@ -30,13 +30,13 @@ class KafkaNcStatusListener
     /**
      * Handle the event.
      *
-     * @param NcStatusEvent $event
+     * @param SectorEvent $event
      *
      * @return void
      */
-    public function handle(NcStatusEvent $event): void
+    public function handle(SectorEvent $event): void
     {
-        $ncStatus = $event->getModel();
-        $this->producer->produce($ncStatus->toJson());
+        $sector = $event->getModel();
+        $this->producer->produce($sector->toJson());
     }
 }

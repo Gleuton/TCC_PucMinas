@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SectorEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,8 +30,8 @@ class Sector extends Model
     }
 
     protected $dispatchesEvents = [
-//        'created' => NcTypeEvent::class,
-//        'updated' => NcTypeEvent::class,
-//        'deleted' => NcTypeEvent::class
+        'created' => SectorEvent::class,
+        'updated' => SectorEvent::class,
+        'deleted' => SectorEvent::class
     ];
 }

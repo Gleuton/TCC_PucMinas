@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\NcStatusEvent;
+use App\Events\SectorEvent;
 use App\Events\NcTypeEvent;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
