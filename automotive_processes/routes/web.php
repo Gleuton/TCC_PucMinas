@@ -13,6 +13,21 @@ $router->group(
     static function () use ($router) {
         Route::resources(
             $router,
+            'SectorController',
+            'sector'
+        );
+        Route::resources(
+            $router,
+            'InterruptionTypeController',
+            'interruption_Type'
+        );
+        Route::resources(
+            $router,
+            'InterruptionController',
+            'interruption'
+        );
+        Route::resources(
+            $router,
             'ProcessController',
             'process'
         );
