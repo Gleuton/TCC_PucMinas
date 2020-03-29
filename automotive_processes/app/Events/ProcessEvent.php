@@ -2,26 +2,26 @@
 
 namespace App\Events;
 
-use App\Models\NcType;
+use App\Models\Process;
 
-class NcTypeEvent extends Event
+class ProcessEvent extends Event
 {
-    private NcType $model;
+    private Process $model;
 
     /**
      * Create a new event instance.
      *
-     * @param NcType $ncType
+     * @param Process $process
      */
-    public function __construct(NcType $ncType)
+    public function __construct(Process $process)
     {
-        $this->model = $ncType;
+        $this->model = $process;
     }
 
     /**
-     * @return NcType
+     * @return Process
      */
-    public function getModel(): NcType
+    public function getModel(): Process
     {
         return $this->model;
     }

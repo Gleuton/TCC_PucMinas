@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ProcessEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,4 +49,9 @@ class Process extends Model
     {
         return $this->belongsTo(Sector::class);
     }
+    protected $dispatchesEvents = [
+        'created' => ProcessEvent::class,
+        'updated' => ProcessEvent::class,
+        'deleted' => ProcessEvent::class
+    ];
 }

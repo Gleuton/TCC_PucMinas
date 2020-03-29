@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use App\Events\NcTypeEvent;
-use App\Events\NonconformityEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nonconformity extends Model
@@ -57,10 +54,4 @@ class Nonconformity extends Model
     {
         return $this->belongsTo(Process::class);
     }
-
-    protected $dispatchesEvents = [
-        'created' => NonconformityEvent::class,
-        'updated' => NonconformityEvent::class,
-        'deleted' => NonconformityEvent::class
-    ];
 }

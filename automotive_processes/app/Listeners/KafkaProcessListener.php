@@ -3,11 +3,11 @@
 namespace App\Listeners;
 
 use App\Events\SectorEvent;
-use App\Events\NcTypeEvent;
+use App\Events\ProcessEvent;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
 
-class KafkaNcTypeListener
+class KafkaProcessListener
 {
     private KafkaProducer $producer;
 
@@ -23,7 +23,7 @@ class KafkaNcTypeListener
 
         $this->producer = new KafkaProducer(
             $brokerCollection,
-            'nctype',
+            'process',
             $configs
         );
     }
@@ -31,13 +31,13 @@ class KafkaNcTypeListener
     /**
      * Handle the event.
      *
-     * @param NcTypeEvent $event
+     * @param ProcessEvent $event
      *
      * @return void
      */
-    public function handle(NcTypeEvent $event): void
+    public function handle(ProcessEvent $event): void
     {
-        $ncType = $event->getModel();
-        $this->producer->produce($ncType->toJson());
+        $process = $event->getModel();
+        $this->producer->produce($process->toJson());
     }
 }

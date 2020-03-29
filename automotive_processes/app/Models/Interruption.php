@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\InterruptionEvent;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Interruption extends Model
@@ -30,8 +29,8 @@ class Interruption extends Model
         return $this->belongsTo(Process::class);
     }
     protected $dispatchesEvents = [
-//        'created' => NcTypeEvent::class,
-//        'updated' => NcTypeEvent::class,
-//        'deleted' => NcTypeEvent::class
+        'created' => InterruptionEvent::class,
+        'updated' => InterruptionEvent::class,
+        'deleted' => InterruptionEvent::class
     ];
 }

@@ -2,26 +2,26 @@
 
 namespace App\Events;
 
-use App\Models\ImpactedProcess;
+use App\Models\Interruption;
 
-class ImpactedProcessEvent extends Event
+class InterruptionEvent extends Event
 {
-    private ImpactedProcess $model;
+    private Interruption $model;
 
     /**
      * Create a new event instance.
      *
-     * @param ImpactedProcess $ncStatus
+     * @param Interruption $interruption
      */
-    public function __construct(ImpactedProcess $ncStatus)
+    public function __construct(Interruption $interruption)
     {
-        $this->model = $ncStatus;
+        $this->model = $interruption;
     }
 
     /**
-     * @return ImpactedProcess
+     * @return Interruption
      */
-    public function getModel(): ImpactedProcess
+    public function getModel(): Interruption
     {
         return $this->model;
     }

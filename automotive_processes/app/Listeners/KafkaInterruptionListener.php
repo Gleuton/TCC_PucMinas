@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\ImpactedProcessEvent;
+use App\Events\InterruptionEvent;
 use Laravel\Lumen\Application;
 use PHPEasykafka\KafkaProducer;
 
-class KafkaImpactedProcessListener
+class KafkaInterruptionListener
 {
     private KafkaProducer $producer;
 
@@ -22,7 +22,7 @@ class KafkaImpactedProcessListener
 
         $this->producer = new KafkaProducer(
             $brokerCollection,
-            'impacted_process',
+            'interruption',
             $configs
         );
     }
@@ -30,13 +30,13 @@ class KafkaImpactedProcessListener
     /**
      * Handle the event.
      *
-     * @param ImpactedProcessEvent $event
+     * @param InterruptionEvent $event
      *
      * @return void
      */
-    public function handle(ImpactedProcessEvent $event): void
+    public function handle(InterruptionEvent $event): void
     {
-        $ncStatus = $event->getModel();
-        $this->producer->produce($ncStatus->toJson());
+        $interruption = $event->getModel();
+        $this->producer->produce($interruption->toJson());
     }
 }
