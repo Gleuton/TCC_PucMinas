@@ -32,11 +32,12 @@ class ImpactedProcessController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $validation = 'required';
         $this->validate(
             $request,
             [
-                'nonconformity_id' => 'required',
-                'process_id'       => 'required',
+                'nonconformity_id' => $validation,
+                'process_id'       => $validation,
             ]
         );
         return parent::store($request);
@@ -51,11 +52,12 @@ class ImpactedProcessController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
+        $validation = 'sometimes|required';
         $this->validate(
             $request,
             [
-                'nonconformity_id' => 'sometimes|required',
-                'process_id'       => 'sometimes|required',
+                'nonconformity_id' => $validation,
+                'process_id'       => $validation,
             ]
         );
         return parent::update($request, $id);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\UserType;
 use Faker\Provider\Uuid;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\{DB, Hash};
@@ -14,12 +15,6 @@ class UserTypeTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $type_id = Uuid::uuid();
-        DB::table('user_types')->insert(
-            [
-                'id'   => $type_id,
-                'type' => 'Administrador'
-            ]
-        );
+        factory(UserType::class)->create(['type' =>'Administrador']);
     }
 }

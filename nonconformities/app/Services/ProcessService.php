@@ -23,17 +23,16 @@ class ProcessService
      */
     public function save(): bool
     {
-        $processData = $this->data['process'];
         /**
          * @var Process $process
          */
-        $process = Process::find($processData['id']);
+        $process = Process::find($this->data['id']);
 
         if (null !== $process) {
-            return $process->update($processData);
+            return $process->update($this->data);
         }
 
-        $process = new Process($processData);
+        $process = new Process($this->data);
         return $process->save();
     }
 }

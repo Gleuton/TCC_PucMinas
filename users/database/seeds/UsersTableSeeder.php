@@ -14,21 +14,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $type_id = Uuid::uuid();
-        DB::table('user_types')->insert(
-            [
-                'id'   => $type_id,
-                'type' => 'Administrador'
-            ]
-        );
+        $type_id = DB::table('user_types')->select(['id'])
+            ->where('type', '=', 'Administrador')->first();
 
-        DB::table('users')->insert(
+        factory(\App\Models\User::class)->create(
             [
-                'id'           => Uuid::uuid(),
-                'name'         => Str::random(10),
-                'login'        => Str::random(10) . '@gmail.com',
-                'password'     => Hash::make('senha'),
-                'user_type_id' => $type_id,
+                'user_type_id' => $type_id->id,
+                'login'        => 'admin@admin.com'
             ]
         );
     }

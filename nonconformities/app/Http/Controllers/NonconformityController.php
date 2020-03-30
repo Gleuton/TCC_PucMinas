@@ -32,16 +32,17 @@ class NonconformityController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $validation = 'required';
         $this->validate(
             $request,
             [
-                'description' => 'required',
-                'solution'    => 'required',
-                'standard'    => 'required',
-                'user_id'     => 'required',
-                'type_id'     => 'required',
-                'status_id'   => 'required',
-                'process_id'  => 'required',
+                'description' => $validation,
+                'solution'    => $validation,
+                'standard'    => $validation,
+                'user_id'     => $validation,
+                'type_id'     => $validation,
+                'status_id'   => $validation,
+                'process_id'  => $validation,
             ]
         );
         return parent::store($request);
@@ -56,16 +57,17 @@ class NonconformityController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse
     {
+        $validation = 'sometimes|required';
         $this->validate(
             $request,
             [
-                'description' => 'sometimes|required',
-                'solution'    => 'sometimes|required',
-                'standard'    => 'sometimes|required',
-                'user_id'     => 'sometimes|required',
-                'type_id'     => 'sometimes|required',
-                'status_id'   => 'sometimes|required',
-                'process_id'  => 'sometimes|required',
+                'description' => $validation,
+                'solution'    => $validation,
+                'standard'    => $validation,
+                'user_id'     => $validation,
+                'type_id'     => $validation,
+                'status_id'   => $validation,
+                'process_id'  => $validation,
             ]
         );
         return parent::update($request, $id);
