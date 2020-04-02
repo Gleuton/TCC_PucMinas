@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  schedule-app:
+    build: ./.docker
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - schedule-mysql
+      - schedule-redis
+
+  schedule-mysql:
+    image: mysql:5.7.22
+    command: --innodb-use-native-aio=0
+    restart: always
+    ports:
+      - '3309:3306'
+    volumes:
+      - scheduledb:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: schedule
+      MYSQL_ROOT_PASSWORD: root
+
+  schedule-redis:
+    image: redis:alpine
+    expose:
+      - '6379'
+
+  schedule-nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8909:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - schedule-app
+
+networks:
+  default:
+    external:
+      name: tcc-network
+
+volumes:
+  scheduledb:
