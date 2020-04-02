@@ -1,8 +1,8 @@
-/vendor
-/.idea
+/.idea/
 Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
 composer.lock
 database/database.sqlite
+/vendor/
