@@ -54,6 +54,7 @@ class NonconformityTest extends TestCase
         $nc = factory(Nonconformity::class)->create();
         $this->assertInstanceOf(NcStatus::class, $nc->status);
     }
+
     public function testSeletNcTypeByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
