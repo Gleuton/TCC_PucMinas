@@ -26,7 +26,7 @@ class CreateSchedulesTable extends Migration
                     ->references('id')
                     ->on('nonconformities');
 
-                $table->uuid('scheduling_type_id');
+                $table->uuid('scheduling_type_id')->nullable();
                 $table->foreign('scheduling_type_id')
                     ->references('id')
                     ->on('scheduling_types');
