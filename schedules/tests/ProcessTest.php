@@ -56,11 +56,6 @@ class ProcessTest extends TestCase
         $data = factory(Process::class)->create();
         $this->assertInstanceOf(Collection::class, $data->nonconformities);
     }
-    public function testSeletInterruptionsByProcess(): void
-    {
-        $data = factory(Process::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->interruptions);
-    }
 
     public function testSeletsectorByProcess(): void
     {
