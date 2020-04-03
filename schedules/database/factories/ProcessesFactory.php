@@ -1,7 +1,6 @@
 <?php
 /** @var Factory $factory */
 
-use App\Models\Interruption;
 use App\Models\Process;
 use App\Models\Sector;
 use Faker\Generator as Faker;
