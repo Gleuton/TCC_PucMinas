@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Scheduling extends Model
+class Schedule extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
@@ -31,7 +31,7 @@ class Scheduling extends Model
      */
     public function type(): HasOne
     {
-        return $this->hasOne(SchedulingType::class);
+        return $this->hasOne(ScheduleType::class);
     }
 
     /**
@@ -39,7 +39,7 @@ class Scheduling extends Model
      */
     public function status(): HasOne
     {
-        return $this->hasOne(SchedulingStatus::class);
+        return $this->hasOne(ScheduleStatus::class);
     }
 
     /**

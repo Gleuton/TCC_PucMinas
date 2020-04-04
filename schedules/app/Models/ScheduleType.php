@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SchedulingType extends Model
+class ScheduleType extends Model
 {
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
@@ -24,6 +24,6 @@ class SchedulingType extends Model
 
     public function schedules(): HasMany
     {
-        return $this->hasMany(Scheduling::class);
+        return $this->hasMany(Schedule::class);
     }
 }

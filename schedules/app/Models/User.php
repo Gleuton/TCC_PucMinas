@@ -18,6 +18,7 @@ class User extends Model
     use Authenticatable, Authorizable, SoftDeletes, UuidTrait;
     protected $keyType = 'string';
     public $incrementing = false;
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *

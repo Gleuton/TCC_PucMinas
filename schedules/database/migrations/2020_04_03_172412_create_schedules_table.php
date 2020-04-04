@@ -26,15 +26,25 @@ class CreateSchedulesTable extends Migration
                     ->references('id')
                     ->on('nonconformities');
 
-                $table->uuid('scheduling_type_id')->nullable();
-                $table->foreign('scheduling_type_id')
+                $table->uuid('schedule_type_id')->nullable();
+                $table->foreign('schedule_type_id')
                     ->references('id')
-                    ->on('scheduling_types');
+                    ->on('schedule_types');
 
-                $table->uuid('scheduling_status_id');
-                $table->foreign('scheduling_status_id')
+                $table->uuid('schedule_status_id');
+                $table->foreign('schedule_status_id')
                     ->references('id')
-                    ->on('scheduling_status');
+                    ->on('schedule_status');
+
+                $table->uuid('scheduler_id');
+                $table->foreign('scheduler_id')
+                    ->references('id')
+                    ->on('users');
+
+                $table->uuid('performer_id')->nullable();
+                $table->foreign('performer_id')
+                    ->references('id')
+                    ->on('users');
 
                 $table->timestamps();
                 $table->softDeletes();

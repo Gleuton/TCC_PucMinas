@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchedulingTypesTable extends Migration
+class CreateScheduleTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateSchedulingTypesTable extends Migration
     public function up(): void
     {
         Schema::create(
-            'scheduling_types',
+            'schedule_types',
             static function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->string('type');
@@ -32,6 +32,6 @@ class CreateSchedulingTypesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scheduling_types');
+        Schema::dropIfExists('schedule_types');
     }
 }

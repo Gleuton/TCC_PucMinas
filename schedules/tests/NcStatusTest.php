@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\NcStatus;
-use App\Models\Nonconformity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
