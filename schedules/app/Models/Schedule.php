@@ -4,8 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
@@ -19,6 +18,11 @@ class Schedule extends Model
         'scheduling',
         'description',
         'scheduling_date',
+        'nonconformity_id',
+        'schedule_type_id',
+        'schedule_status_id',
+        'scheduler_id',
+        'performer_id',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -27,26 +31,42 @@ class Schedule extends Model
     protected $dates = ['scheduling_date'];
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function type(): HasOne
+    public function scheduleType(): BelongsTo
     {
-        return $this->hasOne(ScheduleType::class);
+        return $this->belongsTo(ScheduleType::class);
     }
 
     /**
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function status(): HasOne
+    public function scheduleStatus(): BelongsTo
     {
-        return $this->hasOne(ScheduleStatus::class);
+        return $this->belongsTo(ScheduleStatus::class);
     }
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function nonConformities(): HasMany
+    public function nonconformity(): BelongsTo
     {
-        return $this->hasMany(Nonconformity::class);
+        return $this->belongsTo(Nonconformity::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function performer():BelongsTo
+    {
+        return $this->belongsTo(Performer::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function scheduler():BelongsTo
+    {
+        return $this->belongsTo(Scheduler::class);
     }
 }

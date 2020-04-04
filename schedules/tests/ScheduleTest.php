@@ -1,12 +1,17 @@
 <?php
 
 
+use App\Models\Nonconformity;
+use App\Models\Performer;
 use App\Models\Schedule;
+use App\Models\Scheduler;
+use App\Models\ScheduleStatus;
+use App\Models\ScheduleType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
-class SchedulingTest extends TestCase
+class ScheduleTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -49,9 +54,41 @@ class SchedulingTest extends TestCase
         $this->assertEquals($scheduling['description'], $update['description']);
     }
 
-//    public function testSeletSchedulesByScheduling(): void
-//    {
-//        $data = factory(Scheduling::class)->create();
-//        $this->assertInstanceOf(Collection::class, $data->schedules);
-//    }
+    public function testSeletTypeScheduleBySchedule(): void
+    {
+        $data = factory(Schedule::class)->create();
+        $this->assertInstanceOf(ScheduleType::class, $data->scheduleType);
+    }
+
+    public function testSeletStatusScheduleBySchedule(): void
+    {
+        $data = factory(Schedule::class)->create();
+        $this->assertInstanceOf(ScheduleStatus::class, $data->scheduleStatus);
+    }
+
+    public function testSeletNcBySchedule(): void
+    {
+        $data = factory(Schedule::class)->create();
+        $this->assertInstanceOf(Nonconformity::class, $data->nonconformity);
+    }
+
+    public function testSeletPerformerBySchedule(): void
+    {
+        $performer = factory(Performer::class)->create();
+        $data = factory(Schedule::class)->create(
+            ['performer_id' => $performer]
+        );
+        $this->assertInstanceOf(Performer::class, $data->performer);
+    }
+
+    public function testSeletPerformerByScheduleWithoutPerformer(): void
+    {
+        $data = factory(Schedule::class)->create();
+        $this->assertNull($data->performer);
+    }
+    public function testSeletSchedulerBySchedule(): void
+    {
+        $data = factory(Schedule::class)->create();
+        $this->assertInstanceOf(Scheduler::class, $data->scheduler);
+    }
 }

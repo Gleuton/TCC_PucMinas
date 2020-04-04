@@ -3,6 +3,7 @@
 use App\Models\NcStatus;
 use App\Models\NcType;
 use App\Models\Nonconformity;
+use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
@@ -10,6 +11,7 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 class NonconformityTest extends TestCase
 {
     use DatabaseMigrations;
+
     public function testInsertNc(): void
     {
         $data = factory(Nonconformity::class)->create();
@@ -59,5 +61,12 @@ class NonconformityTest extends TestCase
     {
         $nc = factory(Nonconformity::class)->create();
         $this->assertInstanceOf(NcType::class, $nc->type);
+    }
+
+    public function testSeletSchudelesTypeByNc(): void
+    {
+        $nc = factory(Nonconformity::class)->create();
+        factory(Schedule::class, 3)->create(['nonconformity_id' => $nc]);
+        $this->assertInstanceOf(Collection::class, $nc->schedules);
     }
 }

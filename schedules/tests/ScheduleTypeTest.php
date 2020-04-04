@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\Schedule;
 use App\Models\ScheduleType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
-class SchedulingTypeTest extends TestCase
+class ScheduleTypeTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -48,9 +49,10 @@ class SchedulingTypeTest extends TestCase
         $this->assertEquals($SchedulingType['type'], $update['type']);
     }
 
-//    public function testSeletNcBySchedulingType(): void
-//    {
-//        $data = factory(SchedulingType::class)->create();
-//        $this->assertInstanceOf(Collection::class, $data->nonconformities);
-//    }
+    public function testSeletNcBySchedulingType(): void
+    {
+        $data = factory(ScheduleType::class)->create();
+        factory(Schedule::class)->create(['schedule_type_id' => $data->id]);
+        $this->assertInstanceOf(Collection::class, $data->schedules);
+    }
 }

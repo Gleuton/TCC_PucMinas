@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nonconformity extends Model
@@ -47,11 +48,17 @@ class Nonconformity extends Model
     {
         return $this->belongsTo(NcStatus::class);
     }
+
     /**
      * @return belongsTo
      */
     public function process(): belongsTo
     {
         return $this->belongsTo(Process::class);
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
     }
 }

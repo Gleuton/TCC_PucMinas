@@ -1,12 +1,13 @@
 <?php
 
 
+use App\Models\Schedule;
 use App\Models\ScheduleStatus;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
-class SchedulingStatusTest extends TestCase
+class ScheduleStatusTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -49,9 +50,11 @@ class SchedulingStatusTest extends TestCase
         $this->assertEquals($schedulingStatus['status'], $update['status']);
     }
 
-//    public function testSeletSchedulesBySchedulingStatus(): void
-//    {
-//        $data = factory(SchedulingStatus::class)->create();
-//        $this->assertInstanceOf(Collection::class, $data->schedules);
-//    }
+    public function testSeletSchedulesBySchedulingStatus(): void
+    {
+        $data = factory(ScheduleStatus::class)->create();
+        factory(Schedule::class)->create(['schedule_status_id' => $data->id]);
+        $this->assertInstanceOf(Collection::class, $data->schedules);
+    }
+
 }

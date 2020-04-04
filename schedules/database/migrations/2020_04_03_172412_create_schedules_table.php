@@ -21,12 +21,12 @@ class CreateSchedulesTable extends Migration
                 $table->text('description');
                 $table->dateTime('scheduling_date');
 
-                $table->uuid('nonconformity_id');
+                $table->uuid('nonconformity_id')->nullable();
                 $table->foreign('nonconformity_id')
                     ->references('id')
                     ->on('nonconformities');
 
-                $table->uuid('schedule_type_id')->nullable();
+                $table->uuid('schedule_type_id');
                 $table->foreign('schedule_type_id')
                     ->references('id')
                     ->on('schedule_types');
