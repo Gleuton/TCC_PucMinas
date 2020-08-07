@@ -17,6 +17,7 @@ class CreateProcessesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name')->unique();
             $table->text('description');
+            $table->unsignedInteger('priority');
 
             $table->uuid('sector_id');
             $table->foreign('sector_id')

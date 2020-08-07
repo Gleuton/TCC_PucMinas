@@ -13,10 +13,11 @@ $factory->define(
     static function (Faker $faker) {
         $sector = \factory(Sector::class)->create();
         return [
-            'id'              => Uuid::uuid(),
-            'name'            => $faker->company . Str::random(12),
-            'description'     => $faker->text,
-            'sector_id' => $sector->id
+            'id'          => Uuid::uuid(),
+            'name'        => $faker->company . Str::random(12),
+            'description' => $faker->text,
+            'priority'    => $faker->randomDigitNotNull,
+            'sector_id'   => $sector->id
         ];
     }
 );

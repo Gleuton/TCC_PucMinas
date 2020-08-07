@@ -18,7 +18,7 @@ class Process extends Model
         'id',
         'name',
         'priority',
-        'descripition',
+        'description',
         'sector_id',
         'created_at',
         'updated_at',

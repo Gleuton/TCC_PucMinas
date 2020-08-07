@@ -18,29 +18,29 @@ class ScheduleTest extends TestCase
     public function testInsertScheduling(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectScheduling(): void
     {
         $data = factory(Schedule::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneScheduling(): void
     {
         $data = factory(Schedule::class)->create();
         $scheduling = Schedule::find($data->id);
-        $this->assertInstanceOf(Model::class, $scheduling);
+        self::assertInstanceOf(Model::class, $scheduling);
     }
 
     public function testDeleteScheduling(): void
     {
         $data = factory(Schedule::class)->create();
         $scheduling = Schedule::find($data->id);
-        $this->assertInstanceOf(Model::class, $scheduling);
-        $this->assertTrue($scheduling->delete());
+        self::assertInstanceOf(Model::class, $scheduling);
+        self::assertTrue($scheduling->delete());
     }
 
     public function testUpdateScheduling(): void
@@ -48,47 +48,47 @@ class ScheduleTest extends TestCase
         $update = ['description' => 'descrição'];
         $data = factory(Schedule::class)->create();
         $scheduling = Schedule::find($data->id);
-        $this->assertInstanceOf(Model::class, $scheduling);
-        $this->assertTrue($scheduling->update($update));
+        self::assertInstanceOf(Model::class, $scheduling);
+        self::assertTrue($scheduling->update($update));
         $scheduling = Schedule::find($data->id)->toArray();
-        $this->assertEquals($scheduling['description'], $update['description']);
+        self::assertEquals($scheduling['description'], $update['description']);
     }
 
-    public function testSeletTypeScheduleBySchedule(): void
+    public function testSelectTypeScheduleBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertInstanceOf(ScheduleType::class, $data->scheduleType);
+        self::assertInstanceOf(ScheduleType::class, $data->scheduleType);
     }
 
-    public function testSeletStatusScheduleBySchedule(): void
+    public function testSelectStatusScheduleBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertInstanceOf(ScheduleStatus::class, $data->scheduleStatus);
+        self::assertInstanceOf(ScheduleStatus::class, $data->scheduleStatus);
     }
 
-    public function testSeletNcBySchedule(): void
+    public function testSelectNcBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertInstanceOf(Nonconformity::class, $data->nonconformity);
+        self::assertInstanceOf(Nonconformity::class, $data->nonconformity);
     }
 
-    public function testSeletPerformerBySchedule(): void
+    public function testSelectPerformerBySchedule(): void
     {
         $performer = factory(Performer::class)->create();
         $data = factory(Schedule::class)->create(
             ['performer_id' => $performer]
         );
-        $this->assertInstanceOf(Performer::class, $data->performer);
+        self::assertInstanceOf(Performer::class, $data->performer);
     }
 
-    public function testSeletPerformerByScheduleWithoutPerformer(): void
+    public function testSelectPerformerByScheduleWithoutPerformer(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertNull($data->performer);
+        self::assertNull($data->performer);
     }
-    public function testSeletSchedulerBySchedule(): void
+    public function testSelectSchedulerBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        $this->assertInstanceOf(Scheduler::class, $data->scheduler);
+        self::assertInstanceOf(Scheduler::class, $data->scheduler);
     }
 }
