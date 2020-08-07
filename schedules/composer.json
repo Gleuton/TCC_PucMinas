@@ -11,7 +11,7 @@
   "require": {
     "php": "^7.4",
     "laravel/lumen-framework": "^v7.2.1",
-    "ramsey/uuid": "^3.8.0",
+    "ramsey/uuid": "^3.9.3",
     "wesleywillians/phpeasykafka": "*",
     "ext-json": "*",
     "ext-rdkafka": "*"
