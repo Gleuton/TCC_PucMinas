@@ -41,7 +41,7 @@ class User extends Model
         return $this->belongsTo(UserType::class);
     }
 
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = app('hash')->make($value);
     }

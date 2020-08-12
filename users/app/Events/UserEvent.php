@@ -11,11 +11,11 @@ class UserEvent extends Event
     /**
      * Create a new event instance.
      *
-     * @param User $ncStatus
+     * @param User $user
      */
-    public function __construct(User $ncStatus)
+    public function __construct(User $user)
     {
-        $this->model = $ncStatus;
+        $this->model = $user;
     }
 
     /**
