@@ -35,6 +35,6 @@ class CreateInterruptionsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('interruptions');
     }
 }
