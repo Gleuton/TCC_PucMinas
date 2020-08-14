@@ -1,10 +1,7 @@
 <?php
 
 use App\Models\UserType;
-use Faker\Provider\Uuid;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\{DB, Hash};
-use Illuminate\Support\Str;
 
 class UserTypeTableSeeder extends Seeder
 {
