@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(
     User::class,
     static function (Faker $faker) {
-        $userType = factory(UserType::class)->create();
+        $userType = UserType::first() ?? factory(UserType::class)->create();
         return [
             'id'           => Uuid::uuid(),
             'name'         => $faker->name,
