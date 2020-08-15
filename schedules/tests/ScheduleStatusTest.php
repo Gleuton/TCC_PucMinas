@@ -14,29 +14,29 @@ class ScheduleStatusTest extends TestCase
     public function testInsertSchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectSchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneSchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class)->create();
         $schedulingStatus = ScheduleStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $schedulingStatus);
+        self::assertInstanceOf(Model::class, $schedulingStatus);
     }
 
     public function testDeleteSchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class)->create();
         $schedulingStatus = ScheduleStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $schedulingStatus);
-        $this->assertTrue($schedulingStatus->delete());
+        self::assertInstanceOf(Model::class, $schedulingStatus);
+        self::assertTrue($schedulingStatus->delete());
     }
 
     public function testUpdateSchedulingStatus(): void
@@ -44,17 +44,17 @@ class ScheduleStatusTest extends TestCase
         $update = ['status' => 'inativo'];
         $data = factory(ScheduleStatus::class)->create();
         $schedulingStatus = ScheduleStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $schedulingStatus);
-        $this->assertTrue($schedulingStatus->update($update));
+        self::assertInstanceOf(Model::class, $schedulingStatus);
+        self::assertTrue($schedulingStatus->update($update));
         $schedulingStatus = ScheduleStatus::find($data->id)->toArray();
-        $this->assertEquals($schedulingStatus['status'], $update['status']);
+        self::assertEquals($schedulingStatus['status'], $update['status']);
     }
 
     public function testSeletSchedulesBySchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class)->create();
         factory(Schedule::class)->create(['schedule_status_id' => $data->id]);
-        $this->assertInstanceOf(Collection::class, $data->schedules);
+        self::assertInstanceOf(Collection::class, $data->schedules);
     }
 
 }

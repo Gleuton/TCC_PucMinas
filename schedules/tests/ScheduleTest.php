@@ -63,13 +63,19 @@ class ScheduleTest extends TestCase
     public function testSelectStatusScheduleBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        self::assertInstanceOf(ScheduleStatus::class, $data->scheduleStatus);
+        self::assertInstanceOf(
+            ScheduleStatus::class,
+            $data->scheduleStatus
+        );
     }
 
     public function testSelectNcBySchedule(): void
     {
         $data = factory(Schedule::class)->create();
-        self::assertInstanceOf(Nonconformity::class, $data->nonconformity);
+        self::assertInstanceOf(
+            Nonconformity::class,
+            $data->nonconformity
+        );
     }
 
     public function testSelectPerformerBySchedule(): void
@@ -86,6 +92,7 @@ class ScheduleTest extends TestCase
         $data = factory(Schedule::class)->create();
         self::assertNull($data->performer);
     }
+
     public function testSelectSchedulerBySchedule(): void
     {
         $data = factory(Schedule::class)->create();

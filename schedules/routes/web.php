@@ -7,7 +7,7 @@ use Laravel\Lumen\Routing\Router;
 
 $router->group(
     [
-        'prefix'     => 'api',
+        'prefix'     => 'api/agendamento',
         'middleware' => ['auth']
     ],
     static function () use ($router) {
@@ -15,16 +15,6 @@ $router->group(
             $router,
             'SectorController',
             'sector'
-        );
-        Route::resources(
-            $router,
-            'InterruptionController',
-            'interruption'
-        );
-        Route::resources(
-            $router,
-            'ProcessController',
-            'process'
         );
     }
 );

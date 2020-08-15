@@ -13,29 +13,29 @@ class ScheduleTypeTest extends TestCase
     public function testInsertSchedulingType(): void
     {
         $data = factory(ScheduleType::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectSchedulingType(): void
     {
         $data = factory(ScheduleType::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneSchedulingType(): void
     {
         $data = factory(ScheduleType::class)->create();
         $type = ScheduleType::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
+        self::assertInstanceOf(Model::class, $type);
     }
 
     public function testDeleteSchedulingType(): void
     {
         $data = factory(ScheduleType::class)->create();
         $type = ScheduleType::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
-        $this->assertTrue($type->delete());
+        self::assertInstanceOf(Model::class, $type);
+        self::assertTrue($type->delete());
     }
 
     public function testUpdateSchedulingType(): void
@@ -43,16 +43,16 @@ class ScheduleTypeTest extends TestCase
         $update = ['type' => 'inativo'];
         $data = factory(ScheduleType::class)->create();
         $SchedulingType = ScheduleType::find($data->id);
-        $this->assertInstanceOf(Model::class, $SchedulingType);
-        $this->assertTrue($SchedulingType->update($update));
+        self::assertInstanceOf(Model::class, $SchedulingType);
+        self::assertTrue($SchedulingType->update($update));
         $SchedulingType = ScheduleType::find($data->id)->toArray();
-        $this->assertEquals($SchedulingType['type'], $update['type']);
+        self::assertEquals($SchedulingType['type'], $update['type']);
     }
 
-    public function testSeletNcBySchedulingType(): void
+    public function testSelectNcBySchedulingType(): void
     {
         $data = factory(ScheduleType::class)->create();
         factory(Schedule::class)->create(['schedule_type_id' => $data->id]);
-        $this->assertInstanceOf(Collection::class, $data->schedules);
+        self::assertInstanceOf(Collection::class, $data->schedules);
     }
 }

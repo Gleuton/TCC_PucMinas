@@ -15,29 +15,29 @@ class ProcessTest extends TestCase
     public function testInsertProcess(): void
     {
         $data = factory(Process::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectProcess(): void
     {
         $data = factory(Process::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneProcess(): void
     {
         $data = factory(Process::class)->create();
         $process = Process::find($data->id);
-        $this->assertInstanceOf(Model::class, $process);
+        self::assertInstanceOf(Model::class, $process);
     }
 
     public function testDeleteProcess(): void
     {
         $data = factory(Process::class)->create();
         $process = Process::find($data->id);
-        $this->assertInstanceOf(Model::class, $process);
-        $this->assertTrue($process->delete());
+        self::assertInstanceOf(Model::class, $process);
+        self::assertTrue($process->delete());
     }
 
     public function testUpdateProcess(): void
@@ -45,21 +45,24 @@ class ProcessTest extends TestCase
         $update = ['name' => 'criar'];
         $data = factory(Process::class)->create();
         $process = Process::find($data->id);
-        $this->assertInstanceOf(Model::class, $process);
-        $this->assertTrue($process->update($update));
+        self::assertInstanceOf(Model::class, $process);
+        self::assertTrue($process->update($update));
         $Process = Process::find($data->id)->toArray();
-        $this->assertEquals($Process['name'], $update['name']);
+        self::assertEquals($Process['name'], $update['name']);
     }
 
-    public function testSeletNcByProcess(): void
+    public function testSelectNcByProcess(): void
     {
         $data = factory(Process::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->nonconformities);
+        self::assertInstanceOf(
+            Collection::class,
+            $data->nonconformities
+        );
     }
 
-    public function testSeletsectorByProcess(): void
+    public function testSelectSectorByProcess(): void
     {
         $data = factory(Process::class)->create();
-        $this->assertInstanceOf(Sector::class, $data->sector);
+        self::assertInstanceOf(Sector::class, $data->sector);
     }
 }

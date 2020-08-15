@@ -12,29 +12,29 @@ class NcStatusTest extends TestCase
     public function testInsertNcStatus(): void
     {
         $data = factory(NcStatus::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectNcStatus(): void
     {
         $data = factory(NcStatus::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneNcStatus(): void
     {
         $data = factory(NcStatus::class)->create();
         $ncStatus = NcStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $ncStatus);
+        self::assertInstanceOf(Model::class, $ncStatus);
     }
 
     public function testDeleteNcStatus(): void
     {
         $data = factory(NcStatus::class)->create();
         $ncStatus = NcStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $ncStatus);
-        $this->assertTrue($ncStatus->delete());
+        self::assertInstanceOf(Model::class, $ncStatus);
+        self::assertTrue($ncStatus->delete());
     }
 
     public function testUpdateNcStatus(): void
@@ -42,15 +42,18 @@ class NcStatusTest extends TestCase
         $update = ['status' => 'inativo'];
         $data = factory(NcStatus::class)->create();
         $ncStatus = NcStatus::find($data->id);
-        $this->assertInstanceOf(Model::class, $ncStatus);
-        $this->assertTrue($ncStatus->update($update));
+        self::assertInstanceOf(Model::class, $ncStatus);
+        self::assertTrue($ncStatus->update($update));
         $ncStatus = NcStatus::find($data->id)->toArray();
-        $this->assertEquals($ncStatus['status'], $update['status']);
+        self::assertEquals($ncStatus['status'], $update['status']);
     }
 
-    public function testSeletNcByNcStatus(): void
+    public function testSelectNcByNcStatus(): void
     {
         $data = factory(NcStatus::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->nonconformities);
+        self::assertInstanceOf(
+            Collection::class,
+            $data->nonconformities
+        );
     }
 }

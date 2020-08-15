@@ -12,29 +12,29 @@ class SectorTest extends TestCase
     public function testInsertSector(): void
     {
         $data = factory(Sector::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectSector(): void
     {
         $data = factory(Sector::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneSector(): void
     {
         $data = factory(Sector::class)->create();
         $type = Sector::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
+        self::assertInstanceOf(Model::class, $type);
     }
 
     public function testDeleteSector(): void
     {
         $data = factory(Sector::class)->create();
         $type = Sector::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
-        $this->assertTrue($type->delete());
+        self::assertInstanceOf(Model::class, $type);
+        self::assertTrue($type->delete());
     }
 
     public function testUpdateSector(): void
@@ -42,15 +42,15 @@ class SectorTest extends TestCase
         $update = ['description' => 'inativo'];
         $data = factory(Sector::class)->create();
         $sector = Sector::find($data->id);
-        $this->assertInstanceOf(Model::class, $sector);
-        $this->assertTrue($sector->update($update));
+        self::assertInstanceOf(Model::class, $sector);
+        self::assertTrue($sector->update($update));
         $sector = Sector::find($data->id)->toArray();
-        $this->assertEquals($sector['description'], $update['description']);
+        self::assertEquals($sector['description'], $update['description']);
     }
 
     public function testSeletInterruptionByType(): void
     {
         $data = factory(Sector::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->processes);
+        self::assertInstanceOf(Collection::class, $data->processes);
     }
 }

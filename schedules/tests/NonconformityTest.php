@@ -15,29 +15,29 @@ class NonconformityTest extends TestCase
     public function testInsertNc(): void
     {
         $data = factory(Nonconformity::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectNc(): void
     {
         $data = factory(Nonconformity::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneNc(): void
     {
         $data = factory(Nonconformity::class)->create();
         $nc = Nonconformity::find($data->id);
-        $this->assertInstanceOf(Model::class, $nc);
+        self::assertInstanceOf(Model::class, $nc);
     }
 
     public function testDeleteNc(): void
     {
         $data = factory(Nonconformity::class)->create();
         $nc = Nonconformity::find($data->id);
-        $this->assertInstanceOf(Model::class, $nc);
-        $this->assertTrue($nc->delete());
+        self::assertInstanceOf(Model::class, $nc);
+        self::assertTrue($nc->delete());
     }
 
     public function testUpdateNc(): void
@@ -45,28 +45,28 @@ class NonconformityTest extends TestCase
         $update = ['standard' => 'regra'];
         $data = factory(Nonconformity::class)->create();
         $nc = Nonconformity::find($data->id);
-        $this->assertInstanceOf(Model::class, $nc);
-        $this->assertTrue($nc->update($update));
+        self::assertInstanceOf(Model::class, $nc);
+        self::assertTrue($nc->update($update));
         $nc = Nonconformity::find($data->id)->toArray();
-        $this->assertEquals($nc['standard'], $update['standard']);
+        self::assertEquals($nc['standard'], $update['standard']);
     }
 
-    public function testSeletNcStatusByNc(): void
+    public function testSelectNcStatusByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
-        $this->assertInstanceOf(NcStatus::class, $nc->status);
+        self::assertInstanceOf(NcStatus::class, $nc->status);
     }
 
-    public function testSeletNcTypeByNc(): void
+    public function testSelectNcTypeByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
-        $this->assertInstanceOf(NcType::class, $nc->type);
+        self::assertInstanceOf(NcType::class, $nc->type);
     }
 
-    public function testSeletSchudelesTypeByNc(): void
+    public function testSelectSchedulesTypeByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
         factory(Schedule::class, 3)->create(['nonconformity_id' => $nc]);
-        $this->assertInstanceOf(Collection::class, $nc->schedules);
+        self::assertInstanceOf(Collection::class, $nc->schedules);
     }
 }
