@@ -7,6 +7,7 @@ use App\Auth\TokenGuard;
 use App\Models\Schedule;
 use App\Models\ScheduleStatus;
 use App\Models\ScheduleType;
+use App\Policies\SchedulePolicy;
 use App\Policies\ScheduleStatusPolicy;
 use App\Policies\ScheduleTypePolicy;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->configure('auth');
+        Gate::policy(Schedule::class, SchedulePolicy::class);
         Gate::policy(ScheduleStatus::class, ScheduleStatusPolicy::class);
         Gate::policy(ScheduleType::class, ScheduleTypePolicy::class);
 

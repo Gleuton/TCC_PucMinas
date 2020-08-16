@@ -32,7 +32,7 @@ class ScheduleStatusController extends Controller
         $this->validate(
             $request,
             [
-                'status'           => 'required|string|max:255',
+                'status' => 'required|string|max:255',
             ]
         );
         return parent::store($request);
@@ -50,7 +50,7 @@ class ScheduleStatusController extends Controller
         $this->validate(
             $request,
             [
-                'status'           => 'sometimes|required|string|max:255',
+                'status' => 'sometimes|required|string|max:255',
             ]
         );
         return parent::update($request, $id);
