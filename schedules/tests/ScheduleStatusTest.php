@@ -50,7 +50,7 @@ class ScheduleStatusTest extends TestCase
         self::assertEquals($schedulingStatus['status'], $update['status']);
     }
 
-    public function testSeletSchedulesBySchedulingStatus(): void
+    public function testSelectSchedulesBySchedulingStatus(): void
     {
         $data = factory(ScheduleStatus::class)->create();
         factory(Schedule::class)->create(['schedule_status_id' => $data->id]);

@@ -48,7 +48,7 @@ class SectorTest extends TestCase
         self::assertEquals($sector['description'], $update['description']);
     }
 
-    public function testSeletInterruptionByType(): void
+    public function testSelectInterruptionByType(): void
     {
         $data = factory(Sector::class)->create();
         self::assertInstanceOf(Collection::class, $data->processes);

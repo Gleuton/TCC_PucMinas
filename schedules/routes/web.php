@@ -7,14 +7,14 @@ use Laravel\Lumen\Routing\Router;
 
 $router->group(
     [
-        'prefix'     => 'api/agendamento',
+        'prefix'     => 'api',
         'middleware' => ['auth']
     ],
     static function () use ($router) {
         Route::resources(
             $router,
-            'SectorController',
-            'sector'
+            'StatusController',
+            'status'
         );
     }
 );
