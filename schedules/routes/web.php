@@ -7,14 +7,11 @@ use Laravel\Lumen\Routing\Router;
 
 $router->group(
     [
-        'prefix'     => 'api/schedule',
+        'prefix'     => 'api',
         'middleware' => ['auth']
     ],
     static function () use ($router) {
-        Route::resources(
-            $router,
-            'ScheduleStatusController'
-        );
+
         Route::resources(
             $router,
             'ScheduleStatusController',
@@ -24,6 +21,11 @@ $router->group(
             $router,
             'ScheduleTypeController',
             'type'
+        );
+        Route::resources(
+            $router,
+            'ScheduleController',
+            'schedule'
         );
     }
 );
