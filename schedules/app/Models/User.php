@@ -58,8 +58,8 @@ class User extends Model
         return (strtolower($this->userType->type) === 'administrador');
     }
 
-    public function isProcessManager(): bool
+    public function isQualityManager(): bool
     {
-        return (strtolower($this->userType->type) === 'gerente de porocessos');
+        return (strtolower($this->userType->type) === 'gerente de qualidade');
     }
 }
