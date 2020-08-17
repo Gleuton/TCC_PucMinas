@@ -32,7 +32,8 @@ class ScheduleTypeController extends Controller
         $this->validate(
             $request,
             [
-                'type'           => 'required|string|max:255',
+                'type'        => 'required|string|max:255',
+                'description' => 'required|string',
             ]
         );
         return parent::store($request);
@@ -50,7 +51,8 @@ class ScheduleTypeController extends Controller
         $this->validate(
             $request,
             [
-                'type'           => 'sometimes|required|string|max:255',
+                'type'        => 'sometimes|required|string|max:255',
+                'description' => 'sometimes|required|string',
             ]
         );
         return parent::update($request, $id);
