@@ -45,6 +45,11 @@ class LoginController extends Controller
             [
                 'api_token'            => $user->api_token,
                 'api_token_expiration' => $user->api_token_expiration,
+                'user'                 => [
+                    'name'  => $user->name,
+                    'login' => $user->login,
+                    'type'  => $user->userType->type,
+                ]
             ],
             200
         );
