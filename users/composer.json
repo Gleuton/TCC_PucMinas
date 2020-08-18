@@ -9,6 +9,7 @@
         "ext-json": "*",
         "ext-rdkafka": "*",
         "dusterio/lumen-passport": "^0.2.0",
+        "fruitcake/laravel-cors": "^2.0",
         "laravel/lumen-framework": "^7.0",
         "ramsey/uuid": "^3.8",
         "wesleywillians/phpeasykafka": "*"

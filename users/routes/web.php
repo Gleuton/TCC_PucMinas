@@ -4,6 +4,9 @@ use App\Http\Route;
 use Laravel\Lumen\Routing\Router;
 
 /** @var Router $router */
+$router->get('api/', function (){
+    return 'api user';
+});
 $router->post('/login','LoginController@login');
 $router->group(
     [
