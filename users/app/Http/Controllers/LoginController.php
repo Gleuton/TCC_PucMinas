@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         if (!$user) {
             return response()->json(
-                ['message' => 'Invalid credentials'],
+                ['message' => 'Credenciais inválidas'],
                 400
             );
         }
