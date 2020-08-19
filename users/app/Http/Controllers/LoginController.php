@@ -27,14 +27,26 @@ class LoginController extends Controller
             ]
         );
 
-        /**
-         * @var User $user
-         */
         $user = Auth::attempt(
             $request->only(['login', 'password'])
         );
 
-        if (!$user) {
+        return $this->response($user);
+    }
+
+    public function loadSession(): JsonResponse
+    {
+        $user = Auth::rememberToken();
+        return $this->response($user);
+    }
+    /**
+     * @param User|Bool $user
+     *
+     * @return JsonResponse
+     */
+    private function response($user) :JsonResponse
+    {
+        if (!$user || !($user instanceof User)) {
             return response()->json(
                 ['message' => 'Credenciais inválidas'],
                 400

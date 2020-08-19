@@ -5,7 +5,6 @@ namespace App\Auth;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\TokenGuard as Guard;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class TokenGuard extends Guard
@@ -13,10 +12,10 @@ class TokenGuard extends Guard
     /**
      * @param array $credentials
      *
-     * @return User|bool
+     * @return User
      * @throws \Exception
      */
-    public function attempt(array $credentials)
+    public function attempt(array $credentials): ?User
     {
         /**
          * @var User $user
@@ -32,7 +31,16 @@ class TokenGuard extends Guard
             $this->generateToken($user);
             return $user;
         }
-        return false;
+        return null;
+    }
+
+    public function rememberToken(): ?User
+    {
+        if ($this->check()) {
+            $this->generateToken($this->user);
+            return $this->user;
+        }
+        return null;
     }
 
     /**
@@ -43,9 +51,9 @@ class TokenGuard extends Guard
     private function generateToken(User $user): void
     {
         $user->api_token = '';
-        for ($i = 0; $i <= 6; $i++) {
-            $user->api_token .= Hash::make(Str::random('64'));
-        }
+        $user->api_token .= Str::random('32') . '.';
+        $user->api_token .= Str::random('128') . '.';
+        $user->api_token .= Str::random('32');
 
         $user->api_token_expiration = $this->getTokenExpiration();
 

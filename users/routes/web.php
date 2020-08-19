@@ -8,12 +8,14 @@ $router->get('api/', function (){
     return 'api user';
 });
 $router->post('/login','LoginController@login');
+
 $router->group(
     [
         'prefix' => 'api',
         'middleware' => ['auth']
     ],
     static function () use ($router) {
+        $router->get('/load-session/','LoginController@loadSession');
         Route::resources($router, 'UserTypeController', 'user_type');
         Route::resources($router, 'UserController', 'user');
     }
