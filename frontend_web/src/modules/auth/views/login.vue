@@ -36,9 +36,9 @@ export default {
     async submit () {
       try {
         await this.ActionDoLogin(this.form)
-        this.$router.push({ name: 'home' })
+        this.$router.replace({ name: 'home' })
       } catch (error) {
-        console.log(error.data.message)
+        console.log(error.data ? '' : error)
       }
     }
   }
