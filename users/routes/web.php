@@ -4,9 +4,7 @@ use App\Http\Route;
 use Laravel\Lumen\Routing\Router;
 
 /** @var Router $router */
-$router->get('api/', function (){
-    return 'api user';
-});
+
 $router->post('/login','LoginController@login');
 
 $router->group(
@@ -15,7 +13,7 @@ $router->group(
         'middleware' => ['auth']
     ],
     static function () use ($router) {
-        $router->get('/load-session/','LoginController@loadSession');
+        $router->get('load-session/','LoginController@loadSession');
         Route::resources($router, 'UserTypeController', 'user_type');
         Route::resources($router, 'UserController', 'user');
     }

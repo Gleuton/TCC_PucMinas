@@ -36,7 +36,8 @@ class LoginController extends Controller
 
     public function loadSession(): JsonResponse
     {
-        $user = Auth::rememberToken();
+        /** @var User $user */
+        $user = Auth::user();
         return $this->response($user);
     }
     /**
