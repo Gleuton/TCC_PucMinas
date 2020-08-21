@@ -19,7 +19,7 @@ export default {
   components: { sidebar },
   computed: {
     show_menu () {
-      return store.getters['auth/hasToken']
+      return store.getters['auth/hasToken'] || this.$route.name !== 'login'
     }
   }
 }

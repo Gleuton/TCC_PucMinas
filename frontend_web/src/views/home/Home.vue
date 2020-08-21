@@ -2,6 +2,7 @@
   <div class="home">
     <div class="user-info">
       <h2>Olá, {{ user.name }}</h2>
+      <small>Seja bem-vindo ao Sistema de Gestão de Qualidade.</small>
     </div>
   </div>
 </template>
@@ -15,3 +16,9 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.user-info {
+  margin-top: 10px;
+  text-align: center;
+}
+</style>
