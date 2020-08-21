@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <nav>
-      <sidebar/>
-    </nav>
-    <div id='content'>
-      <router-view/>
+    <div class="d-flex">
+      <div class="p-0">
+        <sidebar/>
+      </div>
+      <div class="p-0 w-100">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -17,5 +19,4 @@ export default {
 }
 </script>
 <style lang="scss">
-
 </style>

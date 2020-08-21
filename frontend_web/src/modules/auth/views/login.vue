@@ -1,7 +1,7 @@
 <template>
 <div id="login">
-  <form @submit.prevent="submit()">
-    <div class="login-page">
+  <div class="login-page">
+    <form @submit.prevent="submit()">
       <div class="card">
         <div class="card-header">Login</div>
         <div class="card-body">
@@ -14,8 +14,8 @@
           <button class="btn btn-primary btn-lg btn-block">Entrar</button>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 </template>
 
@@ -51,9 +51,5 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.card {
-  width: 35%;
 }
 </style>

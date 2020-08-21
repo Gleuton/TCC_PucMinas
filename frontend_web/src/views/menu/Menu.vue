@@ -1,13 +1,14 @@
 <template>
-  <div id="sidebar">
-    <nav v-show="show_menu">
-      <ul>
-        <li>Tipo de Usuário</li>
-        <li>Usuário</li>
-        <li>tes</li>
-        <li>te</li>
-      </ul>
-    </nav>
+  <div v-show="show_menu" class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">SGQ-A</div>
+    <div class="list-group list-group-flush">
+      <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+    </div>
   </div>
 </template>
 
@@ -24,5 +25,12 @@ export default {
 </script>
 
 <style>
+#sidebar-wrapper {
+  min-height: 100vh;
+}
 
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
 </style>
