@@ -1,6 +1,6 @@
 <template>
-  <div v-show="show_menu" class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">SGQ-A</div>
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">SGQ-A </div>
     <div class="list-group list-group-flush">
       <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
       <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
@@ -13,15 +13,7 @@
 </template>
 
 <script>
-import store from '@/store'
-export default {
-  name: 'sidebar',
-  computed: {
-    show_menu () {
-      return store.getters['auth/hasToken']
-    }
-  }
-}
+
 </script>
 
 <style>
