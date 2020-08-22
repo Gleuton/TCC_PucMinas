@@ -29,7 +29,7 @@ export default {
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
+  padding: 0.575rem 1.25rem;
   font-size: 1.2rem;
 }
 </style>
