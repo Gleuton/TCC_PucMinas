@@ -1,7 +1,9 @@
 <template>
   <div id="statusbar">
     <b-navbar toggleable="lg" type="dark" variant="primary">
-        <b-navbar-brand href="/">SGQ-A</b-navbar-brand>
+        <router-link :to="{ name: 'home'}">
+          <b-navbar-brand>SGQ-A</b-navbar-brand>
+        </router-link>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -9,10 +11,8 @@
               <template v-slot:button-content>
                 <em>{{ user.name }}</em>
               </template>
-              <b-dropdown-item href="#" class="dropdown-item text-center">
-                <div @click="logout">
+              <b-dropdown-item @click="logout" class="dropdown-item text-center">
                   <b-icon icon="power" aria-hidden="true"></b-icon> Logout
-                </div>
               </b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>

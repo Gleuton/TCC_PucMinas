@@ -6,9 +6,13 @@
     <div class="bg-light border-right" id="sidebar-wrapper" :class="{toggleSidebar: sidebar}">
     <div class="sidebar-heading">{{ getUserType }}</div>
     <div class="list-group list-group-flush">
-      <a href="#" class="list-group-item list-group-item-action bg-light">Tipo de usuário</a>
       <div v-show="isAdmin" id="sidebar-admin">
-        <a href="#" class="list-group-item list-group-item-action bg-light">Usuário</a>
+        <router-link :to="{ name: 'Tipos de Usuário'}" class="list-group-item list-group-item-action bg-light">
+          Tipo de usuário
+        </router-link>
+        <router-link :to="{ name: ''}" class="list-group-item list-group-item-action bg-light">
+          Usuário
+        </router-link>
       </div>
     </div>
   </div>
@@ -53,9 +57,6 @@ export default {
   #sidebar-wrapper {
     min-height: 91vh;
     margin-left: -15rem;
-    -webkit-transition: margin .25s ease-out;
-    -moz-transition: margin .25s ease-out;
-    -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
   }
 
