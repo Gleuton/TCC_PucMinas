@@ -1,17 +1,17 @@
 <template>
-  <div>
-
-    <span v-b-toggle.sidebar class="material-icons md-48 menu_open">
-      menu_open
-    </span>
-    <b-sidebar id="sidebar" sidebar-class="border-right" title="SGQ-A">
+  <div id="sidebar" class="list-group list-group-flush">
+    <button @click="toggleSidebar" class="btn-sidebar" :class="{toggleSidebar: !sidebar}">
+      <b-icon icon="layout-sidebar-inset" font-scale="2"></b-icon>
+    </button>
+    <div class="bg-light border-right" id="sidebar-wrapper" :class="{toggleSidebar: sidebar}">
+    <div class="sidebar-heading">{{ getUserType }}</div>
+    <div class="list-group list-group-flush">
+      <a href="#" class="list-group-item list-group-item-action bg-light">Tipo de usuário</a>
       <div v-show="isAdmin" id="sidebar-admin">
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action bg-light">Tipo de usuário</a>
-          <a href="#" class="list-group-item list-group-item-action bg-light">Usuário</a>
-        </div>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Usuário</a>
       </div>
-    </b-sidebar>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -19,24 +19,78 @@
 import { mapState } from 'vuex'
 export default {
   name: 'sidebar',
+  data: () => ({
+    sidebar: false
+  }),
   computed: {
     ...mapState('auth', ['user']),
     isAdmin () {
       return this.user.type === 'Administrador'
     },
-    userType () {
+    getUserType () {
       return this.user.type
+    }
+  },
+  methods: {
+    toggleSidebar () {
+      this.sidebar = !this.sidebar
     }
   }
 }
 </script>
 
 <style>
-span.menu_open{
-  outline:none;
-  margin: 10px;
-  border: 1px solid #000;
-  border-radius: 2px;
-  width: 50px;
-}
+  #sidebar .btn-sidebar{
+    padding: 4px;
+    margin-left: 0;
+    text-align: right;
+    border: 1px solid #d3d3d3;
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
+  }
+
+  #sidebar-wrapper {
+    min-height: 91vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+  }
+
+  #sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+
+  #sidebar-wrapper.toggleSidebar{
+    margin-left: 0;
+  }
+
+  @media (min-width: 994px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+    }
+
+    #sidebar .btn-sidebar{
+        display: none;
+    }
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+    }
+
+    #sidebar-wrapper #sidebar-wrapper.toggleSidebar{
+      margin-left: -15rem;
+    }
+  }
 </style>

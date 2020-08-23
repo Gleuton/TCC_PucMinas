@@ -1,8 +1,5 @@
-@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import '../../../node_modules/material-design-icons/iconfont/material-icons.css';
 
 * {
  font-family: 'Mandali', 'sans-serif';
@@ -10,7 +7,7 @@
  padding: 0;
 }
 
-.material-icons.md-18 { font-size: 18px }
-.material-icons.md-24 { font-size: 24px }
-.material-icons.md-36 { font-size: 36px }
-.material-icons.md-48 { font-size: 48px }
+.icons.md-18 { font-size: 18px }
+.icons.md-24 { font-size: 24px }
+.icons.md-36 { font-size: 36px }
+.icons.md-48 { font-size: 48px }

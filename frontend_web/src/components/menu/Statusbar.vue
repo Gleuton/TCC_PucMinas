@@ -9,7 +9,11 @@
               <template v-slot:button-content>
                 <em>{{ user.name }}</em>
               </template>
-              <b-dropdown-item href="#" class="dropdown-item text-center">Sign Out</b-dropdown-item>
+              <b-dropdown-item href="#" class="dropdown-item text-center">
+                <div @click="logout">
+                  <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+                </div>
+              </b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -18,11 +22,18 @@
 </template>
 
 <script>
+import store from '@/store'
 import { mapState } from 'vuex'
 export default {
   name: 'statusbar',
   computed: {
     ...mapState('auth', ['user'])
+  },
+  methods: {
+    logout () {
+      store.dispatch('auth/ActionSignOut')
+      this.$router.replace({ name: 'login' })
+    }
   }
 }
 </script>
