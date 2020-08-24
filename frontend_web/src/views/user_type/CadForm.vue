@@ -12,6 +12,7 @@
             v-model="form.type"
             type="text"
             required
+            maxlength="255"
             placeholder="Tipo do usuário"
           ></b-form-input>
         </b-form-group>
@@ -40,11 +41,16 @@ export default {
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-      await this.ActionAddUserTypes(
-        JSON.stringify(this.form)
-      )
-      this.$toastr.s('SUCCESS MESSAGE')
-      this.$router.replace({ name: 'user_type' })
+      try {
+        await this.ActionAddUserTypes(
+          JSON.stringify(this.form)
+        )
+        this.$toastr.s('Sucesso ao Cadastrar')
+        this.$router.replace({ name: 'user_type' })
+      } catch (error) {
+        console.log(error.data)
+        this.$toastr.e(error.data, 'Erro ao Cadastrar')
+      }
     }
   }
 }

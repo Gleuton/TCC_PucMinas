@@ -38,7 +38,7 @@ export default {
         await this.ActionDoLogin(this.form)
         this.$router.replace({ name: 'home' })
       } catch (error) {
-        console.log(error.data ? '' : error)
+        this.$toastr.w(error.data.message, 'Erro ao Logar')
       }
     }
   }
