@@ -10,12 +10,14 @@
       :fields="fields"
       >
         <template v-slot:cell(actions)="row">
-          <b-button-group>
+          <b-button-group size="sm">
             <b-button variant="info"
             @click="info(row.item, row.index, $event.target)">
-              Editar
+              <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
             </b-button>
-            <b-button variant="danger">Excluir</b-button>
+            <b-button variant="danger">
+              <b-icon icon="trash" aria-hidden="true"></b-icon> Excluir
+            </b-button>
           </b-button-group>
         </template>
       </b-table>
@@ -30,7 +32,7 @@ export default {
   data () {
     return {
       fields: [
-        { key: 'Tipo', sortable: true },
+        { key: 'type', sortable: true, label: 'Tipo' },
         { key: 'actions', label: 'Ações' }
       ]
     }
@@ -41,9 +43,7 @@ export default {
   computed: {
     ...mapState('userType', ['userTypes']),
     listUserTypes () {
-      return this.userTypes.map((el) => {
-        return { Tipo: el.type }
-      })
+      return this.userTypes
     }
   },
   methods: {
