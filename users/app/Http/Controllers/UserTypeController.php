@@ -35,7 +35,7 @@ class UserTypeController extends Controller
         $this->validate(
             $request,
             [
-                'type'     => 'required|string'
+                'type'     => 'required|string|max:255'
             ]
         );
         return parent::store($request);

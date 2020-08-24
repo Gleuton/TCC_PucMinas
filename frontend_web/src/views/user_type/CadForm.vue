@@ -48,8 +48,7 @@ export default {
         this.$toastr.s('Sucesso ao Cadastrar')
         this.$router.replace({ name: 'user_type' })
       } catch (error) {
-        console.log(error.data)
-        this.$toastr.e(error.data, 'Erro ao Cadastrar')
+        this.$toastr.e('Erro ao Cadastrar')
       }
     }
   }
