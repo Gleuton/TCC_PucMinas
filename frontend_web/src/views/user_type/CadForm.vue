@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'UserType',
   data () {
@@ -34,9 +35,16 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {
+    ...mapActions('userType', [
+      'ActionAddUserTypes'
+    ]),
+    async onSubmit (evt) {
       evt.preventDefault()
-      alert(JSON.stringify(this.form))
+      await this.ActionAddUserTypes(
+        JSON.stringify(this.form)
+      )
+      this.$toastr.s('SUCCESS MESSAGE')
+      this.$router.replace({ name: 'user_type' })
     }
   }
 }
