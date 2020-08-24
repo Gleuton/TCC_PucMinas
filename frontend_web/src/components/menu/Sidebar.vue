@@ -8,7 +8,7 @@
     <div class="list-group list-group-flush">
       <div v-show="isAdmin" id="sidebar-admin">
         <router-link
-        :to="{ name: 'Tipos de Usuário' }"
+        :to="{ name: 'user_type' }"
         exact
         exact-active-class="active-sidebar"
         class="list-group-item list-group-item-action bg-light">
@@ -56,49 +56,47 @@ export default {
     padding: 4px;
     margin-left: 0;
     text-align: right;
+    background: #F7F7F7;
     border: 1px solid #d3d3d3;
     outline-style:none;
     box-shadow:none;
-    border-color:transparent;
+  }
+
+  #sidebar .btn-sidebar:hover{
+    background: #F7F7F7;
+    border: 1px solid #d3d3d3;
   }
 
   #sidebar-wrapper {
-    min-height: 91vh;
+    min-height: calc(100vh - 56px - 44.2px);
     margin-left: -15rem;
     transition: margin .25s ease-out;
   }
 
   #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
+    font-weight: bold;
   }
 
   #sidebar-wrapper .list-group {
     width: 15rem;
   }
 
-  #page-content-wrapper {
-    min-width: 100vw;
-  }
-
   #sidebar-wrapper.toggleSidebar{
     margin-left: 0;
   }
   #sidebar .active-sidebar {
-    color: #36882e;
-    border: 1.5px solid #36882e;
+    color: #007BFF;
+    border: 1.5px solid #007BFF;
   }
   @media (min-width: 994px) {
     #sidebar-wrapper {
       margin-left: 0;
+      min-height: calc(100vh - 56px);
     }
 
     #sidebar .btn-sidebar{
         display: none;
-    }
-    #page-content-wrapper {
-      min-width: 0;
-      width: 100%;
     }
 
     #sidebar-wrapper #sidebar-wrapper.toggleSidebar{

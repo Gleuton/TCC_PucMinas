@@ -1,9 +1,9 @@
 <template>
   <div id="UserType" class="container-fluid">
-    <b-card>
-      <h2>
-        Tipos de Usuário <b-button variant="success">Cadastrar</b-button>
-      </h2>
+    <b-card  class="mt-6" header="Tipos de Usuário">
+      <p>
+        <b-button variant="success" @click="cadFrom ()">Cadastrar</b-button>
+      </p>
       <b-table striped hover
       show-empty
       :items="listUserTypes"
@@ -47,7 +47,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('userType', ['ActionListUserTypes'])
+    ...mapActions('userType', ['ActionListUserTypes']),
+    cadFrom () {
+      this.$router.replace({ name: 'user_type/cad_form' })
+    }
   }
 }
 </script>
