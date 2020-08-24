@@ -7,10 +7,18 @@
     <div class="sidebar-heading">{{ getUserType }}</div>
     <div class="list-group list-group-flush">
       <div v-show="isAdmin" id="sidebar-admin">
-        <router-link :to="{ name: 'Tipos de Usuário'}" class="list-group-item list-group-item-action bg-light">
+        <router-link
+        :to="{ name: 'Tipos de Usuário' }"
+        exact
+        exact-active-class="active-sidebar"
+        class="list-group-item list-group-item-action bg-light">
           Tipo de usuário
         </router-link>
-        <router-link :to="{ name: ''}" class="list-group-item list-group-item-action bg-light">
+        <router-link
+        :to="{ name: 'home' }"
+        exact
+        exact-active-class="active-sidebar"
+        class="list-group-item list-group-item-action bg-light">
           Usuário
         </router-link>
       </div>
@@ -76,7 +84,10 @@ export default {
   #sidebar-wrapper.toggleSidebar{
     margin-left: 0;
   }
-
+  #sidebar .active-sidebar {
+    color: #36882e;
+    border: 1.5px solid #36882e;
+  }
   @media (min-width: 994px) {
     #sidebar-wrapper {
       margin-left: 0;
