@@ -1,10 +1,10 @@
 <template>
   <div id="UserType" class="container-fluid">
-    <b-card  class="mt-6" header="Cadastrar de Tipo de Usuário">
+    <b-card  class="mt-6" header="Editar de Tipo de Usuário">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-type"
-          label="Tipo do usuário:"
+          label="Tipo de usuário:"
           label-for="type"
         >
           <b-form-input
@@ -13,7 +13,7 @@
             type="text"
             required
             maxlength="255"
-            placeholder="Tipo do usuário"
+            placeholder="Tipo de usuário"
           ></b-form-input>
         </b-form-group>
 
@@ -31,27 +31,29 @@ export default {
     return {
       form: {
         type: ''
-      }
+      },
+      id: this.$route.params.id
     }
+  },
+  created () {
+    this.ActionGetUserType(this.id).then(res => {
+      this.form.type = res.type
+    })
   },
   methods: {
     ...mapActions('userType', [
-      'ActionAddUserTypes'
+      'ActionGetUserType'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-      try {
-        await this.ActionAddUserTypes(
-          JSON.stringify(this.form)
-        )
-        this.$toastr.s('Sucesso ao Cadastrar')
-        this.$router.replace({ name: 'user_type' })
-      } catch (error) {
-        this.$toastr.e('Erro ao Cadastrar')
-      }
+    },
+    type () {
+      console.log(this.state)
+      return this.userType
     }
   }
 }
 </script>
 <style lang="scss">
+
 </style>

@@ -12,7 +12,8 @@
         <template v-slot:cell(actions)="row">
           <b-button-group size="sm">
             <b-button variant="info"
-            @click="info(row.item, row.index, $event.target)">
+              @click="editForm(row.item.id)"
+            >
               <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
             </b-button>
             <b-button variant="danger">
@@ -50,12 +51,15 @@ export default {
     ...mapActions('userType', ['ActionListUserTypes']),
     cadFrom () {
       this.$router.replace({ name: 'user_type/cad_form' })
+    },
+    editForm (itemId) {
+      this.$router.replace({
+        name: 'user_type/edit_form',
+        params: { id: itemId }
+      })
     }
   }
 }
 </script>
 <style lang="scss">
-.card{
-  margin: 15px 0;
-}
 </style>
