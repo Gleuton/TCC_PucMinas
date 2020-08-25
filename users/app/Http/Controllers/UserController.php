@@ -34,11 +34,34 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'name'     => 'required|string',
-                'login'    => 'required|unique:users',
-                'password' => 'required|confirmed',
+                'name'     => 'required|string|max:255',
+                'login'    => 'required|unique:users|max:255',
+                'password' => 'required|confirmed|max:255',
             ]
         );
         return parent::store($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $this->validate(
+            $request,
+            [
+                'name'     => 'sometimes|required|string|max:255',
+                'login'    => 'sometimes|required|unique:users|max:255',
+                'password' => 'sometimes|required|confirmed|max:255',
+            ]
+        );
+        return parent::update(
+            $request,
+            $id
+        );
     }
 }

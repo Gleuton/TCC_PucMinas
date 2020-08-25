@@ -40,4 +40,25 @@ class UserTypeController extends Controller
         );
         return parent::store($request);
     }
+
+    /**
+     * @param Request $request
+     * @param string  $id
+     *
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function update(Request $request, string $id): JsonResponse
+    {
+        $this->validate(
+            $request,
+            [
+                'type'     => 'sometimes|required|string|max:255'
+            ]
+        );
+        return parent::update(
+            $request,
+            $id
+        );
+    }
 }
