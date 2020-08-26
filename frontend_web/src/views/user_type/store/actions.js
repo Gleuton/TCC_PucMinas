@@ -12,7 +12,10 @@ export const ActionGetUserType = ({ commit }, idPayload) => (
     return res.data
   })
 )
+export const ActionEditUserType = (context, payload) => {
+  return services.userTypes.editUserType({ id: payload.id }, payload.data)
+}
 
-export const ActionAddUserTypes = (context, payload) => (
-  services.userTypes.addUserTypes(payload)
+export const ActionAddUserType = (context, payload) => (
+  services.userTypes.addUserType(payload)
 )

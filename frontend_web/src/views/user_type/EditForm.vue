@@ -42,14 +42,20 @@ export default {
   },
   methods: {
     ...mapActions('userType', [
-      'ActionGetUserType'
+      'ActionGetUserType',
+      'ActionEditUserType'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-    },
-    type () {
-      console.log(this.state)
-      return this.userType
+      try {
+        await this.ActionEditUserType({
+          id: this.id,
+          data: JSON.stringify(this.form)
+        })
+        this.$toastr.s('Sucesso ao Editar')
+      } catch (error) {
+        this.$toastr.e('Erro ao Editar')
+      }
     }
   }
 }

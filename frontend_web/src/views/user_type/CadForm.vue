@@ -36,12 +36,12 @@ export default {
   },
   methods: {
     ...mapActions('userType', [
-      'ActionAddUserTypes'
+      'ActionAddUserType'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
       try {
-        await this.ActionAddUserTypes(
+        await this.ActionAddUserType(
           JSON.stringify(this.form)
         )
         this.$toastr.s('Sucesso ao Cadastrar')
