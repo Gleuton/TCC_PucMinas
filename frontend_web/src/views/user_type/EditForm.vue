@@ -1,6 +1,6 @@
 <template>
   <div id="UserType" class="container-fluid">
-    <b-card  class="mt-6" header="Editar de Tipo de Usuário">
+    <b-card  class="mt-6" header="Editar tipo de usuário">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-type"
@@ -16,8 +16,10 @@
             placeholder="Tipo de usuário"
           ></b-form-input>
         </b-form-group>
-
-        <b-button type="submit" variant="success">Salvar</b-button>
+        <div class="button-box">
+            <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
+            <b-button type="submit" variant="success">Salvar</b-button>
+        </div>
       </b-form>
     </b-card>
   </div>
@@ -53,9 +55,13 @@ export default {
           data: JSON.stringify(this.form)
         })
         this.$toastr.s('Sucesso ao Editar')
+        this.back()
       } catch (error) {
         this.$toastr.e('Erro ao Editar')
       }
+    },
+    back () {
+      this.$router.replace({ name: 'user_type' })
     }
   }
 }

@@ -11,12 +11,16 @@
       >
         <template v-slot:cell(actions)="row">
           <b-button-group size="sm">
-            <b-button variant="info"
+            <b-button
+              variant="info"
               @click="editForm(row.item.id)"
             >
               <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
             </b-button>
-            <b-button variant="danger">
+            <b-button
+              variant="danger"
+              @click="disable(row.item.id)"
+            >
               <b-icon icon="trash" aria-hidden="true"></b-icon> Excluir
             </b-button>
           </b-button-group>
@@ -48,7 +52,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('userType', ['ActionListUserTypes']),
+    ...mapActions('userType', [
+      'ActionListUserTypes',
+      'ActionDisableUserType'
+    ]),
     cadFrom () {
       this.$router.replace({ name: 'user_type/cad_form' })
     },
@@ -57,6 +64,26 @@ export default {
         name: 'user_type/edit_form',
         params: { id: itemId }
       })
+    },
+    disable (itemId) {
+      this.$bvModal.msgBoxConfirm(
+        'Realmente Deseja excluir este tipo?', {
+          okVariant: 'danger',
+          okTitle: 'Sim',
+          cancelTitle: 'Não',
+          cancelVariant: 'primary'
+        })
+        .then(value => {
+          if (value) {
+            this.ActionDisableUserType(itemId).then(() => {
+              this.ActionListUserTypes()
+            })
+            this.$toastr.e('Tipo excluído')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

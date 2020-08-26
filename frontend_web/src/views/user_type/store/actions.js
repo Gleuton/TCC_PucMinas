@@ -19,3 +19,7 @@ export const ActionEditUserType = (context, payload) => {
 export const ActionAddUserType = (context, payload) => (
   services.userTypes.addUserType(payload)
 )
+
+export const ActionDisableUserType = ({ commit }, idPayload) => (
+  services.userTypes.deleteUserType({ id: idPayload })
+)

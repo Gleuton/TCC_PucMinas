@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="">
     <div class="d-flex flex-row">
       <div class="p-0 w-100" v-show="show_menu">
         <statusbar/>
