@@ -5,7 +5,7 @@ export default [
     meta: {
       label: 'Tipos de Usuário'
     },
-    component: () => import(/* webpackChunkName: "UserType" */ './UserType')
+    component: () => import(/* webpackChunkName: "UserType" */ './ListUserType')
   },
   {
     path: '/user_type/cad_form',

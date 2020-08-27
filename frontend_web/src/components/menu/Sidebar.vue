@@ -15,7 +15,7 @@
           Tipo de usuário
         </router-link>
         <router-link
-        :to="{ name: 'home' }"
+        :to="{ name: 'user' }"
         exact
         exact-active-class="active-sidebar"
         class="list-group-item list-group-item-action bg-light">
