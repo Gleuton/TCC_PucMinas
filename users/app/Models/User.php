@@ -16,13 +16,16 @@ class User extends Model
     implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, SoftDeletes, UuidTrait;
+
     protected $keyType = 'string';
     public $incrementing = false;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $appends = ['type'];
+
+    protected $hidden = [
+        'password',
+        'api_token_expiration',
+        'api_token'
+    ];
     protected $fillable = [
         'id',
         'name',
@@ -55,5 +58,10 @@ class User extends Model
     public function isAdmin(): bool
     {
         return (strtolower($this->userType->type) === 'administrador');
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->userType->type;
     }
 }
