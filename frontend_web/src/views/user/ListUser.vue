@@ -23,6 +23,7 @@ export default {
       fields: [
         { key: 'name', sortable: true, label: 'Nome' },
         { key: 'login', sortable: true, label: 'E-mail' },
+        { key: 'type', sortable: true, label: 'Tipo do usuário' },
         { key: 'actions', label: 'Ações' }
       ]
     }
