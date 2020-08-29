@@ -37,7 +37,7 @@ class UserController extends Controller
                 'name'         => 'required|string|max:255',
                 'login'        => 'required|unique:users|max:255',
                 'password'     => 'required|confirmed|max:255',
-                'user_type_id' => 'required|confirmed|max:36|min:36',
+                'user_type_id' => 'required|string|max:36|min:36',
             ]
         );
         return parent::store($request);
@@ -58,7 +58,7 @@ class UserController extends Controller
                 'name'         => 'sometimes|required|string|max:255',
                 'login'        => 'sometimes|required|unique:users|max:255',
                 'password'     => 'sometimes|required|confirmed|max:255',
-                'user_type_id' => 'sometimes|required|confirmed|max:36|min:36',
+                'user_type_id' => 'sometimes|required|string|max:36|min:36',
             ]
         );
         return parent::update(
