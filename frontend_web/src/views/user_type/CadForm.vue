@@ -11,10 +11,12 @@
             id="type"
             v-model="form.type"
             type="text"
-            required
-            maxlength="255"
+            @keyup="valid_type()"
             placeholder="Tipo do usuário"
           ></b-form-input>
+          <small class="input-error" v-if="!validation_form.type.valid">
+            {{ validation_form.type.message }}
+          </small>
         </b-form-group>
         <div class="button-box">
           <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
@@ -33,6 +35,12 @@ export default {
     return {
       form: {
         type: ''
+      },
+      validation_form: {
+        type: {
+          valid: true,
+          message: ''
+        }
       }
     }
   },
@@ -42,18 +50,32 @@ export default {
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-      try {
-        await this.ActionAddUserType(
-          JSON.stringify(this.form)
-        )
-        this.$toastr.s('Sucesso ao Cadastrar')
-        this.back()
-      } catch (error) {
-        this.$toastr.e('Erro ao Cadastrar')
+      if (this.valid_type()) {
+        try {
+          await this.ActionAddUserType(
+            JSON.stringify(this.form)
+          )
+          this.$toastr.s('Sucesso ao Cadastrar')
+          this.back()
+        } catch (error) {
+          this.$toastr.e('Erro ao Cadastrar')
+        }
       }
     },
     back () {
       this.$router.replace({ name: 'user_type' })
+    },
+    valid_type () {
+      this.validation_form.type.valid = true
+      if (this.form.type.length >= 255) {
+        this.validation_form.type.valid = false
+        this.validation_form.type.message = 'Este campo deve ser menor que 255 caracteres.'
+      }
+      if (this.form.type.length <= 0) {
+        this.validation_form.type.valid = false
+        this.validation_form.type.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.type.valid
     }
   }
 }
