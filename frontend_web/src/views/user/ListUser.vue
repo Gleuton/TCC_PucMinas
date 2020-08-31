@@ -34,7 +34,6 @@ export default {
   computed: {
     ...mapState('user', ['users']),
     listUsers () {
-      console.log(this.users)
       return this.users
     }
   },
@@ -43,6 +42,7 @@ export default {
       'ActionListUsers'
     ]),
     cadFrom () {
+      this.$router.replace({ name: 'user/cad_form' })
     },
     editForm (userId) {
 

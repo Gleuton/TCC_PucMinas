@@ -6,3 +6,7 @@ export const ActionListUsers = ({ commit }) => (
     commit(types.SET_USER, res.data)
   })
 )
+
+export const ActionAddUser = (context, payload) => (
+  services.user.addUser(payload)
+)

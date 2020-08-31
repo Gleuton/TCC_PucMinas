@@ -78,7 +78,7 @@ export default {
             this.ActionDisableUserType(itemId).then(() => {
               this.ActionListUserTypes()
             })
-            this.$toastr.e('Tipo excluído')
+            this.$toastr.s('Tipo excluído')
           }
         })
         .catch(err => {
