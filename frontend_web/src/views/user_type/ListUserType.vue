@@ -38,7 +38,7 @@ export default {
     return {
       fields: [
         { key: 'type', sortable: true, label: 'Tipo' },
-        { key: 'actions', label: 'Ações' }
+        { key: 'actions', label: 'Ações', class: 'text-center' }
       ]
     }
   },

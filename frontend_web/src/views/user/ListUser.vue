@@ -9,6 +9,25 @@
       :items="listUsers"
       :fields="fields"
       >
+      <template v-slot:cell(actions)="row">
+          <b-button-group size="sm">
+            <b-button variant="primary">
+              <b-icon icon="file-earmark-text" aria-hidden="true"></b-icon>Detalhes
+            </b-button>
+            <b-button
+              variant="info"
+              @click="editForm(row.item.id)"
+            >
+              <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
+            </b-button>
+            <b-button
+              variant="danger"
+              @click="disable(row.item.id)"
+            >
+              <b-icon icon="trash" aria-hidden="true"></b-icon> Excluir
+            </b-button>
+          </b-button-group>
+        </template>
       </b-table>
     </b-card>
   </div>
@@ -24,7 +43,7 @@ export default {
         { key: 'name', sortable: true, label: 'Nome' },
         { key: 'login', sortable: true, label: 'E-mail' },
         { key: 'type', sortable: true, label: 'Tipo do usuário' },
-        { key: 'actions', label: 'Ações' }
+        { key: 'actions', label: 'Ações', class: 'text-center' }
       ]
     }
   },
@@ -48,6 +67,9 @@ export default {
 
     },
     disable (userId) {
+
+    },
+    detail (userId) {
 
     }
   }
