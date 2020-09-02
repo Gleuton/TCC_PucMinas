@@ -56,7 +56,13 @@ class UserController extends Controller
             $request,
             [
                 'name'         => 'sometimes|required|string|max:255',
-                'login'        => 'sometimes|required|email|max:255|unique:users,login,'.$id,
+                'login'        => [
+                    'sometimes',
+                    'required',
+                    'email',
+                    'max:255',
+                    'unique:users,login,' . $id
+                ],
                 'password'     => 'sometimes|required|confirmed|max:255',
                 'user_type_id' => 'sometimes|required|string|max:36|min:36',
             ]
