@@ -7,15 +7,18 @@ export const ActionListUsers = ({ commit }) => (
   })
 )
 
-export const ActionAddUser = (context, payload) => (
-  services.user.addUser(payload)
-)
-
 export const ActionGetUser = ({ commit }, idPayload) => (
   services.user.getUser({ id: idPayload }).then(res => res.data)
 )
 
+export const ActionAddUser = (context, payload) => (
+  services.user.addUser(payload)
+)
+
 export const ActionEditUser = (context, payload) => {
-  console.log(payload)
   return services.user.editUser({ id: payload.id }, payload.data)
 }
+
+export const ActionDisableUser = ({ commit }, idPayload) => (
+  services.user.deleteUser({ id: idPayload })
+)

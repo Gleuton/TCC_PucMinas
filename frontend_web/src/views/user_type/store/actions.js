@@ -8,17 +8,16 @@ export const ActionListUserTypes = ({ commit }) => (
 )
 
 export const ActionGetUserType = ({ commit }, idPayload) => (
-  services.userTypes.getUserType({ id: idPayload }).then(res => {
-    return res.data
-  })
+  services.userTypes.getUserType({ id: idPayload }).then(res => res.data)
 )
-export const ActionEditUserType = (context, payload) => {
-  return services.userTypes.editUserType({ id: payload.id }, payload.data)
-}
 
 export const ActionAddUserType = (context, payload) => (
   services.userTypes.addUserType(payload)
 )
+
+export const ActionEditUserType = (context, payload) => {
+  return services.userTypes.editUserType({ id: payload.id }, payload.data)
+}
 
 export const ActionDisableUserType = ({ commit }, idPayload) => (
   services.userTypes.deleteUserType({ id: idPayload })

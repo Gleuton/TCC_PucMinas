@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     ...mapActions('user', [
-      'ActionListUsers'
+      'ActionListUsers',
+      'ActionDisableUser'
     ]),
     cadFrom () {
       this.$router.replace({ name: 'user/cad_form' })
@@ -67,7 +68,22 @@ export default {
       })
     },
     disable (userId) {
-
+      this.$bvModal.msgBoxConfirm(
+        'Realmente deseja excluir este usuário?', {
+          okVariant: 'danger',
+          okTitle: 'Sim',
+          cancelTitle: 'Não',
+          cancelVariant: 'primary'
+        })
+        .then(value => {
+          this.ActionDisableUser(userId).then(() => {
+            this.ActionListUsers()
+            this.$toastr.s('Usuário excluído')
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

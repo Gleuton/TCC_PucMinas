@@ -67,7 +67,7 @@ export default {
     },
     disable (itemId) {
       this.$bvModal.msgBoxConfirm(
-        'Realmente Deseja excluir este tipo?', {
+        'Realmente deseja excluir este tipo?', {
           okVariant: 'danger',
           okTitle: 'Sim',
           cancelTitle: 'Não',
@@ -77,8 +77,8 @@ export default {
           if (value) {
             this.ActionDisableUserType(itemId).then(() => {
               this.ActionListUserTypes()
+              this.$toastr.s('Tipo excluído')
             })
-            this.$toastr.s('Tipo excluído')
           }
         })
         .catch(err => {
