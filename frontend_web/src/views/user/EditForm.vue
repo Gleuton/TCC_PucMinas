@@ -1,6 +1,6 @@
 <template>
   <div id="User" class="container-fluid">
-    <b-card  class="mt-6" header="Cadastrar usuário">
+    <b-card  class="mt-6" header="Editar usuário">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-name"
@@ -50,42 +50,6 @@
             {{ validation_form.user_type_id.message }}
           </small>
         </b-form-group>
-
-        <b-form-group
-          id="input-group-password"
-          label="Senha:"
-          @keyup="password_validate"
-          label-for="password"
-        >
-          <b-form-input
-            id="password"
-            v-model="form.password"
-            type="password"
-            placeholder="Senha"
-            @keyup="password_validate()"
-          ></b-form-input>
-          <small class="input-error" v-if="!validation_form.password.valid">
-            {{ validation_form.password.message }}
-          </small>
-        </b-form-group>
-
-        <b-form-group
-          id="input-group-password-confirmation"
-          label="Confirme a senha:"
-          label-for="confirmation"
-        >
-          <b-form-input
-            id="confirmation"
-            v-model="form.password_confirmation"
-            type="password"
-            @keyup="confim_pwd_validate()"
-            placeholder="Confirme a Senha"
-          ></b-form-input>
-          <small class="input-error" v-if="!validation_form.password_confirmation.valid">
-            {{ validation_form.password_confirmation.message }}
-          </small>
-        </b-form-group>
-
         <div class="button-box">
           <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
           <b-button type="submit" variant="success">Salvar</b-button>
@@ -102,12 +66,11 @@ export default {
   name: 'UserType',
   data () {
     return {
+      id: this.$route.params.id,
       form: {
         name: '',
         login: '',
-        user_type_id: '',
-        password: '',
-        password_confirmation: ''
+        user_type_id: ''
       },
       validation_form: {
         name: {
@@ -121,27 +84,25 @@ export default {
         user_type_id: {
           valid: true,
           message: ''
-        },
-        password: {
-          valid: true,
-          message: ''
-        },
-        password_confirmation: {
-          valid: true,
-          message: ''
         }
       }
     }
   },
   mounted () {
     this.ActionListUserTypes()
+    this.ActionGetUser(this.id).then(res => {
+      this.form.name = res.name
+      this.form.login = res.login
+      this.form.user_type_id = res.user_type_id
+    })
   },
   computed: {
     ...mapState('userType', ['userTypes'])
   },
   methods: {
     ...mapActions('user', [
-      'ActionAddUser'
+      'ActionGetUser',
+      'ActionEditUser'
     ]),
     ...mapActions('userType', [
       'ActionListUserTypes'
@@ -150,13 +111,14 @@ export default {
       evt.preventDefault()
       if (this.validate()) {
         try {
-          await this.ActionAddUser(
-            JSON.stringify(this.form)
-          )
-          this.$toastr.s('Sucesso ao Cadastrar')
+          await this.ActionEditUser({
+            id: this.id,
+            data: JSON.stringify(this.form)
+          })
+          this.$toastr.s('Sucesso ao Editar')
           this.back()
         } catch (error) {
-          this.$toastr.e('Erro ao Cadastrar')
+          this.$toastr.e('Erro ao Editar')
         }
       }
     },
@@ -167,9 +129,6 @@ export default {
       const types = this.userTypes.map((item) => {
         return { value: item.id, text: item.type }
       })
-      types.push(
-        { value: '', text: 'Selecione um tipo' }
-      )
       return types.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
@@ -180,10 +139,8 @@ export default {
       const name = this.name_validate()
       const email = this.email_validate()
       const type = this.type_validate()
-      const password = this.password_validate()
-      const confirm = this.confim_pwd_validate()
 
-      return name && email && type && password && confirm
+      return name && email && type
     },
     name_validate () {
       this.validation_form.name.valid = true
@@ -216,26 +173,6 @@ export default {
         this.validation_form.user_type_id.message = 'Este campo é obrigatório.'
       }
       return this.validation_form.user_type_id.valid
-    },
-    password_validate () {
-      this.validation_form.password.valid = true
-      if (this.form.password.length <= 0) {
-        this.validation_form.password.valid = false
-        this.validation_form.password.message = 'Este campo é obrigatório.'
-      }
-      if (this.form.password.length >= 255) {
-        this.validation_form.password.valid = false
-        this.validation_form.password.message = 'Este campo deve ser menor que 255 caracteres.'
-      }
-      return this.validation_form.password.valid
-    },
-    confim_pwd_validate () {
-      this.validation_form.password_confirmation.valid = true
-      if (this.form.password !== this.form.password_confirmation) {
-        this.validation_form.password_confirmation.valid = false
-        this.validation_form.password_confirmation.message = 'A confirmação da senha não corresponde.'
-      }
-      return this.validation_form.password_confirmation.valid
     }
   }
 }

@@ -11,9 +11,6 @@
       >
       <template v-slot:cell(actions)="row">
           <b-button-group size="sm">
-            <b-button variant="primary">
-              <b-icon icon="file-earmark-text" aria-hidden="true"></b-icon>Detalhes
-            </b-button>
             <b-button
               variant="info"
               @click="editForm(row.item.id)"
@@ -64,12 +61,12 @@ export default {
       this.$router.replace({ name: 'user/cad_form' })
     },
     editForm (userId) {
-
+      this.$router.replace({
+        name: 'user/edit_form',
+        params: { id: userId }
+      })
     },
     disable (userId) {
-
-    },
-    detail (userId) {
 
     }
   }

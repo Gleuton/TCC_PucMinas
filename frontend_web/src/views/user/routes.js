@@ -14,5 +14,13 @@ export default [
       label: 'Cadastro de Usuário'
     },
     component: () => import(/* webpackChunkName: "CadForm" */ './CadForm')
+  },
+  {
+    path: '/user/edit_form/:id',
+    name: 'user/edit_form',
+    meta: {
+      label: 'Editar Usuário'
+    },
+    component: () => import(/* webpackChunkName: "EditForm" */ './EditForm')
   }
 ]
