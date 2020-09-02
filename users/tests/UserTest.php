@@ -43,8 +43,8 @@ class UserTest extends TestCase
     {
         factory(User::class)->create();
         $user = User::all()->first();
-        $this->assertInstanceOf(Model::class, $user);
-        $this->assertTrue($user->delete());
+        self::assertInstanceOf(Model::class, $user);
+        self::assertTrue($user->delete());
     }
 
     public function testUpdateUser(): void
@@ -52,13 +52,13 @@ class UserTest extends TestCase
         $update = ['name' => 'Nome'];
         factory(User::class)->create();
         $user = User::all()->first();
-        $this->assertInstanceOf(Model::class, $user);
-        $this->assertTrue($user->update($update));
+        self::assertInstanceOf(Model::class, $user);
+        self::assertTrue($user->update($update));
     }
 
     public function testGetUserTypeByUser(): void
     {
         $user = factory(User::class)->create();
-        $this->assertNotEmpty($user->userType->id);
+        self::assertNotEmpty($user->userType->id);
     }
 }
