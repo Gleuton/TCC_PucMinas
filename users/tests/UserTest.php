@@ -18,8 +18,8 @@ class UserTest extends TestCase
         $user = factory(User::class)
             ->make()
             ->toArray();
-        $this->assertIsArray($user);
-        $this->assertNotEmpty($user);
+        self::assertIsArray($user);
+        self::assertNotEmpty($user);
     }
 
     public function testSelectUsers(): void
@@ -27,8 +27,8 @@ class UserTest extends TestCase
         factory(User::class, 6)->create();
         $users = User::all();
 
-        $this->assertInstanceOf(Collection::class, $users);
-        $this->assertCount(6, $users);
+        self::assertInstanceOf(Collection::class, $users);
+        self::assertCount(6, $users);
     }
 
     public function testSelectOneUser(): void
@@ -36,7 +36,7 @@ class UserTest extends TestCase
         factory(User::class)->create();
         $user = User::all()->first();
 
-        $this->assertInstanceOf(Model::class, $user);
+        self::assertInstanceOf(Model::class, $user);
     }
 
     public function testDeleteUser(): void
