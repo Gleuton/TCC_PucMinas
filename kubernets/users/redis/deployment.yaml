@@ -1,0 +1,21 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: user-redis
+  labels:
+    app: user-redis
+spec:
+  selector:
+    matchLabels:
+      app: user-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-redis
+    spec:
+      containers:
+      - name: master
+        image: redis
+        ports:
+        - containerPort: 6379
