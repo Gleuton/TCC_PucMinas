@@ -1,7 +1,9 @@
 version: '3.7'
 services:
   schedule-app:
-    build: ./.docker
+    build: .
+    ports:
+      - "8910:80"
     volumes:
       - ./:/var/www
     depends_on:
@@ -24,17 +26,6 @@ services:
     image: redis:alpine
     expose:
       - '6379'
-
-  schedule-nginx:
-    image: nginx:alpine
-    restart: always
-    ports:
-      - "8910:80"
-    volumes:
-      - ./:/var/www
-      - ./.docker/nginx:/etc/nginx/conf.d
-    depends_on:
-      - schedule-app
 
 networks:
   default:
