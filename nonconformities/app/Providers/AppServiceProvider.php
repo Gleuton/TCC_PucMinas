@@ -18,9 +18,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'KafkaBrokerCollection',
             static function () {
-                $boker = new Broker('kafka', '9092');
+                $broker = new Broker(
+                    env('KAFKA_HOST','kafka'),
+                    env('KAFKA_PORT','9092')
+                );
                 $kafkaBrokerCollection = new BrokerCollection();
-                $kafkaBrokerCollection->addBroker($boker);
+                $kafkaBrokerCollection->addBroker($broker);
                 return $kafkaBrokerCollection;
             }
         );
