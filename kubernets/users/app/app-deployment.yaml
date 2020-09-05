@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-app
+
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      containers:
+        - name: user-api
+          image: gleuton/user_api:latest
+          imagePullPolicy: Always
+          #        command: ["/bin/sh", "-c", "ln -s /var/www /usr/share/nginx;  php-fpm;"]
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: user-app-conf
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: user-mysql-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-mysql-secret
+                  key: password
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: user-mysql-secret
+                  key: database
+          volumeMounts:
+            - name: user-app-conf
+              subPath: .env
+              mountPath: /var/www/.env
+      volumes:
+        - name: user-app-conf
+          configMap:
+            name: user-app-conf
+            items:
+              - key: env
+                path: .env
