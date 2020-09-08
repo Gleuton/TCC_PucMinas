@@ -5,6 +5,8 @@ use Laravel\Lumen\Routing\Router;
 
 /** @var Router $router */
 
+$router->get('/', fn()=> 'Nonconformity Api');
+
 $router->group(
     [
         'prefix'     => 'api',
