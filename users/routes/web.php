@@ -5,6 +5,8 @@ use Laravel\Lumen\Routing\Router;
 
 /** @var Router $router */
 
+$router->get('/', fn()=> 'User Api');
+
 $router->post('/login','LoginController@login');
 
 $router->group(
