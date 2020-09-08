@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nc-api
-          image: gleuton/nc_api:latest
+          image: gleuton/nonconformities_api:latest
           imagePullPolicy: Always
           #        command: ["/bin/sh", "-c", "ln -s /var/www /usr/share/nginx;  php-fpm;"]
           ports:
