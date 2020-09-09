@@ -7,7 +7,7 @@ spec:
     spec:
       restartPolicy: OnFailure
       containers:
-        - name: jornada-customer
+        - name: nc-api
           image: gleuton/nonconformities_api:latest
           imagePullPolicy: Always
           command: ["php", "artisan","kafka:consume","user_type","user_type-group"]
