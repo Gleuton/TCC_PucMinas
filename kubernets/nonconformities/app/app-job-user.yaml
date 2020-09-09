@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nc-job-consumer-user-type
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: jornada-customer
+          image: gleuton/nonconformities_api:latest
+          imagePullPolicy: Always
+          command: ["php", "artisan","kafka:consume","user","user-group"]
+          envFrom:
+            - configMapRef:
+                name: nc-app-conf
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: nc-mysql-secret
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nc-mysql-secret
+                  key: password
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: nc-mysql-secret
+                  key: database
+          volumeMounts:
+            - name: nc-app-conf
+              subPath: .env
+              mountPath: /var/www/.env
+      volumes:
+        - name: nc-app-conf
+          configMap:
+            name: nc-app-conf
+            items:
+              - key: env
+                path: .env
