@@ -22,9 +22,7 @@ class User extends Model
     protected $appends = ['type'];
 
     protected $hidden = [
-        'password',
-        'api_token_expiration',
-        'api_token'
+        'password'
     ];
     protected $fillable = [
         'id',
