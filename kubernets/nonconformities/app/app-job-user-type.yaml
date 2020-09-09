@@ -1,24 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: nc-app
+  name: nc-job-consumer-user-type
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nc-app
-
   template:
-    metadata:
-      labels:
-        app: nc-app
     spec:
+      restartPolicy: OnFailure
       containers:
-        - name: nc-api
+        - name: jornada-customer
           image: gleuton/nonconformities_api:latest
           imagePullPolicy: Always
-          ports:
-            - containerPort: 80
+          command: ["php", "artisan","kafka:consume","user_type","user_type-group"]
           envFrom:
             - configMapRef:
                 name: nc-app-conf
