@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: nc-job-consumer-user-type
+  name: nc-job-consumer-user
 spec:
   template:
     spec:
