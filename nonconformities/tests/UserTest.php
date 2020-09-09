@@ -13,29 +13,29 @@ class UserTest extends TestCase
     public function testInsertUser(): void
     {
         $data = factory(User::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectUser(): void
     {
         $data = factory(User::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneUser(): void
     {
         $data = factory(User::class)->create();
         $user = User::find($data->id);
-        $this->assertInstanceOf(Model::class, $user);
+        self::assertInstanceOf(Model::class, $user);
     }
 
     public function testDeleteUser(): void
     {
         $data = factory(User::class)->create();
         $user = User::find($data->id);
-        $this->assertInstanceOf(Model::class, $user);
-        $this->assertTrue($user->delete());
+        self::assertInstanceOf(Model::class, $user);
+        self::assertTrue($user->delete());
     }
 
     public function testUpdateUser(): void
@@ -43,20 +43,20 @@ class UserTest extends TestCase
         $update = ['name' => 'jose'];
         $data = factory(User::class)->create();
         $user = User::find($data->id);
-        $this->assertInstanceOf(Model::class, $user);
-        $this->assertTrue($user->update($update));
+        self::assertInstanceOf(Model::class, $user);
+        self::assertTrue($user->update($update));
         $user = User::find($data->id)->toArray();
-        $this->assertEquals($user['name'], $update['name']);
+        self::assertEquals($user['name'], $update['name']);
     }
 
     public function testSeletNcByUser(): void
     {
         $data = factory(User::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->nonconformities);
+        self::assertInstanceOf(Collection::class, $data->nonconformities);
     }
     public function testSeletUserTypeByUser(): void
     {
         $data = factory(User::class)->create();
-        $this->assertInstanceOf(UserType::class, $data->userType);
+        self::assertInstanceOf(UserType::class, $data->userType);
     }
 }

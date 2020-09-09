@@ -17,7 +17,6 @@ $factory->define(
             'id'           => Uuid::uuid(),
             'name'         => $faker->name,
             'login'        => $faker->email,
-            'password'     => Hash::make('senha'),
             'user_type_id' => $userType->id
         ];
     }

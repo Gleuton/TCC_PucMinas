@@ -27,7 +27,6 @@ class User extends Model
         'id',
         'name',
         'login',
-        'password',
         'user_type_id',
         'api_token',
         'api_token_expiration',

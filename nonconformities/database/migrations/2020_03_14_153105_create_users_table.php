@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('login')->unique();
-            $table->string('password');
             $table->text('api_token')->nullable();
             $table->timestamp('api_token_expiration')->nullable();
 
