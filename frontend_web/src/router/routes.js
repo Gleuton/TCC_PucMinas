@@ -2,10 +2,12 @@ import { routes as auth } from '../modules/auth'
 import { routes as home } from '../views/home'
 import { routes as userType } from '../views/user_type'
 import { routes as user } from '../views/user'
+import { routes as ncType } from '../views/nonconformity/type'
 
 export default [
   ...auth,
   ...home,
   ...userType,
-  ...user
+  ...user,
+  ...ncType
 ]

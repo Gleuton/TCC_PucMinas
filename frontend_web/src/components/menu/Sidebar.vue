@@ -21,6 +21,13 @@
         class="list-group-item list-group-item-action bg-light">
           Usuário
         </router-link>
+        <router-link
+        :to="{ name: 'nc_type' }"
+        exact
+        exact-active-class="active-sidebar"
+        class="list-group-item list-group-item-action bg-light">
+          Tipo de NC
+        </router-link>
       </div>
     </div>
   </div>
