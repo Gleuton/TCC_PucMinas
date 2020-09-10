@@ -28,6 +28,13 @@
         class="list-group-item list-group-item-action bg-light">
           Tipo de NC
         </router-link>
+        <router-link
+        :to="{ name: 'nc_status' }"
+        exact
+        exact-active-class="active-sidebar"
+        class="list-group-item list-group-item-action bg-light">
+          Status de NC
+        </router-link>
       </div>
     </div>
   </div>
