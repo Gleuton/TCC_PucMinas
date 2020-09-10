@@ -45,14 +45,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions('userType', [
-      'ActionAddNcType'
+    ...mapActions('ncType', [
+      'ActionAddNCType'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
       if (this.valid_type()) {
         try {
-          await this.ActionAddUserType(
+          await this.ActionAddNCType(
             JSON.stringify(this.form)
           )
           this.$toastr.s('Sucesso ao Cadastrar')

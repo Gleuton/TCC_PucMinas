@@ -6,3 +6,6 @@ export const ActionListNCTypes = ({ commit }) => (
     commit(types.SET_NC_TYPES, res.data)
   })
 )
+export const ActionAddNCType = (context, payload) => (
+  services.ncTypes.addType(payload)
+)
