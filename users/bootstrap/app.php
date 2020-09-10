@@ -2,7 +2,8 @@
 
 use App\Providers\{AppServiceProvider,
     AuthServiceProvider,
-    EventServiceProvider};
+    EventServiceProvider
+};
 use Fruitcake\Cors\CorsServiceProvider;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -78,13 +79,17 @@ $app->configure('cors');
 |
 */
 
- $app->middleware([
-      Fruitcake\Cors\HandleCors::class,
- ]);
+$app->middleware(
+    [
+        Fruitcake\Cors\HandleCors::class,
+    ]
+);
 
- $app->routeMiddleware([
-     'auth' => App\Http\Middleware\Authenticate::class,
- ]);
+$app->routeMiddleware(
+    [
+        'auth' => App\Http\Middleware\Authenticate::class,
+    ]
+);
 
 /*
 |--------------------------------------------------------------------------
