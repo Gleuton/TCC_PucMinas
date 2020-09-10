@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     ...mapActions('ncType', [
-      'ActionListNCTypes'
+      'ActionListNCTypes',
+      'ActionDisableNCType'
     ]),
     cadFrom () {
       this.$router.replace({ name: 'nc_type/cad_form' })
@@ -65,7 +66,24 @@ export default {
       })
     },
     disable (itemId) {
-
+      this.$bvModal.msgBoxConfirm(
+        'Realmente deseja excluir este tipo?', {
+          okVariant: 'danger',
+          okTitle: 'Sim',
+          cancelTitle: 'Não',
+          cancelVariant: 'primary'
+        })
+        .then(value => {
+          if (value) {
+            this.ActionDisableNCType(itemId).then(() => {
+              this.ActionListNCTypes()
+              this.$toastr.s('Tipo excluído')
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

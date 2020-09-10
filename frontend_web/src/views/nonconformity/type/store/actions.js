@@ -17,3 +17,7 @@ export const ActionGetNCType = ({ commit }, idPayload) => (
 export const ActionEditNCType = (context, payload) => {
   return services.ncTypes.editType({ id: payload.id }, payload.data)
 }
+
+export const ActionDisableNCType = ({ commit }, idPayload) => (
+  services.ncTypes.deleteType({ id: idPayload })
+)
