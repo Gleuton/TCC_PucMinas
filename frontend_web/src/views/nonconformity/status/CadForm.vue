@@ -1,21 +1,21 @@
 <template>
   <div id="CadNCType" class="container-fluid">
-    <b-card  class="mt-6" header="Cadastrar tipo de não conformidade">
+    <b-card  class="mt-6" header="Cadastrar status de não conformidade">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-type"
-          label="Tipo da NC:"
-          label-for="type"
+          label="Status da NC:"
+          label-for="status"
         >
           <b-form-input
-            id="type"
-            v-model="form.type"
+            id="status"
+            v-model="form.status"
             type="text"
-            @keyup="valid_type()"
-            placeholder="Tipo da não conformidade"
+            @keyup="valid_status()"
+            placeholder="Status da não conformidade"
           ></b-form-input>
-          <small class="input-error" v-if="!validation_form.type.valid">
-            {{ validation_form.type.message }}
+          <small class="input-error" v-if="!validation_form.status.valid">
+            {{ validation_form.status.message }}
           </small>
         </b-form-group>
         <div class="button-box">
@@ -30,14 +30,14 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'CadNCType',
+  name: 'CadNCStatus',
   data () {
     return {
       form: {
-        type: ''
+        status: ''
       },
       validation_form: {
-        type: {
+        status: {
           valid: true,
           message: ''
         }
@@ -45,14 +45,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions('ncType', [
-      'ActionAddNCType'
+    ...mapActions('ncStatus', [
+      'ActionAddNCStatus'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-      if (this.valid_type()) {
+      if (this.valid_status()) {
         try {
-          await this.ActionAddNCType(
+          await this.ActionAddNCStatus(
             JSON.stringify(this.form)
           )
           this.$toastr.s('Sucesso ao Cadastrar')
@@ -63,22 +63,20 @@ export default {
       }
     },
     back () {
-      this.$router.replace({ name: 'nc_type' })
+      this.$router.replace({ name: 'nc_status' })
     },
-    valid_type () {
-      this.validation_form.type.valid = true
-      if (this.form.type.length >= 255) {
-        this.validation_form.type.valid = false
-        this.validation_form.type.message = 'Este campo deve ser menor que 255 caracteres.'
+    valid_status () {
+      this.validation_form.status.valid = true
+      if (this.form.status.length >= 255) {
+        this.validation_form.status.valid = false
+        this.validation_form.status.message = 'Este campo deve ser menor que 255 caracteres.'
       }
-      if (this.form.type.length <= 0) {
-        this.validation_form.type.valid = false
-        this.validation_form.type.message = 'Este campo é obrigatório.'
+      if (this.form.status.length <= 0) {
+        this.validation_form.status.valid = false
+        this.validation_form.status.message = 'Este campo é obrigatório.'
       }
-      return this.validation_form.type.valid
+      return this.validation_form.status.valid
     }
   }
 }
 </script>
-<style lang="scss">
-</style>

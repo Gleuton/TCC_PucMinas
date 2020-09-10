@@ -6,7 +6,7 @@
       </p>
       <b-table striped hover
       show-empty
-      :items="listNcTypes"
+      :items="listStatus"
       :fields="fields"
       >
         <template v-slot:cell(actions)="row">
@@ -33,31 +33,31 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'NcType',
+  name: 'NcStatus',
   data () {
     return {
       fields: [
-        { key: 'type', sortable: true, label: 'Tipo' },
+        { key: 'status', sortable: true, label: 'Status' },
         { key: 'actions', label: 'Ações', class: 'text-center' }
       ]
     }
   },
   mounted () {
-    this.ActionListNCTypes()
+    this.ActionListNCStatus()
   },
   computed: {
-    ...mapState('ncType', ['ncTypes']),
-    listNcTypes () {
-      return this.ncTypes
+    ...mapState('ncStatus', ['ncStatus']),
+    listStatus () {
+      return this.ncStatus
     }
   },
   methods: {
-    ...mapActions('ncType', [
-      'ActionListNCTypes',
-      'ActionDisableNCType'
+    ...mapActions('ncStatus', [
+      'ActionListNCStatus',
+      'ActionDisableNCStatus'
     ]),
     cadFrom () {
-      this.$router.replace({ name: 'nc_type/cad_form' })
+      this.$router.replace({ name: 'nc_status/cad_form' })
     },
     editForm (itemId) {
       this.$router.replace({
