@@ -9,3 +9,11 @@ export const ActionListNCTypes = ({ commit }) => (
 export const ActionAddNCType = (context, payload) => (
   services.ncTypes.addType(payload)
 )
+
+export const ActionGetNCType = ({ commit }, idPayload) => (
+  services.ncTypes.getType({ id: idPayload }).then(res => res.data)
+)
+
+export const ActionEditNCType = (context, payload) => {
+  return services.ncTypes.editType({ id: payload.id }, payload.data)
+}

@@ -59,7 +59,10 @@ export default {
       this.$router.replace({ name: 'nc_type/cad_form' })
     },
     editForm (itemId) {
-
+      this.$router.replace({
+        name: 'nc_type/edit_form',
+        params: { id: itemId }
+      })
     },
     disable (itemId) {
 
