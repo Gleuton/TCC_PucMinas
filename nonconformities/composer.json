@@ -12,6 +12,7 @@
     "php": "^7.4",
     "laravel/lumen-framework": "^7.0",
     "ramsey/uuid": "^3.8",
+    "fruitcake/laravel-cors":"^2.0",
     "wesleywillians/phpeasykafka": "*",
     "ext-json": "*",
     "ext-rdkafka": "*"
