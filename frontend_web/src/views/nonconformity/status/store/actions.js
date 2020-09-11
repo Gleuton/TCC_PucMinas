@@ -14,10 +14,10 @@ export const ActionGetNCStatus = ({ commit }, idPayload) => (
   services.ncStatus.getStatus({ id: idPayload }).then(res => res.data)
 )
 
-export const ActionEditNC = (context, payload) => {
+export const ActionEditNCStatus = (context, payload) => {
   return services.ncStatus.editStatus({ id: payload.id }, payload.data)
 }
 
-export const ActionDisableNCType = ({ commit }, idPayload) => (
+export const ActionDisableNCStatus = ({ commit }, idPayload) => (
   services.ncStatus.deleteStatus({ id: idPayload })
 )

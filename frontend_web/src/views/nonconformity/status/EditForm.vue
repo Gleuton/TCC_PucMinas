@@ -1,22 +1,21 @@
 <template>
-  <div id="UserType" class="container-fluid">
+  <div id="NcStatus" class="container-fluid">
     <b-card  class="mt-6" header="Editar tipo de não conformidade">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-type"
-          label="Tipo da NC:"
-          label-for="type"
+          label="Status da NC:"
+          label-for="status"
         >
           <b-form-input
-            id="type"
-            v-model="form.type"
+            id="status"
+            v-model="form.status"
             type="text"
-            required
-            @keyup="valid_type()"
-            placeholder="Tipo da não conformidade"
+            @keyup="valid_status()"
+            placeholder="Status da não conformidade"
           ></b-form-input>
-          <small class="input-error" v-if="!validation_form.type.valid">
-            {{ validation_form.type.message }}
+          <small class="input-error" v-if="!validation_form.status.valid">
+            {{ validation_form.status.message }}
           </small>
         </b-form-group>
         <div class="button-box">
@@ -31,15 +30,15 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'UserType',
+  name: 'NcStatus',
   data () {
     return {
       id: this.$route.params.id,
       form: {
-        type: ''
+        status: ''
       },
       validation_form: {
-        type: {
+        status: {
           valid: true,
           message: ''
         }
@@ -47,44 +46,45 @@ export default {
     }
   },
   created () {
-    this.ActionGetNCType(this.id).then(res => {
-      this.form.type = res.type
+    this.ActionGetNCStatus(this.id).then(res => {
+      this.form.status = res.status
     })
   },
   methods: {
-    ...mapActions('ncType', [
-      'ActionGetNCType',
-      'ActionEditNCType'
+    ...mapActions('ncStatus', [
+      'ActionGetNCStatus',
+      'ActionEditNCStatus'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
-      if (this.valid_type()) {
+      if (this.valid_status()) {
         try {
-          await this.ActionEditNCType({
+          await this.ActionEditNCStatus({
             id: this.id,
             data: JSON.stringify(this.form)
           })
           this.$toastr.s('Sucesso ao Editar')
           this.back()
         } catch (error) {
+          console.log(error)
           this.$toastr.e('Erro ao Editar')
         }
       }
     },
     back () {
-      this.$router.replace({ name: 'nc_type' })
+      this.$router.replace({ name: 'nc_status' })
     },
-    valid_type () {
-      this.validation_form.type.valid = true
-      if (this.form.type.length >= 255) {
-        this.validation_form.type.valid = false
-        this.validation_form.type.message = 'Este campo deve ser menor que 255 caracteres.'
+    valid_status () {
+      this.validation_form.status.valid = true
+      if (this.form.status.length >= 255) {
+        this.validation_form.status.valid = false
+        this.validation_form.status.message = 'Este campo deve ser menor que 255 caracteres.'
       }
-      if (this.form.type.length <= 0) {
-        this.validation_form.type.valid = false
-        this.validation_form.type.message = 'Este campo é obrigatório.'
+      if (this.form.status.length <= 0) {
+        this.validation_form.status.valid = false
+        this.validation_form.status.message = 'Este campo é obrigatório.'
       }
-      return this.validation_form.type.valid
+      return this.validation_form.status.valid
     }
   }
 }

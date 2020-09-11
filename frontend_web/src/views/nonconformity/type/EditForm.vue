@@ -1,5 +1,5 @@
 <template>
-  <div id="UserType" class="container-fluid">
+  <div id="NcType" class="container-fluid">
     <b-card  class="mt-6" header="Editar tipo de não conformidade">
       <b-form @submit="onSubmit">
         <b-form-group
@@ -11,7 +11,6 @@
             id="type"
             v-model="form.type"
             type="text"
-            required
             @keyup="valid_type()"
             placeholder="Tipo da não conformidade"
           ></b-form-input>
@@ -31,7 +30,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
-  name: 'UserType',
+  name: 'NcType',
   data () {
     return {
       id: this.$route.params.id,

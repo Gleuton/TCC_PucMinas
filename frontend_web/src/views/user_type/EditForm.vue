@@ -11,7 +11,6 @@
             id="type"
             v-model="form.type"
             type="text"
-            required
             @keyup="valid_type()"
             placeholder="Tipo de usuário"
           ></b-form-input>

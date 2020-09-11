@@ -61,7 +61,7 @@ export default {
     },
     editForm (itemId) {
       this.$router.replace({
-        name: 'nc_type/edit_form',
+        name: 'nc_status/edit_form',
         params: { id: itemId }
       })
     },
