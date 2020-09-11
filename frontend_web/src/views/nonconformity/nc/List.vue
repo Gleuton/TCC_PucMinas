@@ -1,6 +1,6 @@
 <template>
   <div id="ListNc" class="container-fluid">
-    <b-card  class="mt-6" header="Usuários">
+    <b-card  class="mt-6" header="Não Conformidades">
       <p>
         <b-button variant="success" @click="cadFrom ()">Cadastrar</b-button>
       </p>
