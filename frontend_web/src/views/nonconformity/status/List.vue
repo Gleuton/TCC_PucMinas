@@ -67,7 +67,7 @@ export default {
     },
     disable (itemId) {
       this.$bvModal.msgBoxConfirm(
-        'Realmente deseja excluir este tipo?', {
+        'Realmente deseja excluir este status?', {
           okVariant: 'danger',
           okTitle: 'Sim',
           cancelTitle: 'Não',
@@ -75,9 +75,9 @@ export default {
         })
         .then(value => {
           if (value) {
-            this.ActionDisableNCType(itemId).then(() => {
-              this.ActionListNCTypes()
-              this.$toastr.s('Tipo excluído')
+            this.ActionDisableNCStatus(itemId).then(() => {
+              this.ActionListNCStatus()
+              this.$toastr.s('Status excluído')
             })
           }
         })
