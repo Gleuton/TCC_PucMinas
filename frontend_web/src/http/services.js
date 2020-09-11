@@ -3,11 +3,13 @@ import { services as userTypes } from '@/views/user_type'
 import { services as user } from '@/views/user'
 import { services as ncTypes } from '@/views/nonconformity/type'
 import { services as ncStatus } from '@/views/nonconformity/status'
+import { services as nc } from '@/views/nonconformity/nc'
 
 export default {
   auth,
   userTypes,
   user,
   ncTypes,
-  ncStatus
+  ncStatus,
+  nc
 }

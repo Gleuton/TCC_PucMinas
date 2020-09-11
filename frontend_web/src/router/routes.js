@@ -4,6 +4,7 @@ import { routes as userType } from '../views/user_type'
 import { routes as user } from '../views/user'
 import { routes as ncType } from '../views/nonconformity/type'
 import { routes as ncStatus } from '../views/nonconformity/status'
+import { routes as nc } from '../views/nonconformity/nc'
 
 export default [
   ...auth,
@@ -11,5 +12,6 @@ export default [
   ...userType,
   ...user,
   ...ncType,
-  ...ncStatus
+  ...ncStatus,
+  ...nc
 ]

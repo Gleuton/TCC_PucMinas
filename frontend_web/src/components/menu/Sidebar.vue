@@ -36,6 +36,15 @@
           Status de NC
         </router-link>
       </div>
+      <div v-show="isAdmin || isQualityManager" id="sidebar-gerente">
+        <router-link
+        :to="{ name: 'nc' }"
+        exact
+        exact-active-class="active-sidebar"
+        class="list-group-item list-group-item-action bg-light">
+          Não Conformidades
+        </router-link>
+      </div>
     </div>
   </div>
   </div>
@@ -52,6 +61,9 @@ export default {
     ...mapState('auth', ['user']),
     isAdmin () {
       return this.user.type === 'Administrador'
+    },
+    isQualityManager () {
+      return this.user.type === 'Gerente de qualidade'
     },
     getUserType () {
       return this.user.type

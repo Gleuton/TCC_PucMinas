@@ -1,12 +1,12 @@
 <template>
-  <div id="ListUser" class="container-fluid">
+  <div id="ListNc" class="container-fluid">
     <b-card  class="mt-6" header="Usuários">
       <p>
         <b-button variant="success" @click="cadFrom ()">Cadastrar</b-button>
       </p>
       <b-table striped hover
       show-empty
-      :items="listUsers"
+      :items="listNc"
       :fields="fields"
       >
       <template v-slot:cell(actions)="row">
@@ -33,33 +33,34 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'ListUser',
+  name: 'ListNc',
   data () {
     return {
       fields: [
-        { key: 'name', sortable: true, label: 'Nome' },
-        { key: 'login', sortable: true, label: 'E-mail' },
-        { key: 'type', sortable: true, label: 'Tipo do usuário' },
+        { key: 'description', sortable: true, label: 'NC' },
+        { key: 'user', sortable: true, label: 'Gerente de Qualidade' },
+        { key: 'type', sortable: true, label: 'Tipo' },
+        { key: 'status', sortable: true, label: 'Status' },
         { key: 'actions', label: 'Ações', class: 'text-center' }
       ]
     }
   },
   mounted () {
-    this.ActionListUsers()
+    this.ActionListNc()
   },
   computed: {
-    ...mapState('user', ['users']),
-    listUsers () {
-      return this.users
+    ...mapState('nc', ['nc']),
+    listNc () {
+      return this.ncs
     }
   },
   methods: {
-    ...mapActions('user', [
-      'ActionListUsers',
-      'ActionDisableUser'
+    ...mapActions('nc', [
+      'ActionListNc',
+      'ActionDisableNc'
     ]),
     cadFrom () {
-      this.$router.replace({ name: 'user/cad_form' })
+      this.$router.replace({ name: 'nc/cad_form' })
     },
     editForm (userId) {
       this.$router.replace({
