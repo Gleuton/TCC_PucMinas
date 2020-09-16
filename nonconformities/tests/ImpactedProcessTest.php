@@ -12,40 +12,46 @@ class ImpactedProcessTest extends TestCase
     public function testInsertImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
         $ip = ImpactedProcess::find($data->id);
-        $this->assertInstanceOf(Model::class, $ip);
+        self::assertInstanceOf(Model::class, $ip);
     }
 
     public function testDeleteImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
         $ip = ImpactedProcess::find($data->id);
-        $this->assertInstanceOf(Model::class, $ip);
-        $this->assertTrue($ip->delete());
+        self::assertInstanceOf(Model::class, $ip);
+        self::assertTrue($ip->delete());
     }
 
     public function testSeletNcbyImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
-        $this->assertInstanceOf(Nonconformity::class, $data->nonconformity);
+        self::assertInstanceOf(
+            Nonconformity::class,
+            $data->nonconformity
+        );
     }
 
     public function testSeletProcessbyImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
-        $this->assertInstanceOf(Process::class, $data->process);
+        self::assertInstanceOf(
+            Process::class,
+            $data->process
+        );
     }
 }

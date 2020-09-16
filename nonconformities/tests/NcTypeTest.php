@@ -12,29 +12,29 @@ class NcTypeTest extends TestCase
     public function testInsertNcType(): void
     {
         $data = factory(NcType::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectNcType(): void
     {
         $data = factory(NcType::class, 6)->create();
-        $this->assertInstanceOf(Collection::class, $data);
-        $this->assertCount(6, $data);
+        self::assertInstanceOf(Collection::class, $data);
+        self::assertCount(6, $data);
     }
 
     public function testSelectOneNcType(): void
     {
         $data = factory(NcType::class)->create();
         $type = NcType::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
+        self::assertInstanceOf(Model::class, $type);
     }
 
     public function testDeleteNcType(): void
     {
         $data = factory(NcType::class)->create();
         $type = NcType::find($data->id);
-        $this->assertInstanceOf(Model::class, $type);
-        $this->assertTrue($type->delete());
+        self::assertInstanceOf(Model::class, $type);
+        self::assertTrue($type->delete());
     }
 
     public function testUpdateNcType(): void
@@ -42,15 +42,18 @@ class NcTypeTest extends TestCase
         $update = ['type' => 'inativo'];
         $data = factory(NcType::class)->create();
         $ncType = NcType::find($data->id);
-        $this->assertInstanceOf(Model::class, $ncType);
-        $this->assertTrue($ncType->update($update));
+        self::assertInstanceOf(Model::class, $ncType);
+        self::assertTrue($ncType->update($update));
         $ncType = NcType::find($data->id)->toArray();
-        $this->assertEquals($ncType['type'], $update['type']);
+        self::assertEquals($ncType['type'], $update['type']);
     }
 
     public function testSeletNcByNcType(): void
     {
         $data = factory(NcType::class)->create();
-        $this->assertInstanceOf(Collection::class, $data->nonconformities);
+        self::assertInstanceOf(
+            Collection::class,
+            $data->nonconformities
+        );
     }
 }

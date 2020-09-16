@@ -31,5 +31,10 @@ $router->group(
             'ImpactedProcessController',
             'impacted_process'
         );
+        Route::resources(
+            $router,
+            'ProcessController',
+            'process'
+        );
     }
 );

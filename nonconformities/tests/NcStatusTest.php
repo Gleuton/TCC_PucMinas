@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\NcStatus;
-use App\Models\Nonconformity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Testing\DatabaseMigrations;
@@ -13,7 +12,7 @@ class NcStatusTest extends TestCase
     public function testInsertNcStatus(): void
     {
         $data = factory(NcStatus::class)->create();
-        $this->assertInstanceOf(Model::class, $data);
+        self::assertInstanceOf(Model::class, $data);
     }
 
     public function testSelectNcStatus(): void

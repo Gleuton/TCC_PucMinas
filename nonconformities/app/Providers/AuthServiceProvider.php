@@ -7,12 +7,11 @@ use App\Models\ImpactedProcess;
 use App\Models\NcStatus;
 use App\Models\NcType;
 use App\Models\Nonconformity;
-use App\Models\UserType;
+use App\Models\Process;
 use App\Policies\NcStatusPolicy;
 use App\Policies\NcTypePolicy;
 use App\Policies\NonconformityPolicy;
-use App\Policies\UserPolicy;
-use App\User;
+use App\Policies\ProcessPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +41,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(ImpactedProcess::class, NonconformityPolicy::class);
         Gate::policy(NcType::class, NcTypePolicy::class);
         Gate::policy(NcStatus::class, NcStatusPolicy::class);
+        Gate::policy(Process::class, ProcessPolicy::class);
         Auth::extend(
             'token',
             static function ($app, $name, $config) {
