@@ -99,7 +99,7 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'UserType',
+  name: 'User',
   data () {
     return {
       form: {

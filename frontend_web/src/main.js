@@ -12,13 +12,11 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
-// import plugin
-// use plugin
 Vue.use(VueToastr, {
   defaultPosition: 'toast-top-center'
 })
 
-new Vue({
+window._Vue = new Vue({
   router,
   store,
   render: h => h(App)

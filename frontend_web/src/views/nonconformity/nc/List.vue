@@ -2,7 +2,7 @@
   <div id="ListNc" class="container-fluid">
     <b-card  class="mt-6" header="Não Conformidades">
       <p>
-        <b-button variant="success" @click="cadFrom ()">Cadastrar</b-button>
+        <b-button variant="success" @click="cadFrom()">Cadastrar</b-button>
       </p>
       <b-table striped hover
       show-empty
@@ -38,7 +38,7 @@ export default {
     return {
       fields: [
         { key: 'description', sortable: true, label: 'NC' },
-        { key: 'user', sortable: true, label: 'Gerente de Qualidade' },
+        { key: 'user', sortable: true, label: 'Responsável' },
         { key: 'type', sortable: true, label: 'Tipo' },
         { key: 'status', sortable: true, label: 'Status' },
         { key: 'actions', label: 'Ações', class: 'text-center' }
@@ -62,24 +62,24 @@ export default {
     cadFrom () {
       this.$router.replace({ name: 'nc/cad_form' })
     },
-    editForm (userId) {
+    editForm (ncId) {
       this.$router.replace({
-        name: 'user/edit_form',
-        params: { id: userId }
+        name: 'nc/edit_form',
+        params: { id: ncId }
       })
     },
-    disable (userId) {
+    disable (ncId) {
       this.$bvModal.msgBoxConfirm(
-        'Realmente deseja excluir este usuário?', {
+        'Realmente deseja desativar esta NC?', {
           okVariant: 'danger',
           okTitle: 'Sim',
           cancelTitle: 'Não',
           cancelVariant: 'primary'
         })
         .then(value => {
-          this.ActionDisableUser(userId).then(() => {
-            this.ActionListUsers()
-            this.$toastr.s('Usuário excluído')
+          this.ActionDisableNc(ncId).then(() => {
+            this.ActionListNcs()
+            this.$toastr.s('NC desativada')
           })
         })
         .catch(err => {
