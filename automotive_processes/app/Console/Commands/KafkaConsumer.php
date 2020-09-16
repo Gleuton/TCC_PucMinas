@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use App\Kafka\{NcStatusHandler,
     NcTypeHandler,
     NonconformityHandler,
@@ -40,7 +41,7 @@ class KafkaConsumer extends Command
      * @param Application $container
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(Application $container): void
     {
