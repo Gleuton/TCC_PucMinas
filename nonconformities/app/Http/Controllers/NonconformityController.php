@@ -34,8 +34,8 @@ class NonconformityController extends Controller
             $request,
             [
                 'description' => $validation,
-                'solution'    => 'string|max:255',
-                'standard'    => 'string|max:255',
+                'solution'    => $validation,
+                'standard'    => $validation,
                 'user_id'     => $validation,
                 'type_id'     => $validation,
                 'status_id'   => $validation,
@@ -59,8 +59,8 @@ class NonconformityController extends Controller
             $request,
             [
                 'description' => $validation,
-                'solution'    => 'string|max:255',
-                'standard'    => 'string|max:255',
+                'solution'    => $validation,
+                'standard'    => $validation,
                 'user_id'     => $validation,
                 'type_id'     => $validation,
                 'status_id'   => $validation,
