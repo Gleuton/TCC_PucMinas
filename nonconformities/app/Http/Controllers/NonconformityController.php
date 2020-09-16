@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Author: gleuton.pereira
- */
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -37,8 +34,8 @@ class NonconformityController extends Controller
             $request,
             [
                 'description' => $validation,
-                'solution'    => $validation,
-                'standard'    => $validation,
+                'solution'    => 'string|max:255',
+                'standard'    => 'string|max:255',
                 'user_id'     => $validation,
                 'type_id'     => $validation,
                 'status_id'   => $validation,
@@ -62,8 +59,8 @@ class NonconformityController extends Controller
             $request,
             [
                 'description' => $validation,
-                'solution'    => $validation,
-                'standard'    => $validation,
+                'solution'    => 'string|max:255',
+                'standard'    => 'string|max:255',
                 'user_id'     => $validation,
                 'type_id'     => $validation,
                 'status_id'   => $validation,
