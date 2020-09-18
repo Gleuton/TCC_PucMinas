@@ -40,12 +40,13 @@ class LoginController extends Controller
         $user = Auth::user();
         return $this->response($user);
     }
+
     /**
      * @param User|Bool $user
      *
      * @return JsonResponse
      */
-    private function response($user) :JsonResponse
+    private function response($user): JsonResponse
     {
         if (!$user || !($user instanceof User)) {
             return response()->json(
@@ -59,9 +60,10 @@ class LoginController extends Controller
                 'api_token'            => $user->api_token,
                 'api_token_expiration' => $user->api_token_expiration,
                 'user'                 => [
-                    'name'  => $user->name,
-                    'login' => $user->login,
-                    'type'  => $user->userType->type,
+                    'user_id' => $user->id,
+                    'name'    => $user->name,
+                    'login'   => $user->login,
+                    'type'    => $user->userType->type,
                 ]
             ],
             200
