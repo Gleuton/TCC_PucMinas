@@ -11,7 +11,7 @@
             id="description"
             v-model="form.description"
             type="text"
-            @keyup="()=>{}"
+            @keyup="description_validate()"
             placeholder="Não Conformidade"
           ></b-form-input>
           <small class="input-error" v-if="!validation_form.description.valid">
@@ -28,7 +28,7 @@
             id="solution"
             v-model="form.solution"
             type="text"
-            @keyup="()=>{}"
+            @keyup="solution_validate()"
             placeholder="Solução proposta"
           ></b-form-input>
           <small class="input-error" v-if="!validation_form.solution.valid">
@@ -45,7 +45,7 @@
             id="standard"
             v-model="form.standard"
             type="text"
-            @keyup="()=>{}"
+            @keyup="standard_validate()"
             placeholder="Norma em divergência"
           ></b-form-input>
           <small class="input-error" v-if="!validation_form.standard.valid">
@@ -62,7 +62,7 @@
           id="types"
           v-model="form.type_id"
           :options="optionsNcType()"
-          @change="() => {}"
+          @change="type_validate()"
           ></b-form-select>
           <small class="input-error" v-if="!validation_form.type_id.valid">
             {{ validation_form.type_id.message }}
@@ -78,7 +78,7 @@
           id="status"
           v-model="form.status_id"
           :options="optionsNcStatus()"
-          @change="() => {}"
+          @change="status_validate()"
           ></b-form-select>
           <small class="input-error" v-if="!validation_form.status_id.valid">
             {{ validation_form.status_id.message }}
@@ -94,7 +94,7 @@
           id="process"
           v-model="form.process_id"
           :options="optionsNcProcess()"
-          @change="() => {}"
+          @change="process_validate()"
           ></b-form-select>
           <small class="input-error" v-if="!validation_form.process_id.valid">
             {{ validation_form.process_id.message }}
@@ -120,6 +120,7 @@ export default {
       form: {
         description: '',
         solution: '',
+        standard: '',
         user_id: '',
         type_id: '',
         status_id: '',
@@ -157,11 +158,13 @@ export default {
     this.ActionListNCTypes()
     this.ActionListNCStatus()
     this.ActionListNcProcess()
+    this.form.user_id = this.user.user_id
   },
   computed: {
     ...mapState('ncType', ['ncTypes']),
     ...mapState('ncStatus', ['ncStatus']),
-    ...mapState('ncProcess', ['ncProcess'])
+    ...mapState('ncProcess', ['ncProcess']),
+    ...mapState('auth', ['user'])
   },
   methods: {
     ...mapActions('nc', [
@@ -178,48 +181,139 @@ export default {
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
+      if (this.validate()) {
+        try {
+          await this.ActionAddNc(
+            JSON.stringify(this.form)
+          )
+          this.$toastr.s('Sucesso ao Cadastrar')
+          this.back()
+        } catch (error) {
+          this.$toastr.e('Erro ao Cadastrar')
+        }
+      }
     },
     back () {
       this.$router.replace({ name: 'nc' })
     },
     optionsNcType () {
-      const types = this.ncTypes.map((item) => {
+      const options = [
+        { value: '', text: 'Selecione um tipo' }
+      ]
+      let types = this.ncTypes.map((item) => {
         return { value: item.id, text: item.type }
       })
-      types.push(
-        { value: '', text: 'Selecione um tipo' }
-      )
-      return types.sort((a, b) => {
+
+      types = types.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
         return 0
       })
+      return options.concat(types)
     },
     optionsNcStatus () {
-      const status = this.ncStatus.map((item) => {
+      const options = [
+        { value: '', text: 'Selecione um Status' }
+      ]
+      let status = this.ncStatus.map((item) => {
         return { value: item.id, text: item.status }
       })
-      status.push(
-        { value: '', text: 'Selecione um Status' }
-      )
-      return status.sort((a, b) => {
+
+      status = status.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
         return 0
       })
+      return options.concat(status)
     },
     optionsNcProcess () {
-      const process = this.ncProcess.map((item) => {
-        return { value: item.id, text: item.process }
-      })
-      process.push(
+      const options = [
         { value: '', text: 'Selecione um Processo' }
-      )
-      return process.sort((a, b) => {
+      ]
+      let process = this.ncProcess.map((item) => {
+        return { value: item.id, text: item.name }
+      })
+      process = process.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
         return 0
       })
+      return options.concat(process)
+    },
+    validate () {
+      const description = this.description_validate()
+      const solution = this.solution_validate()
+      const standard = this.standard_validate()
+      const type = this.type_validate()
+      const status = this.status_validate()
+      const process = this.process_validate()
+
+      return description &&
+             solution &&
+             standard &&
+             type &&
+             status &&
+             process
+    },
+    description_validate () {
+      this.validation_form.description.valid = true
+      if (this.form.description.length >= 255) {
+        this.validation_form.description.valid = false
+        this.validation_form.description.message = 'Este campo deve ser menor que 255 caracteres.'
+      }
+      if (this.form.description.length <= 0) {
+        this.validation_form.description.valid = false
+        this.validation_form.description.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.description.valid
+    },
+    solution_validate () {
+      this.validation_form.solution.valid = true
+      if (this.form.solution.length >= 255) {
+        this.validation_form.solution.valid = false
+        this.validation_form.solution.message = 'Este campo deve ser menor que 255 caracteres.'
+      }
+      if (this.form.solution.length <= 0) {
+        this.validation_form.solution.valid = false
+        this.validation_form.solution.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.solution.valid
+    },
+    standard_validate () {
+      this.validation_form.standard.valid = true
+      if (this.form.standard.length >= 255) {
+        this.validation_form.standard.valid = false
+        this.validation_form.standard.message = 'Este campo deve ser menor que 255 caracteres.'
+      }
+      if (this.form.standard.length <= 0) {
+        this.validation_form.standard.valid = false
+        this.validation_form.standard.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.standard.valid
+    },
+    type_validate () {
+      this.validation_form.type_id.valid = true
+      if (this.form.type_id === '') {
+        this.validation_form.type_id.valid = false
+        this.validation_form.type_id.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.type_id.valid
+    },
+    status_validate () {
+      this.validation_form.status_id.valid = true
+      if (this.form.status_id === '') {
+        this.validation_form.status_id.valid = false
+        this.validation_form.status_id.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.status_id.valid
+    },
+    process_validate () {
+      this.validation_form.process_id.valid = true
+      if (this.form.process_id === '') {
+        this.validation_form.process_id.valid = false
+        this.validation_form.process_id.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.process_id.valid
     }
   }
 }
