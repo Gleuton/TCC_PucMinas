@@ -2,7 +2,7 @@
   <div id="NcStatus" class="container-fluid">
     <b-card  class="mt-6" header="Status de não conformidade">
       <p>
-        <b-button variant="success" @click="cadFrom ()">Cadastrar</b-button>
+        <b-button variant="success" @click="cadFrom()">Cadastrar</b-button>
       </p>
       <b-table striped hover
       show-empty

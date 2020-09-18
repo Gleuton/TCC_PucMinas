@@ -49,7 +49,7 @@ export default {
     this.ActionListNc()
   },
   computed: {
-    ...mapState('nc', ['nc']),
+    ...mapState('nc', ['ncs']),
     listNc () {
       return this.ncs
     }
