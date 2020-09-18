@@ -3,6 +3,7 @@ import { store as userType } from '@/views/user_type'
 import { store as user } from '@/views/user'
 import { store as ncType } from '@/views/nonconformity/type'
 import { store as ncStatus } from '@/views/nonconformity/status'
+import { store as ncProcess } from '@/views/nonconformity/process'
 import { store as nc } from '@/views/nonconformity/nc'
 
 export default {
@@ -11,5 +12,6 @@ export default {
   user,
   ncType,
   ncStatus,
+  ncProcess,
   nc
 }

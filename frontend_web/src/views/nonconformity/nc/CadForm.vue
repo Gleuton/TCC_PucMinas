@@ -85,6 +85,22 @@
           </small>
         </b-form-group>
 
+        <b-form-group
+          id="input-group-process"
+          label="Processo:"
+          label-for="process"
+        >
+          <b-form-select
+          id="process"
+          v-model="form.process_id"
+          :options="optionsNcProcess()"
+          @change="() => {}"
+          ></b-form-select>
+          <small class="input-error" v-if="!validation_form.process_id.valid">
+            {{ validation_form.process_id.message }}
+          </small>
+        </b-form-group>
+
         <div class="button-box">
           <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
           <b-button type="submit" variant="success">Salvar</b-button>
@@ -129,6 +145,10 @@ export default {
         status_id: {
           valid: true,
           message: ''
+        },
+        process_id: {
+          valid: true,
+          message: ''
         }
       }
     }
@@ -136,10 +156,12 @@ export default {
   mounted () {
     this.ActionListNCTypes()
     this.ActionListNCStatus()
+    this.ActionListNcProcess()
   },
   computed: {
     ...mapState('ncType', ['ncTypes']),
-    ...mapState('ncStatus', ['ncStatus'])
+    ...mapState('ncStatus', ['ncStatus']),
+    ...mapState('ncProcess', ['ncProcess'])
   },
   methods: {
     ...mapActions('nc', [
@@ -150,6 +172,9 @@ export default {
     ]),
     ...mapActions('ncStatus', [
       'ActionListNCStatus'
+    ]),
+    ...mapActions('ncProcess', [
+      'ActionListNcProcess'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
@@ -178,6 +203,19 @@ export default {
         { value: '', text: 'Selecione um Status' }
       )
       return status.sort((a, b) => {
+        if (a.text > b.text) return 1
+        if (a.text < b.text) return -1
+        return 0
+      })
+    },
+    optionsNcProcess () {
+      const process = this.ncProcess.map((item) => {
+        return { value: item.id, text: item.process }
+      })
+      process.push(
+        { value: '', text: 'Selecione um Processo' }
+      )
+      return process.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
         return 0
