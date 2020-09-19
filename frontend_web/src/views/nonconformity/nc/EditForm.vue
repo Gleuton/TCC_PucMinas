@@ -1,55 +1,106 @@
 <template>
-  <div id="User" class="container-fluid">
-    <b-card  class="mt-6" header="Editar usuário">
+  <div id="NCcad" class="container-fluid">
+    <b-card  class="mt-6" header="Cadastrar usuário">
       <b-form @submit="onSubmit">
         <b-form-group
-          id="input-group-name"
-          label="Nome:"
-          label-for="name"
+          id="input-group-description"
+          label="Não Conformidade:"
+          label-for="description"
         >
           <b-form-input
-            id="name"
-            v-model="form.name"
+            id="description"
+            v-model="form.description"
             type="text"
-            @keyup="name_validate()"
-            placeholder="Nome do Usuário"
+            @keyup="description_validate()"
+            placeholder="Não Conformidade"
           ></b-form-input>
-          <small class="input-error" v-if="!validation_form.name.valid">
-            {{ validation_form.name.message }}
+          <small class="input-error" v-if="!validation_form.description.valid">
+            {{ validation_form.description.message }}
           </small>
         </b-form-group>
 
         <b-form-group
-          id="input-group-login"
-          label="E-mail (login):"
-          label-for="login"
+          id="input-group-solution"
+          label="Solução proposta:"
+          label-for="solution"
         >
           <b-form-input
-            id="login"
-            v-model="form.login"
-            type="email"
-            @keyup="email_validate()"
-            placeholder="E-mail do Usuário"
+            id="solution"
+            v-model="form.solution"
+            type="text"
+            @keyup="solution_validate()"
+            placeholder="Solução proposta"
           ></b-form-input>
-          <small class="input-error" v-if="!validation_form.login.valid">
-            {{ validation_form.login.message }}
+          <small class="input-error" v-if="!validation_form.solution.valid">
+            {{ validation_form.solution.message }}
           </small>
         </b-form-group>
+
+        <b-form-group
+          id="input-group-standard"
+          label="Norma em divergência:"
+          label-for="standard"
+        >
+          <b-form-input
+            id="standard"
+            v-model="form.standard"
+            type="text"
+            @keyup="standard_validate()"
+            placeholder="Norma em divergência"
+          ></b-form-input>
+          <small class="input-error" v-if="!validation_form.standard.valid">
+            {{ validation_form.standard.message }}
+          </small>
+        </b-form-group>
+
         <b-form-group
           id="input-group-type"
-          label="Tipo de Usuário:"
-          label-for="userTypes"
+          label="Tipo da Nc:"
+          label-for="types"
         >
           <b-form-select
-          id="userTypes"
-          v-model="form.user_type_id"
-          :options="optionsUserType()"
+          id="types"
+          v-model="form.type_id"
+          :options="optionsNcType()"
           @change="type_validate()"
           ></b-form-select>
-          <small class="input-error" v-if="!validation_form.user_type_id.valid">
-            {{ validation_form.user_type_id.message }}
+          <small class="input-error" v-if="!validation_form.type_id.valid">
+            {{ validation_form.type_id.message }}
           </small>
         </b-form-group>
+
+        <b-form-group
+          id="input-group-status"
+          label="Status da Nc:"
+          label-for="status"
+        >
+          <b-form-select
+          id="status"
+          v-model="form.status_id"
+          :options="optionsNcStatus()"
+          @change="status_validate()"
+          ></b-form-select>
+          <small class="input-error" v-if="!validation_form.status_id.valid">
+            {{ validation_form.status_id.message }}
+          </small>
+        </b-form-group>
+
+        <b-form-group
+          id="input-group-process"
+          label="Processo:"
+          label-for="process"
+        >
+          <b-form-select
+          id="process"
+          v-model="form.process_id"
+          :options="optionsNcProcess()"
+          @change="process_validate()"
+          ></b-form-select>
+          <small class="input-error" v-if="!validation_form.process_id.valid">
+            {{ validation_form.process_id.message }}
+          </small>
+        </b-form-group>
+
         <div class="button-box">
           <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
           <b-button type="submit" variant="success">Salvar</b-button>
@@ -63,116 +114,211 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'UserType',
+  name: 'NCcad',
   data () {
     return {
-      id: this.$route.params.id,
       form: {
-        name: '',
-        login: '',
-        user_type_id: ''
+        description: '',
+        solution: '',
+        standard: '',
+        user_id: '',
+        type_id: '',
+        status_id: '',
+        process_id: ''
       },
       validation_form: {
-        name: {
+        description: {
           valid: true,
           message: ''
         },
-        login: {
+        solution: {
           valid: true,
           message: ''
         },
-        user_type_id: {
+        standard: {
+          valid: true,
+          message: ''
+        },
+        type_id: {
+          valid: true,
+          message: ''
+        },
+        status_id: {
+          valid: true,
+          message: ''
+        },
+        process_id: {
           valid: true,
           message: ''
         }
       }
     }
   },
-  mounted () {
-    this.ActionListUserTypes()
-    this.ActionGetUser(this.id).then(res => {
-      this.form.name = res.name
-      this.form.login = res.login
-      this.form.user_type_id = res.user_type_id
+  created () {
+    this.ActionGetNCStatus(this.id).then(res => {
+      this.form.status = res.status
     })
   },
+  mounted () {
+    this.ActionListNCTypes()
+    this.ActionListNCStatus()
+    this.ActionListNcProcess()
+    this.form.user_id = this.user.user_id
+  },
   computed: {
-    ...mapState('userType', ['userTypes'])
+    ...mapState('ncType', ['ncTypes']),
+    ...mapState('ncStatus', ['ncStatus']),
+    ...mapState('ncProcess', ['ncProcess']),
+    ...mapState('auth', ['user'])
   },
   methods: {
-    ...mapActions('user', [
-      'ActionGetUser',
-      'ActionEditUser'
+    ...mapActions('nc', [
+      'ActionAddNc'
     ]),
-    ...mapActions('userType', [
-      'ActionListUserTypes'
+    ...mapActions('ncType', [
+      'ActionListNCTypes'
+    ]),
+    ...mapActions('ncStatus', [
+      'ActionListNCStatus'
+    ]),
+    ...mapActions('ncProcess', [
+      'ActionListNcProcess'
     ]),
     async onSubmit (evt) {
       evt.preventDefault()
       if (this.validate()) {
         try {
-          await this.ActionEditUser({
-            id: this.id,
-            data: JSON.stringify(this.form)
-          })
-          this.$toastr.s('Sucesso ao Editar')
+          await this.ActionAddNc(
+            JSON.stringify(this.form)
+          )
+          this.$toastr.s('Sucesso ao Cadastrar')
           this.back()
         } catch (error) {
-          this.$toastr.e('Erro ao Editar')
+          this.$toastr.e('Erro ao Cadastrar')
         }
       }
     },
     back () {
-      this.$router.replace({ name: 'user' })
+      this.$router.replace({ name: 'nc' })
     },
-    optionsUserType () {
-      const types = this.userTypes.map((item) => {
+    optionsNcType () {
+      const options = [
+        { value: '', text: 'Selecione um tipo' }
+      ]
+      let types = this.ncTypes.map((item) => {
         return { value: item.id, text: item.type }
       })
-      return types.sort((a, b) => {
+
+      types = types.sort((a, b) => {
         if (a.text > b.text) return 1
         if (a.text < b.text) return -1
         return 0
       })
+      return options.concat(types)
+    },
+    optionsNcStatus () {
+      const options = [
+        { value: '', text: 'Selecione um Status' }
+      ]
+      let status = this.ncStatus.map((item) => {
+        return { value: item.id, text: item.status }
+      })
+
+      status = status.sort((a, b) => {
+        if (a.text > b.text) return 1
+        if (a.text < b.text) return -1
+        return 0
+      })
+      return options.concat(status)
+    },
+    optionsNcProcess () {
+      const options = [
+        { value: '', text: 'Selecione um Processo' }
+      ]
+      let process = this.ncProcess.map((item) => {
+        return { value: item.id, text: item.name }
+      })
+      process = process.sort((a, b) => {
+        if (a.text > b.text) return 1
+        if (a.text < b.text) return -1
+        return 0
+      })
+      return options.concat(process)
     },
     validate () {
-      const name = this.name_validate()
-      const email = this.email_validate()
+      const description = this.description_validate()
+      const solution = this.solution_validate()
+      const standard = this.standard_validate()
       const type = this.type_validate()
+      const status = this.status_validate()
+      const process = this.process_validate()
 
-      return name && email && type
+      return description &&
+             solution &&
+             standard &&
+             type &&
+             status &&
+             process
     },
-    name_validate () {
-      this.validation_form.name.valid = true
-      if (this.form.name.length <= 0) {
-        this.validation_form.name.valid = false
-        this.validation_form.name.message = 'Este campo é obrigatório.'
+    description_validate () {
+      this.validation_form.description.valid = true
+      if (this.form.description.length >= 255) {
+        this.validation_form.description.valid = false
+        this.validation_form.description.message = 'Este campo deve ser menor que 255 caracteres.'
       }
-      if (this.form.name.length >= 255) {
-        this.validation_form.name.valid = false
-        this.validation_form.name.message = 'Este campo deve ser menor que 255 caracteres.'
+      if (this.form.description.length <= 0) {
+        this.validation_form.description.valid = false
+        this.validation_form.description.message = 'Este campo é obrigatório.'
       }
-      return this.validation_form.name.valid
+      return this.validation_form.description.valid
     },
-    email_validate () {
-      this.validation_form.login.valid = true
-      if (this.form.login.length <= 0) {
-        this.validation_form.login.valid = false
-        this.validation_form.login.message = 'Este campo é obrigatório.'
+    solution_validate () {
+      this.validation_form.solution.valid = true
+      if (this.form.solution.length >= 255) {
+        this.validation_form.solution.valid = false
+        this.validation_form.solution.message = 'Este campo deve ser menor que 255 caracteres.'
       }
-      if (this.form.login.length >= 255) {
-        this.validation_form.login.valid = false
-        this.validation_form.login.message = 'Este campo deve ser menor que 255 caracteres.'
+      if (this.form.solution.length <= 0) {
+        this.validation_form.solution.valid = false
+        this.validation_form.solution.message = 'Este campo é obrigatório.'
       }
-      return this.validation_form.login.valid
+      return this.validation_form.solution.valid
+    },
+    standard_validate () {
+      this.validation_form.standard.valid = true
+      if (this.form.standard.length >= 255) {
+        this.validation_form.standard.valid = false
+        this.validation_form.standard.message = 'Este campo deve ser menor que 255 caracteres.'
+      }
+      if (this.form.standard.length <= 0) {
+        this.validation_form.standard.valid = false
+        this.validation_form.standard.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.standard.valid
     },
     type_validate () {
-      this.validation_form.user_type_id.valid = true
-      if (this.form.user_type_id === '') {
-        this.validation_form.user_type_id.valid = false
-        this.validation_form.user_type_id.message = 'Este campo é obrigatório.'
+      this.validation_form.type_id.valid = true
+      if (this.form.type_id === '') {
+        this.validation_form.type_id.valid = false
+        this.validation_form.type_id.message = 'Este campo é obrigatório.'
       }
-      return this.validation_form.user_type_id.valid
+      return this.validation_form.type_id.valid
+    },
+    status_validate () {
+      this.validation_form.status_id.valid = true
+      if (this.form.status_id === '') {
+        this.validation_form.status_id.valid = false
+        this.validation_form.status_id.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.status_id.valid
+    },
+    process_validate () {
+      this.validation_form.process_id.valid = true
+      if (this.form.process_id === '') {
+        this.validation_form.process_id.valid = false
+        this.validation_form.process_id.message = 'Este campo é obrigatório.'
+      }
+      return this.validation_form.process_id.valid
     }
   }
 }
