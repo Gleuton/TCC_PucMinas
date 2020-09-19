@@ -15,7 +15,12 @@ class Nonconformity extends Model
     use SoftDeletes, UuidTrait;
     protected $keyType = 'string';
     public $incrementing = false;
-
+    protected $appends = [
+        'user',
+        'type',
+        'status',
+        'process'
+    ];
     protected $fillable = [
         'id',
         'description',
@@ -70,4 +75,25 @@ class Nonconformity extends Model
         'updated' => NonconformityEvent::class,
         'deleted' => NonconformityEvent::class
     ];
+
+    public function getUserAttribute()
+    {
+        return $this->user->name;
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->type->type;
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->status->status;
+    }
+
+    public function getProcessAttribute()
+    {
+        return $this->process->status;
+    }
+
 }
