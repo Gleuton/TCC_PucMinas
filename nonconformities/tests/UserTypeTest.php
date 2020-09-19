@@ -49,7 +49,7 @@ class UserTypeTest extends TestCase
         self::assertEquals($user_type['type'], $update['type']);
     }
 
-    public function testSeletUserByUserType(): void
+    public function testSelectUserByUserType(): void
     {
         $data = factory(UserType::class)->create();
         self::assertInstanceOf(Collection::class, $data->users);

@@ -35,32 +35,32 @@ class Nonconformity extends Model
     /**
      * @return BelongsTo
      */
-    public function user(): BelongsTo
+    public function ncUser(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     /**
      * @return BelongsTo
      */
-    public function type(): BelongsTo
+    public function ncType(): BelongsTo
     {
-        return $this->belongsTo(NcType::class);
+        return $this->belongsTo(NcType::class,'type_id');
     }
 
     /**
      * @return BelongsTo
      */
-    public function status(): BelongsTo
+    public function ncStatus(): BelongsTo
     {
-        return $this->belongsTo(NcStatus::class);
+        return $this->belongsTo(NcStatus::class, 'status_id');
     }
     /**
-     * @return belongsTo
+     * @return BelongsTo
      */
-    public function process(): belongsTo
+    public function ncProcess(): BelongsTo
     {
-        return $this->belongsTo(Process::class);
+        return $this->belongsTo(Process::class,'process_id');
     }
 
     /**
@@ -68,7 +68,7 @@ class Nonconformity extends Model
      */
     public function impactedProcess(): HasMany
     {
-        return $this->hasMany(ImpactedProcess::class);
+        return $this->hasMany(ImpactedProcess::class,'process_id');
     }
     protected $dispatchesEvents = [
         'created' => NonconformityEvent::class,
@@ -78,22 +78,22 @@ class Nonconformity extends Model
 
     public function getUserAttribute()
     {
-        return $this->user->name;
+        return $this->ncUser->name;
     }
 
     public function getTypeAttribute()
     {
-        return $this->type->type;
+        return $this->ncType->type;
     }
 
     public function getStatusAttribute()
     {
-        return $this->status->status;
+        return $this->ncStatus->status;
     }
 
     public function getProcessAttribute()
     {
-        return $this->process->status;
+        return $this->ncProcess->status;
     }
 
 }

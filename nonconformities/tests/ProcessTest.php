@@ -48,7 +48,7 @@ class ProcessTest extends TestCase
         self::assertEquals($Process['name'], $update['name']);
     }
 
-    public function testSeletNcByProcess(): void
+    public function testSelectNcByProcess(): void
     {
         $data = factory(Process::class)->create();
         self::assertInstanceOf(

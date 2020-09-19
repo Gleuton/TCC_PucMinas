@@ -49,12 +49,12 @@ class UserTest extends TestCase
         self::assertEquals($user['name'], $update['name']);
     }
 
-    public function testSeletNcByUser(): void
+    public function testSelectNcByUser(): void
     {
         $data = factory(User::class)->create();
         self::assertInstanceOf(Collection::class, $data->nonconformities);
     }
-    public function testSeletUserTypeByUser(): void
+    public function testSelectUserTypeByUser(): void
     {
         $data = factory(User::class)->create();
         self::assertInstanceOf(UserType::class, $data->userType);

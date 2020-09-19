@@ -48,7 +48,7 @@ class NcTypeTest extends TestCase
         self::assertEquals($ncType['type'], $update['type']);
     }
 
-    public function testSeletNcByNcType(): void
+    public function testSelectNcByNcType(): void
     {
         $data = factory(NcType::class)->create();
         self::assertInstanceOf(

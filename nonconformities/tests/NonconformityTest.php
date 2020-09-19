@@ -49,14 +49,14 @@ class NonconformityTest extends TestCase
         self::assertEquals($nc['standard'], $update['standard']);
     }
 
-    public function testSeletNcStatusByNc(): void
+    public function testSelectNcStatusByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
-        $this->assertInstanceOf(NcStatus::class, $nc->status);
+        self::assertInstanceOf(NcStatus::class, $nc->ncStatus);
     }
-    public function testSeletNcTypeByNc(): void
+    public function testSelectNcTypeByNc(): void
     {
         $nc = factory(Nonconformity::class)->create();
-        $this->assertInstanceOf(NcType::class, $nc->type);
+        self::assertInstanceOf(NcType::class, $nc->ncType);
     }
 }

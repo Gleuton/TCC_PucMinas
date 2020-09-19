@@ -37,7 +37,7 @@ class ImpactedProcessTest extends TestCase
         self::assertTrue($ip->delete());
     }
 
-    public function testSeletNcbyImpactedProcess(): void
+    public function testSelectNcByImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
         self::assertInstanceOf(
@@ -46,7 +46,7 @@ class ImpactedProcessTest extends TestCase
         );
     }
 
-    public function testSeletProcessbyImpactedProcess(): void
+    public function testSelectProcessByImpactedProcess(): void
     {
         $data = factory(ImpactedProcess::class)->create();
         self::assertInstanceOf(
