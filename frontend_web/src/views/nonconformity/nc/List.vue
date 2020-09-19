@@ -38,6 +38,7 @@ export default {
     return {
       fields: [
         { key: 'description', sortable: true, label: 'NC' },
+        { key: 'process', sortable: true, label: 'Processo' },
         { key: 'user', sortable: true, label: 'Responsável' },
         { key: 'type', sortable: true, label: 'Tipo' },
         { key: 'status', sortable: true, label: 'Status' },
