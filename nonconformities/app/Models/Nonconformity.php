@@ -93,7 +93,7 @@ class Nonconformity extends Model
 
     public function getProcessAttribute()
     {
-        return $this->ncProcess->status;
+        return $this->ncProcess->name;
     }
 
 }
