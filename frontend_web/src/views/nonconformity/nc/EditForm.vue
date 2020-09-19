@@ -117,6 +117,7 @@ export default {
   name: 'NCcad',
   data () {
     return {
+      id: this.$route.params.id,
       form: {
         description: '',
         solution: '',
@@ -155,15 +156,14 @@ export default {
     }
   },
   created () {
-    this.ActionGetNCStatus(this.id).then(res => {
-      this.form.status = res.status
+    this.ActionGetNc(this.id).then(res => {
+      this.form = res
     })
   },
   mounted () {
     this.ActionListNCTypes()
     this.ActionListNCStatus()
     this.ActionListNcProcess()
-    this.form.user_id = this.user.user_id
   },
   computed: {
     ...mapState('ncType', ['ncTypes']),
@@ -174,6 +174,12 @@ export default {
   methods: {
     ...mapActions('nc', [
       'ActionAddNc'
+    ]),
+    ...mapActions('nc', [
+      'ActionGetNc'
+    ]),
+    ...mapActions('nc', [
+      'ActionEditNc'
     ]),
     ...mapActions('ncType', [
       'ActionListNCTypes'
@@ -188,9 +194,10 @@ export default {
       evt.preventDefault()
       if (this.validate()) {
         try {
-          await this.ActionAddNc(
-            JSON.stringify(this.form)
-          )
+          await this.ActionEditNc({
+            id: this.id,
+            data: JSON.stringify(this.form)
+          })
           this.$toastr.s('Sucesso ao Cadastrar')
           this.back()
         } catch (error) {
