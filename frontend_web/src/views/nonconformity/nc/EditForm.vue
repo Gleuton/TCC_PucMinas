@@ -1,6 +1,6 @@
 <template>
-  <div id="NCcad" class="container-fluid">
-    <b-card  class="mt-6" header="Cadastrar usuário">
+  <div id="NCEdit" class="container-fluid">
+    <b-card  class="mt-6" header="Editar não conformidade">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-description"
@@ -114,7 +114,7 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: 'NCcad',
+  name: 'NCEdit',
   data () {
     return {
       id: this.$route.params.id,

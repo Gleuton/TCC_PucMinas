@@ -1,6 +1,6 @@
 <template>
   <div id="NCcad" class="container-fluid">
-    <b-card  class="mt-6" header="Cadastrar usuário">
+    <b-card  class="mt-6" header="Cadastrar não conformidade">
       <b-form @submit="onSubmit">
         <b-form-group
           id="input-group-description"
