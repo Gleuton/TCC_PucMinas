@@ -79,7 +79,7 @@ export default {
         })
         .then(value => {
           this.ActionDisableNc(ncId).then(() => {
-            this.ActionListNcs()
+            this.ActionListNc()
             this.$toastr.s('NC desativada')
           })
         })
