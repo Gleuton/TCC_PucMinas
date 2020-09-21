@@ -4,24 +4,38 @@
       <p>
         <b-button variant="success" @click="cadFrom()">Cadastrar</b-button>
       </p>
-      <b-table striped hover
+      <b-table
+      striped
+      hover
       show-empty
       :items="listNc"
       :fields="fields"
       >
-      <template v-slot:cell(actions)="row">
+        <template v-slot:cell(actions)="row">
           <b-button-group size="sm">
             <b-button
               variant="info"
               @click="editForm(row.item.id)"
             >
-              <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
+              <b-icon icon="pencil-square" aria-hidden="true"></b-icon><span>Editar</span>
             </b-button>
             <b-button
               variant="danger"
               @click="disable(row.item.id)"
             >
-              <b-icon icon="trash" aria-hidden="true"></b-icon> Excluir
+              <b-icon icon="trash" aria-hidden="true"></b-icon> <span>Excluir</span>
+            </b-button>
+            <b-button
+              variant="primary"
+              @click="addProcessNc(row.item.id)"
+            >
+              <b-icon icon="plus-square" aria-hidden="true"></b-icon> <span>Adicionar Processo</span>
+            </b-button>
+            <b-button
+              variant="secondary"
+              @click="showNc(row.item.id)"
+            >
+              <b-icon icon="file-earmark-text" aria-hidden="true"></b-icon> <span>Visualizar Processo</span>
             </b-button>
           </b-button-group>
         </template>
@@ -66,6 +80,12 @@ export default {
     editForm (ncId) {
       this.$router.replace({
         name: 'nc/edit_form',
+        params: { id: ncId }
+      })
+    },
+    addProcessNc (ncId) {
+      this.$router.replace({
+        name: 'impacted_process/nc',
         params: { id: ncId }
       })
     },
