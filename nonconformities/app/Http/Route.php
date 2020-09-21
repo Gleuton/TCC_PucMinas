@@ -4,7 +4,7 @@ namespace App\Http;
 
 use Laravel\Lumen\Routing\Router;
 
-class Route
+class Route extends Router
 {
     public static function resources(
         Router $router,

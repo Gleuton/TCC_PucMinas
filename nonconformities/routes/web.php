@@ -38,5 +38,7 @@ $router->group(
             'ProcessController',
             'process'
         );
+
+        $router->get('process/nc/{id}','ProcessController@getNc');
     }
 );

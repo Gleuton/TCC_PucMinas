@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\ImpactedProcess;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class ImpactedProcessController extends Controller
 {
@@ -60,4 +63,27 @@ class ImpactedProcessController extends Controller
         return parent::update($request, $id);
     }
 
+    /**
+     * @param string $id_nc
+     *
+     * @return JsonResponse
+     */
+    public function getNc(string $id_nc): ?JsonResponse
+    {
+        try {
+            $this->authorize('view', $this->model);
+            $minutes = Carbon::now()->addMinutes(10);
+
+            $data = Cache::remember(
+                $this->api,
+                $minutes,
+                function () use ($id_nc) {
+                    return $this->model->find('nonconformity_id', $id_nc);
+                }
+            );
+            return response()->json($data, 200);
+        } catch (AuthorizationException $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
+        }
+    }
 }
