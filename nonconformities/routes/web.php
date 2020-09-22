@@ -6,7 +6,6 @@ use Laravel\Lumen\Routing\Router;
 /** @var Router $router */
 
 $router->get('/', fn() => 'Nonconformity Api');
-
 $router->group(
     [
         'prefix'     => 'api',
@@ -38,7 +37,9 @@ $router->group(
             'ProcessController',
             'process'
         );
-
-        $router->get('process/nc/{id}','ProcessController@getNc');
+        $router->get(
+            'impacted_process/nc/{id_nc}',
+            'ImpactedProcessController@getNc'
+        );
     }
 );
