@@ -118,7 +118,7 @@ export default {
       impactedProcess: [],
       form: {
         process_id: '',
-        nonconformity_id: ''
+        nonconformity_id: this.$route.params.id
       },
       validation_form: {
         process_id: {
@@ -129,19 +129,17 @@ export default {
     }
   },
   created () {
-    this.ActionListNCImpactedProcess(this.idNc).then(res => {
-      this.impactedProcess = res
-    })
+    this.getNCImpactedProcess()
     this.ActionGetNc(this.idNc).then(res => {
       this.nc = res
     })
     this.ActionListNcProcess()
   },
   computed: {
-    ...mapState('ncImpactedProcess', ['ncImpactedProcess']),
+    ...mapState('ncImpactedProcesses', ['ncImpactedProcess']),
     ...mapState('ncProcess', ['ncProcess']),
     listImpactedProcess () {
-      return this.ncImpactedProcess
+      return this.impactedProcess
     }
   },
   methods: {
@@ -152,7 +150,11 @@ export default {
       'ActionDisableNCImpactedProcess'
     ]),
     ...mapActions('ncProcess', ['ActionListNcProcess']),
-
+    getNCImpactedProcess () {
+      this.ActionListNCImpactedProcess(this.idNc).then(res => {
+        this.impactedProcess = res
+      })
+    },
     optionsNcProcess () {
       const options = [
         { value: '', text: 'Selecione um Processo' }
@@ -170,19 +172,19 @@ export default {
     async addProcess () {
       if (this.process_validate()) {
         try {
-          await this.ActionEditNc({
-            data: JSON.stringify(this.form)
-          })
-          this.$toastr.s('Sucesso ao Cadastrar')
-          this.back()
+          await this.ActionAddNCImpactedProcess(
+            JSON.stringify(this.form)
+          )
+          this.$toastr.s('Processo adicionado')
+          this.getNCImpactedProcess()
         } catch (error) {
-          this.$toastr.e('Erro ao Cadastrar')
+          this.$toastr.e('Erro ao Adicionar')
         }
       }
     },
     disable (itemId) {
       this.$bvModal.msgBoxConfirm(
-        'Realmente deseja excluir este status?', {
+        'Realmente deseja excluir este processo?', {
           okVariant: 'danger',
           okTitle: 'Sim',
           cancelTitle: 'Não',
@@ -191,8 +193,8 @@ export default {
         .then(value => {
           if (value) {
             this.ActionDisableNCImpactedProcess(itemId).then(() => {
-              this.ActionListNCImpactedProcess()
-              this.$toastr.s('Status excluído')
+              this.getNCImpactedProcess()
+              this.$toastr.s('Processo excluído')
             })
           }
         })
