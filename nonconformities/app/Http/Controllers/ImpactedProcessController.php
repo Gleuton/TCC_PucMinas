@@ -78,7 +78,10 @@ class ImpactedProcessController extends Controller
                 $this->api,
                 $minutes,
                 function () use ($id_nc) {
-                    return $this->model->find($id_nc, 'nonconformity_id');
+                    return $this->model->where(
+                        'nonconformity_id',
+                        $id_nc
+                    )->get();
                 }
             );
             return response()->json($data, 200);

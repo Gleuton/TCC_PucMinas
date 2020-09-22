@@ -8,6 +8,7 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nonconformity extends Model
@@ -63,13 +64,6 @@ class Nonconformity extends Model
         return $this->belongsTo(Process::class,'process_id');
     }
 
-    /**
-     * @return HasMany
-     */
-    public function impactedProcess(): HasMany
-    {
-        return $this->hasMany(ImpactedProcess::class,'process_id');
-    }
     protected $dispatchesEvents = [
         'created' => NonconformityEvent::class,
         'updated' => NonconformityEvent::class,
