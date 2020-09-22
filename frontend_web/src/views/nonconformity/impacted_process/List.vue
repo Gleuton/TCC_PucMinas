@@ -76,6 +76,7 @@
         </div>
       </b-card>
       <b-card>
+        <h4>Processos Impactados</h4>
         <b-table striped hover
         show-empty
         :items="listImpactedProcess"
