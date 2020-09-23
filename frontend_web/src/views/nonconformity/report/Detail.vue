@@ -8,8 +8,8 @@
             Imprimir
           </b-button>
       </div>
-      <h1>Relatório de Não Conformidades</h1>
       <div id="reportPrint">
+        <h1>Relatório de Não Conformidades</h1>
         <b-card header="Não Conformidade">
           <div class="d-flex flex-row">
             <div class="p-1 w-50">
@@ -49,6 +49,7 @@
             </div>
           </div>
         </b-card>
+        <hr>
         <b-card header="Processos Impactados">
           <b-table
           striped
@@ -108,6 +109,10 @@ export default {
     ]),
     back () {
       this.$router.replace({ name: 'nc' })
+    },
+    print () {
+      // Pass the element id here
+      this.$htmlToPaper('reportPrint')
     }
   }
 }
