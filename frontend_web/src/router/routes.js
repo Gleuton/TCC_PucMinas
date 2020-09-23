@@ -6,6 +6,7 @@ import { routes as ncType } from '../views/nonconformity/type'
 import { routes as ncStatus } from '../views/nonconformity/status'
 import { routes as nc } from '../views/nonconformity/nc'
 import { routes as ncImpactedProcess } from '../views/nonconformity/impacted_process'
+import { routes as ncReport } from '../views/nonconformity/report'
 
 export default [
   ...auth,
@@ -15,5 +16,6 @@ export default [
   ...ncType,
   ...ncStatus,
   ...ncImpactedProcess,
+  ...ncReport,
   ...nc
 ]

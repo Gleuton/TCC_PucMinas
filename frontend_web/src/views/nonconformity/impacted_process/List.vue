@@ -70,7 +70,7 @@
             {{ validation_form.process_id.message }}
           </small>
         </b-form-group>
-                <div class="button-box">
+        <div class="button-box">
           <b-button type="button" @click="back()" variant="primary">Voltar</b-button>
           <b-button variant="success" @click="addProcess()">Adicionar</b-button>
         </div>
@@ -155,6 +155,9 @@ export default {
       this.ActionListNCImpactedProcess(this.idNc).then(res => {
         this.impactedProcess = res
       })
+    },
+    back () {
+      this.$router.replace({ name: 'nc' })
     },
     optionsNcProcess () {
       const options = [

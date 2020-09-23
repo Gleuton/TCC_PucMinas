@@ -33,7 +33,7 @@
             </b-button>
             <b-button
               variant="secondary"
-              @click="showNc(row.item.id)"
+              @click="reportNc(row.item.id)"
             >
               <b-icon icon="file-earmark-text" aria-hidden="true"></b-icon> <span>Visualizar Processo</span>
             </b-button>
@@ -80,6 +80,12 @@ export default {
     editForm (ncId) {
       this.$router.replace({
         name: 'nc/edit_form',
+        params: { id: ncId }
+      })
+    },
+    reportNc (ncId) {
+      this.$router.replace({
+        name: 'report/nc',
         params: { id: ncId }
       })
     },
