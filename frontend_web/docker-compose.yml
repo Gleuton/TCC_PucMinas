@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  front-app:
+    build: .
+    ports:
+      - "8999:80"
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
