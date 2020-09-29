@@ -42,7 +42,7 @@ class ImpactedProcessTest extends TestCase
         $data = factory(ImpactedProcess::class)->create();
         self::assertInstanceOf(
             Nonconformity::class,
-            $data->nonconformity
+            $data->ncNonconformity
         );
     }
 
@@ -51,7 +51,7 @@ class ImpactedProcessTest extends TestCase
         $data = factory(ImpactedProcess::class)->create();
         self::assertInstanceOf(
             Process::class,
-            $data->process
+            $data->ncProcess
         );
     }
 }
